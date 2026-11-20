@@ -4,9 +4,7 @@ if (giscus) {
   const send = () => {
     const frame = document.querySelector("iframe.giscus-frame");
     if (!frame) return;
-    const explicit = root.getAttribute("data-theme");
-    const theme = explicit
-      || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const theme = root.getAttribute("data-theme") === "light" ? "light" : "dark";
     frame.contentWindow.postMessage(
       { giscus: { setConfig: { theme } } },
       "https://giscus.app"

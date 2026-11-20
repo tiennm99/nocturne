@@ -55,7 +55,7 @@ module:
 | `params.menu.social[].icon` | `data/profile.yaml: links[].icon` | same icon names |
 | `params.article.toc` | `params.toc.enable` + per-post `toc:` | |
 | `params.search.fuse` | — | replaced by Pagefind (different config; see [config.md](config.md)) |
-| `params.colorScheme.default` | system: respects `prefers-color-scheme` | toggle persists in localStorage |
+| `params.colorScheme.default` | — | always dark by default; the light pick from the toggle persists in localStorage |
 | `params.dateFormat.published` | — | uses `time.Format ":date_long"` with site language |
 | `params.imageProcessing.cover.enabled` | — | dropped; cover image renders as-is |
 

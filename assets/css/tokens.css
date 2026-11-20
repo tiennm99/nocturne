@@ -1,16 +1,16 @@
 /* nocturne: design tokens — colors, type scale, spacing */
 
 :root {
-  --nocturne-bg: #fbfaf7;
-  --nocturne-fg: #1a1a1a;
-  --nocturne-fg-muted: #666;
-  --nocturne-fg-subtle: #6b6b6b;
-  --nocturne-border: #e5e3dd;
-  --nocturne-accent: #4a6fa5;
-  --nocturne-accent-hover: #2c4a7a;
-  --nocturne-code-bg: #f1efe9;
-  --nocturne-selection-bg: #d4dff0;
-  --nocturne-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.04);
+  --nocturne-bg: #14151a;
+  --nocturne-fg: #ececec;
+  --nocturne-fg-muted: #a0a0a0;
+  --nocturne-fg-subtle: #8a8a8a;
+  --nocturne-border: #2a2c33;
+  --nocturne-accent: #8ab0ea;
+  --nocturne-accent-hover: #b1c8f0;
+  --nocturne-code-bg: #1c1e25;
+  --nocturne-selection-bg: #2a3a5a;
+  --nocturne-shadow: 0 1px 2px rgb(0 0 0 / 0.2), 0 4px 12px rgb(0 0 0 / 0.25);
 
   --nocturne-font-sans: "Inter", "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --nocturne-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
@@ -44,38 +44,20 @@
 
   --nocturne-transition: 180ms ease;
 
-  color-scheme: light dark;
-}
-
-:root[data-theme="light"] { color-scheme: light; }
-
-/* Dark tokens: an explicit toggle choice, or the OS setting unless light was picked. */
-:root[data-theme="dark"] {
   color-scheme: dark;
-  --nocturne-bg: #14151a;
-  --nocturne-fg: #ececec;
-  --nocturne-fg-muted: #a0a0a0;
-  --nocturne-fg-subtle: #8a8a8a;
-  --nocturne-border: #2a2c33;
-  --nocturne-accent: #8ab0ea;
-  --nocturne-accent-hover: #b1c8f0;
-  --nocturne-code-bg: #1c1e25;
-  --nocturne-selection-bg: #2a3a5a;
-  --nocturne-shadow: 0 1px 2px rgb(0 0 0 / 0.2), 0 4px 12px rgb(0 0 0 / 0.25);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --nocturne-bg: #14151a;
-    --nocturne-fg: #ececec;
-    --nocturne-fg-muted: #a0a0a0;
-    --nocturne-fg-subtle: #8a8a8a;
-    --nocturne-border: #2a2c33;
-    --nocturne-accent: #8ab0ea;
-    --nocturne-accent-hover: #b1c8f0;
-    --nocturne-code-bg: #1c1e25;
-    --nocturne-selection-bg: #2a3a5a;
-    --nocturne-shadow: 0 1px 2px rgb(0 0 0 / 0.2), 0 4px 12px rgb(0 0 0 / 0.25);
-  }
+/* Light tokens: only when the reader picks light with the toggle. Dark is the default. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --nocturne-bg: #fbfaf7;
+  --nocturne-fg: #1a1a1a;
+  --nocturne-fg-muted: #666;
+  --nocturne-fg-subtle: #6b6b6b;
+  --nocturne-border: #e5e3dd;
+  --nocturne-accent: #4a6fa5;
+  --nocturne-accent-hover: #2c4a7a;
+  --nocturne-code-bg: #f1efe9;
+  --nocturne-selection-bg: #d4dff0;
+  --nocturne-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.04);
 }

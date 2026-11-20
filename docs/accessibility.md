@@ -10,8 +10,8 @@ nocturne targets **WCAG 2.2 AA** conformance and aims for **Lighthouse Accessibi
 | Landmark roles | ✅ Shipped | `<header>`, `<nav>`, `<main>`, `<aside>`, `<footer>` |
 | Visible focus rings | ✅ Shipped | `:focus-visible` with 2px outline + accent colour |
 | `<html lang>` correctness | ✅ Shipped | Resolves from the language's `languageCode`, else its key; falls back to `"en"` |
-| `aria-pressed` on toggle | ✅ Shipped | The toggle stays hidden until its script runs, then reflects the active theme, including OS changes |
-| `<meta name="theme-color">` | ✅ Shipped | Light + dark variants |
+| `aria-pressed` on toggle | ✅ Shipped | The toggle stays hidden until its script runs, then reflects the active theme (pressed = dark) |
+| `<meta name="theme-color">` | ✅ Shipped | Dark by default; the toggle switches it to the light background |
 | Heading anchors | ✅ Shipped | Empty, `aria-hidden` and out of the tab order; the glyph comes from CSS, so heading names and summaries stay clean |
 | Reduced motion | ✅ Shipped | View Transitions + animations honour `prefers-reduced-motion` |
 | Colour contrast (text) | ✅ Shipped | All body text ≥ 4.5:1 in both themes; `--nocturne-fg-subtle` is `#6b6b6b` (light) for AA compliance |
@@ -40,7 +40,7 @@ Check each page kind: home (`/`), a post, a list (`/post/`) and search (`/search
 ## Known limitations
 
 - **Tap targets on the header buttons** — theme-toggle and search-button are 40×40 px (2.5rem). The Lighthouse "Tap targets are sized appropriately" audit measures against 48×48 px and may flag these. Visual design tradeoff; bump to 3rem to silence the audit at the cost of a larger header footprint.
-- **`prefers-color-scheme: no-preference`** is treated as light. There is no third "auto" state in the toggle UI — click cycles light ↔ dark only, but picking the theme that matches the OS clears the stored choice, so the site follows the OS again.
+- **Dark by default, whatever the OS setting.** `prefers-color-scheme` is not read: every reader starts in dark, and the toggle switches to light. A light pick is stored; switching back to dark clears it.
 - **Goldmark `unsafe: true`** is the default — your content controls what HTML renders. Untrusted authorship surfaces should override `markup.goldmark.renderer.unsafe: false`.
 - **Pagefind UI** ships its own CSS and ARIA semantics. nocturne maps colour tokens but does not override Pagefind's structure.
 

@@ -2,6 +2,14 @@
 
 nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-11-20 — dark by default
+
+### Changed
+
+- Dark is the default theme for every reader; the OS `prefers-color-scheme` setting no longer picks the theme. The toggle switches to light, which is stored (`theme: light`); switching back to dark clears it.
+- Dark tokens moved to `:root` and light tokens to `:root[data-theme="light"]`. Sites overriding colours must move dark overrides to `:root` and light ones to `:root[data-theme="light"]`.
+- One `<meta name="theme-color">` (the dark background), and Giscus defaults to the `dark` theme.
+
 ## 2026-11-20 — demo site
 
 ### Added

@@ -22,7 +22,7 @@ No tagged releases: sites import `main` as a Hugo Module. See [installation](doc
 - **Comments** — [Giscus](https://giscus.app) (GitHub Discussions)
 - **Vietnamese-first** — diacritic-safe typography, native vi date formats, ASCII heading IDs
 - **Multilingual** — vi and en i18n bundles, a language switcher and hreflang alternates when the site defines more than one language ([languages](docs/config.md#languages))
-- **Dark mode** — `prefers-color-scheme` + persistent toggle, no flash of wrong theme
+- **Dark by default** — dark for every reader, with a toggle to light that persists; no flash of the wrong theme
 - **View Transitions** — cross-document transitions between pages (CSS `@view-transition`) in supporting browsers
 - **Table of contents** — auto-mounted on long posts, sticky on wide viewports, IntersectionObserver active highlight
 - **RSS full content** — `params.rssFullContent: true` puts each post's full content in the feed instead of its summary

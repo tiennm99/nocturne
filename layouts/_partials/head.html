@@ -5,20 +5,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="nocturne">
-<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#14151a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#14151a">
 
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $description }}">
 <link rel="canonical" href="{{ partial "head/canonical.html" . }}">
 
-{{/* Theme flash prevention — must run before <body> */}}
+{{/* Theme flash prevention — must run before <body>. Dark is the default; only a stored light pick changes it. */}}
 <script>
 (function () {
   try {
-    var stored = localStorage.getItem('theme');
-    if (stored === 'dark' || stored === 'light') {
-      document.documentElement.setAttribute('data-theme', stored);
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
     }
   } catch (e) {}
 })();

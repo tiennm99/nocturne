@@ -126,7 +126,7 @@ params:
       strict: "0"
       reactionsEnabled: "1"
       inputPosition: "bottom"  # top | bottom
-      theme: "preferred_color_scheme"
+      theme: "dark"
       lang: "vi"
 ```
 

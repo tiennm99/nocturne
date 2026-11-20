@@ -29,22 +29,17 @@ Two optional partials let a site add markup without copying a theme file. The th
 
 ## Override design tokens
 
-Tokens are CSS custom properties in `assets/css/tokens.css`: light values on `:root`, dark values on `:root[data-theme="dark"]` (an explicit toggle choice) and in `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }` (the OS setting). Override them in a custom stylesheet without editing the theme, using the same selectors so dark mode works both ways:
+Tokens are CSS custom properties in `assets/css/tokens.css`: dark values on `:root` (the default) and light values on `:root[data-theme="light"]` (set when the reader picks light with the toggle). Override them in a custom stylesheet without editing the theme, using the same selectors so both themes pick up the change:
 
 ```css
 /* your-site/assets/css/custom.css */
 :root {
-  --nocturne-accent: #cc7a3b;        /* warmer accent */
+  --nocturne-accent: #f0a070;        /* warmer accent */
   --nocturne-font-sans: "Public Sans", system-ui, sans-serif;
   --nocturne-content-width: 48rem;   /* wider posts */
 }
-:root[data-theme="dark"] {
-  --nocturne-accent: #f0a070;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --nocturne-accent: #f0a070;
-  }
+:root[data-theme="light"] {
+  --nocturne-accent: #cc7a3b;
 }
 ```
 

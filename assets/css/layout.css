@@ -255,8 +255,7 @@ main > * { min-width: 0; }
 /* print: content only, light colours, link targets spelled out */
 @media print {
   :root,
-  :root[data-theme],
-  :root:not([data-theme="light"]) {
+  :root[data-theme="light"] {
     color-scheme: light;
     --nocturne-bg: #fff;
     --nocturne-fg: #000;
