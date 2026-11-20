@@ -11,7 +11,7 @@ your-site/
 └── layouts/
     ├── _partials/
     │   └── footer.html      # overrides the theme's layouts/_partials/footer.html
-    └── single.html          # overrides the theme's layouts/single.html
+    └── page.html            # overrides the theme's layouts/page.html
 ```
 
 To extend rather than replace, copy the theme partial into your site, then modify. Common overrides:
@@ -175,7 +175,7 @@ comments: false
 
 `cover.image` is currently used for OG / Twitter card metadata only — the theme does **not** render a hero cover above the post title by default. This avoids LCP regressions on themes with un-optimised consumer-supplied images.
 
-To render a cover, copy the theme's `layouts/single.html` into your site and add a cover block inside `<header class="post-header">`, keeping the rest of the template (TOC, post footer, prev/next guard) as it is:
+To render a cover, copy the theme's `layouts/page.html` into your site and add a cover block inside `<header class="post-header">`, keeping the rest of the template (TOC, post footer, prev/next guard) as it is:
 
 ```go-html-template
 {{- with .Params.cover }}{{ with .image }}

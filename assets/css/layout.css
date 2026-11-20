@@ -223,7 +223,7 @@ main > * { min-width: 0; }
   .pagination-pages { order: 1; flex-basis: 100%; }
 }
 
-/* post header chip and footer extras (single.html) */
+/* post header chip and footer extras (page.html) */
 .post-category {
   display: inline-block;
   margin-block-end: var(--nocturne-space-3);

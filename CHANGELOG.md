@@ -2,6 +2,15 @@
 
 nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-11-20 — ready for the Hugo themes list
+
+### Changed
+- `layouts/single.html` is now `layouts/page.html` and `layouts/index.llmtxt.txt` is now `layouts/home.llmtxt.txt`, the names of Hugo's new template system. Sites that override either template must rename their copy. The built output is unchanged.
+
+### Added
+- The theme's `hugo.yaml` declares `module.hugoVersion.min: "0.154.5"`.
+- `images/screenshot.png` (1500×1000) and `images/tn.png` (900×600), taken from the demo.
+
 ## 2026-11-20 — bilingual feature demo
 
 ### Changed

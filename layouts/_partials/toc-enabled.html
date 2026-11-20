@@ -1,7 +1,7 @@
 {{- /*
   Single source of truth for whether to render the TOC for the current page.
   Returns the literal string "true" when enabled, empty otherwise.
-  Callers: `single.html` (TOC partial), `footer.html` (toc-active.js loader).
+  Callers: `page.html` (TOC partial), `footer.html` (toc-active.js loader).
   Site config: `params.toc.enable` (default true), `params.toc.minWordCount` (default 400).
   Per-page override: frontmatter `toc: false` always wins.
   The rendered TOC must hold a link: headings outside markup.tableOfContents
