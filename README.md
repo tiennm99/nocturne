@@ -8,7 +8,7 @@ A Hugo blog + personal portfolio theme. The homepage *is* the portfolio — bio,
 
 > *nocturne*: a piece composed for the night. Quiet, unhurried, read after dark.
 
-**→ Live: [miti99.com](https://miti99.com)**, the blog this theme is built for.
+**→ Demo: [tiennm99.github.io/nocturne](https://tiennm99.github.io/nocturne/)** (built from [`exampleSite/`](exampleSite/)) · **Live: [miti99.com](https://miti99.com)**, the blog this theme is built for.
 
 ## Status
 

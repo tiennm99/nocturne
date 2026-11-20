@@ -1,0 +1,19 @@
+featured:
+  - title: "nocturne"
+    tagline: "Hugo blog + personal portfolio theme. Vietnamese-first, dark mode, no build step."
+    repo: https://github.com/tiennm99/nocturne
+    demo: https://tiennm99.github.io/nocturne/
+    image: "img/projects/nocturne.svg"
+    tags: [hugo, theme]
+
+  - title: "example-app"
+    tagline: "A web app with a live demo link."
+    repo: https://github.com/example/example-app
+    demo: https://app.example.com/
+    image: "img/projects/example-app.svg"
+    tags: [web, demo]
+
+  - title: "example-cli"
+    tagline: "A command-line tool, shown without an image or demo."
+    repo: https://github.com/example/example-cli
+    tags: [cli]

@@ -2,6 +2,12 @@
 
 nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-11-20 — demo site
+
+### Added
+
+- `exampleSite/` demo with generic sample data, deployed to GitHub Pages at [tiennm99.github.io/nocturne](https://tiennm99.github.io/nocturne/) on every push to `main`.
+
 ## 2026-11-20 — renamed to nocturne, own repo
 
 ### Changed

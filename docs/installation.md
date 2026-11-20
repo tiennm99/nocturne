@@ -32,6 +32,14 @@ To try theme edits in a site before pushing them, point the module at a local ch
 HUGO_MODULE_REPLACEMENTS="github.com/tiennm99/nocturne -> /path/to/nocturne" hugo server
 ```
 
+The demo site in `exampleSite/` loads the theme straight from this checkout, so it shows theme edits with no module setup:
+
+```bash
+cd exampleSite && hugo server
+```
+
+Pushes to `main` rebuild it and deploy it to GitHub Pages (`.github/workflows/pages.yml`).
+
 ## Required site config
 
 Hugo merges only `params` and `outputFormats` from the theme, so the rest of the config the theme needs (markup, permalinks, related posts, outputs, language) must be set in your *site* `hugo.yaml`. The block to copy is in [`config.md`](config.md#required).

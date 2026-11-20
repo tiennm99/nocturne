@@ -1,0 +1,17 @@
+name: "Your Name"
+tagline: "Building tools, breaking things, writing it down."
+avatar: "img/avatar.svg"
+bio: |
+  This is the **nocturne** demo. The home page is the portfolio: this bio,
+  the featured projects below and the latest posts all come from
+  `data/profile.yaml`, `data/projects.yaml` and `content/post/`.
+links:
+  - icon: github
+    label: GitHub
+    url: https://github.com/tiennm99/nocturne
+  - icon: mail
+    label: Email
+    url: mailto:you@example.com
+  - icon: rss
+    label: RSS
+    url: /index.xml
