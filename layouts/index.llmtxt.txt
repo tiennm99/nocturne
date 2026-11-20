@@ -17,7 +17,8 @@
 ## Recent posts
 
 {{- range first 10 (where site.RegularPages "Section" "in" site.MainSections).ByDate.Reverse }}
-- [{{ .Title }}]({{ .Permalink }}){{ with partial "head/description.html" . }}: {{ . }}{{ end }}
+{{- $desc := partial "head/description.html" . }}
+- [{{ .Title }}]({{ .Permalink }}){{ with $desc }}: {{ . }}{{ end }}
 {{- end }}
 
 {{- with $data.projects.featured }}

@@ -1,0 +1,12 @@
+{{- /*
+  Returns all sites (one per language). hugo.Sites replaced site.Sites in
+  Hugo 0.156.0; methods resolve at run time, so the branch for the other
+  version is never evaluated.
+*/ -}}
+{{- $sites := "" -}}
+{{- if ge hugo.Version "0.156.0" -}}
+  {{- $sites = hugo.Sites -}}
+{{- else -}}
+  {{- $sites = site.Sites -}}
+{{- end -}}
+{{- return $sites -}}

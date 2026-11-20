@@ -38,7 +38,8 @@
 {{- range .AllTranslations }}
 <link rel="alternate" hreflang="{{ .Language.Name }}" href="{{ .Permalink }}">
 {{- end }}
-{{- with site.Sites.Default.Home }}<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">{{- end }}
+{{- $sites := partial "compat/sites.html" . }}
+{{- with $sites.Default.Home }}<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">{{- end }}
 {{- /* Open the translation in the language the reader last picked (js/lang-switcher.js stores it).
   Not on the 404 page: the host serves it for any missing URL, and redirecting loses the URL the reader asked for. */}}
 {{- if and (gt (len .AllTranslations) 1) (ne .Kind "404") }}

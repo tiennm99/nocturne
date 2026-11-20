@@ -3,7 +3,9 @@
   lists (so /post/page/3/ is canonical to itself), the permalink elsewhere.
 */ -}}
 {{- $url := .Permalink -}}
-{{- with partial "head/pager.html" . -}}
+{{- /* Assign first: since Hugo 0.153 `with partial` is a partial decorator. */ -}}
+{{- $pager := partial "head/pager.html" . -}}
+{{- with $pager -}}
   {{- $url = .URL | absURL -}}
 {{- end -}}
 {{- return $url -}}

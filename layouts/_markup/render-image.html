@@ -69,7 +69,9 @@
   {{- end -}}
 {{- else -}}
   {{- if and $u.IsAbs (templates.Exists "_partials/image/remote.html") -}}
-    {{- with partial "image/remote.html" (dict "Destination" .Destination) -}}
+    {{- /* Assign first: since Hugo 0.153 `with partial` is a partial decorator, which fails when this hook runs inside another partial. */ -}}
+    {{- $remote := partial "image/remote.html" (dict "Destination" .Destination) -}}
+    {{- with $remote -}}
       {{- $src = .src | default $src -}}
       {{- $srcset = .srcset | default $srcset -}}
       {{- $width = .width | default 0 -}}
