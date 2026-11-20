@@ -1,33 +1,33 @@
 ---
-title: "Ghi chú về Hugo và static site"
+title: "Ghi chú về Hugo và trang tĩnh"
 date: 2025-08-15T09:00:00+07:00
 draft: false
-tags: ["hugo", "viet"]
-categories: ["ghi-chu"]
-description: "Một vài ghi chú khi quay lại với Hugo sau thời gian dài: layout convention mới, asset pipeline, render hooks, và ít suy nghĩ về việc giữ một trang web nhỏ."
+tags: ["hugo", "markdown", "ghi-chep"]
+categories: ["nhat-ky-hugo"]
+description: "Quay lại với Hugo sau một thời gian dài: quy ước thư mục layout mới, asset pipeline, render hook và vài suy nghĩ về việc giữ một trang web nhỏ."
 ---
 
-Hugo là một static site generator viết bằng Go. Lần này quay lại sau một khoảng dài, có khá nhiều thứ đã đổi. Bài viết này là một bản ghi chú cá nhân — không phải hướng dẫn — về những điều tôi muốn nhớ.
+Hugo là một trình tạo trang tĩnh viết bằng Go. Lần này quay lại sau khá lâu, nhiều thứ đã đổi. Đây là ghi chú cá nhân, không phải hướng dẫn: những điều tôi muốn nhớ trước khi bắt tay vào việc lớn hơn.
 
-## Layout convention mới
+## Quy ước layout mới
 
-Từ phiên bản 0.146, Hugo dùng `_partials`, `_markup`, `_shortcodes` cho các thư mục bên trong `layouts/`. Tên thư mục bắt đầu bằng dấu gạch dưới để tách biệt với các kind/section thông thường. Trước đây các thư mục này không có gạch dưới và đôi khi gây nhầm lẫn với section của trang.
+Từ bản 0.146, các thư mục đặc biệt trong `layouts/` mang dấu gạch dưới ở đầu: `_partials`, `_markup`, `_shortcodes`. Dấu gạch dưới tách chúng khỏi tên section, nên một section tên `partials` không còn bị nhầm với thư mục chứa partial.
 
 ### Thư mục `_partials`
 
-Chứa các phần tử dùng lại được. Khác với section — section là một kiểu nội dung của trang, partial chỉ là mảnh template.
+Chứa các mảnh template dùng lại được: header, footer, thẻ bài viết. Section là một loại nội dung; partial chỉ là một mảnh giao diện.
 
 ### Thư mục `_markup`
 
-Chứa các render hook cho markdown — heading, link, image, code block. Lookup tự động khi Hugo render markdown.
+Chứa render hook cho Markdown: heading, liên kết, hình ảnh, khối code, bảng, blockquote. Hugo tự tìm đến khi render nội dung, không cần khai báo ở đâu cả.
 
 ### Thư mục `_shortcodes`
 
-Như tên gọi. Shortcodes ở đây sẽ override shortcodes của theme.
+Đúng như tên gọi. Shortcode đặt ở đây trong site sẽ ghi đè shortcode cùng tên của theme.
 
 ## Asset pipeline
 
-Hugo không cần build step ngoài. `resources.Get` lấy file trong `assets/`, `resources.Concat` nối lại, `minify` nén, `fingerprint` thêm hash. Đây là pipeline đầy đủ cho một site nhỏ-vừa.
+Hugo không cần công cụ build bên ngoài. `resources.Get` lấy file trong `assets/`, `resources.Concat` nối lại, `minify` nén, `fingerprint` thêm mã băm vào tên file. Với một trang nhỏ đến vừa, chừng ấy là đủ.
 
 ```yaml
 markup:
@@ -36,23 +36,27 @@ markup:
       autoHeadingIDType: github-ascii
 ```
 
-Một dòng config nhỏ này giải quyết được vấn đề lớn cho người viết tiếng Việt: heading ID được sinh ra dạng ASCII, ổn định và URL-safe. Không cần render hook tùy biến.
+Dòng cấu hình nhỏ này giải quyết một chuyện lớn cho người viết tiếng Việt: ID của heading được sinh ở dạng ASCII, ổn định và an toàn trong URL. "Thư mục" thành `#thu-muc`, không còn chuỗi ký tự mã hoá phần trăm dài ngoằng. Chỉ có chữ "đ" bị bỏ hẳn thay vì thành "d"; khi cần, đặt ID tay ngay sau tiêu đề, như `{#di-tiep}` ở mục cuối bài này.
 
-## Render hooks
+## Render hook
 
-Render hooks cho phép can thiệp vào quá trình render markdown mà không phải viết extension cho Goldmark. Có hooks cho heading, link, image, code block, và blockquote.
+Render hook cho phép can thiệp vào cách Markdown được render mà không phải viết extension cho Goldmark. Một template nhỏ trong `_markup/` là đủ.
 
-Một use case hữu ích: thêm anchor link trên heading, đánh dấu external link, hoặc lazy-load tất cả image trong post.
+Vài việc hay dùng:
 
-## Vài điều giữ lại
+- thêm liên kết neo `#` cạnh heading;
+- gắn `rel="noopener"` cho liên kết ra ngoài;
+- cho ảnh `srcset`, kích thước và `loading="lazy"` để trang không bị giật khi tải.
 
-- Markdown thuần là tài sản lâu dài. Bất kỳ generator nào cũng có thể đọc nó.
-- Build chậm thì không phải Hugo. Nếu Hugo build chậm, vấn đề thường nằm ở image processing hoặc resource pipeline.
-- Theme nhẹ thì site nhẹ. Mỗi byte trong CSS/JS đều đi qua mạng tới người đọc cuối cùng.
-- Tự viết theme là cách hiểu rõ từng dòng. Theme có sẵn tiện nhưng có nhiều thứ ta không cần.
+## Vài điều giữ lại {#vai-dieu-giu-lai}
 
-## Đi tiếp
+- Markdown thuần là tài sản lâu dài. Trình tạo trang nào cũng đọc được nó.
+- Hugo hiếm khi là thứ làm build chậm. Nếu chậm, thủ phạm thường là xử lý ảnh hoặc một pipeline tài nguyên quá tay.
+- Theme nhẹ thì trang nhẹ. Mỗi byte CSS hay JS đều phải đi qua mạng tới người đọc.
+- Tự viết theme là cách hiểu rõ từng dòng. Theme có sẵn tiện thật, nhưng mang theo nhiều thứ mình không cần.
 
-Đề bài cho mấy tháng tới: viết một theme Hugo riêng — nhỏ, không build step, ưu tiên tiếng Việt. Tên là `nocturne`. Tôi đang viết theme này song song với việc ghi chú lại quá trình.
+## Đi tiếp {#di-tiep}
 
-Có thể tháng sau sẽ có thêm vài ghi chú về phần CSS, hoặc về cách xử lý dark mode mà không bị flash trên lần load đầu tiên.
+Việc cho mấy tháng tới: viết một theme Hugo của riêng mình, nhỏ, không bước build, ưu tiên tiếng Việt. Tên nó là `nocturne`. Tôi sẽ vừa viết vừa ghi lại quá trình trong loạt bài này.
+
+Bài sau có lẽ sẽ là kế hoạch cụ thể, rồi đến phần CSS và cách làm chế độ tối mà không bị nháy sáng ở lần tải đầu.

@@ -1,0 +1,17 @@
+{{- /*
+  Demo of the remote-image hook (docs/customization.md#remote-images).
+  render-image.html calls it for every absolute image URL. This one knows a
+  single "host": the demo's own /media/ folder. A GIF there that has an MP4
+  twin (same name, .mp4) is swapped for a lazy, muted looping video, with
+  its size so the browser reserves the space. Every other URL returns an
+  empty dict and renders unchanged.
+*/ -}}
+{{- $out := dict -}}
+{{- $media := "https://tiennm99.github.io/nocturne/media/" -}}
+{{- with findRESubmatch `^(.+)\.gif$` .Destination 1 -}}
+  {{- $stem := index (index . 0) 1 -}}
+  {{- if and (strings.HasPrefix $stem $media) (fileExists (printf "static/media/%s.mp4" (strings.TrimPrefix $media $stem))) -}}
+    {{- $out = dict "video" (printf "%s.mp4" $stem) "width" 240 "height" 135 -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

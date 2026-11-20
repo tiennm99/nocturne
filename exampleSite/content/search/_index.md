@@ -1,5 +1,5 @@
 ---
 title: "Tìm kiếm"
-description: "Tìm kiếm trong toàn bộ bài viết và ghi chú."
+description: "Tìm trong toàn bộ bài viết và ghi chú của trang."
 outputs: [html]
 ---

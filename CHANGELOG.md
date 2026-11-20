@@ -2,6 +2,17 @@
 
 nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-11-20 — bilingual feature demo
+
+### Changed
+
+- The `exampleSite/` demo is bilingual (Vietnamese at `/`, English at `/en/`) and switches on every theme param: comments (Giscus on this repo's Discussions), category chip, series prev/next, word count, full-content RSS, prefetch, edit link, license and OG fallback image.
+- New demo posts walk through Markdown, images (page resources, figures, attributes, static and remote images, a GIF swapped for a lazy video by a demo remote-image hook), code blocks and Hugo's built-in shortcodes; an About page shows a standalone page.
+
+### Fixed
+
+- Builds failed with "partial decorator ID mismatch" when a remote image's post summary was rendered inside another partial (`llms.txt`): since Hugo 0.153, `{{ with partial … }}` is a partial decorator. `render-image.html`, `head/canonical.html` and `index.llmtxt.txt` now assign the partial's result first.
+
 ## 2026-11-20 — review fixes, Hugo 0.154.5 target
 
 ### Changed

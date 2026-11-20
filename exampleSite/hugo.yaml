@@ -1,15 +1,57 @@
 # Demo site for the nocturne theme, deployed to GitHub Pages by
 # .github/workflows/pages.yml. It loads the theme from this repo's root
 # (themesDir ../.. resolves to the directory that holds the checkout).
+# Every theme param is switched on here, so the demo shows each feature.
 baseURL: https://tiennm99.github.io/nocturne/
 languageCode: vi
 defaultContentLanguage: vi
 title: nocturne
 themesDir: ../..
 theme: nocturne
+enableRobotsTXT: true
+
+# Vietnamese at the root, English under /en/. A post's translation is a
+# sibling file in its bundle (index.en.md next to index.md).
+languages:
+  vi:
+    languageName: Tiếng Việt
+    languageCode: vi
+    title: nocturne
+    weight: 1
+    menus:
+      main:
+        - name: Bài viết
+          pageRef: /post
+          weight: 10
+        - name: Lưu trữ
+          pageRef: /archives
+          weight: 20
+        - name: Giới thiệu
+          pageRef: /about
+          weight: 30
+  en:
+    languageName: English
+    languageCode: en
+    title: nocturne
+    weight: 2
+    menus:
+      main:
+        - name: Posts
+          pageRef: /post
+          weight: 10
+        - name: Archives
+          pageRef: /archives
+          weight: 20
+        - name: About
+          pageRef: /about
+          weight: 30
+    params:
+      comments:
+        giscus:
+          lang: en
 
 pagination:
-  pagerSize: 10
+  pagerSize: 5
   path: page
 
 taxonomies:
@@ -25,6 +67,11 @@ markup:
       unsafe: true
     parser:
       autoHeadingIDType: github-ascii
+      # Block images become <figure> with a caption, and {#id .class}
+      # attributes work on images and paragraphs, not only headings.
+      wrapStandAloneImageWithinParagraph: false
+      attribute:
+        block: true
   highlight:
     noClasses: false
   tableOfContents:
@@ -46,22 +93,41 @@ related:
 outputs:
   home: [html, rss, llmtxt]
 
-menus:
-  main:
-    - name: Bài viết
-      pageRef: /post
-      weight: 10
-    - name: Lưu trữ
-      pageRef: /archives
-      weight: 20
-
 params:
   description: Demo site for nocturne, a Hugo blog and personal portfolio theme.
+  author: Your Name
   favicon: favicon.svg
+  mainSections: [post]
+  showWordCount: true
+  rssFullContent: true
+  og:
+    fallbackImage: img/og-default.png
   search:
     enable: true
+  home:
+    recentPostsCount: 5
+  toc:
+    enable: true
+    minWordCount: 400
+  relatedPostsCount: 3
   prevNextNav:
+    enable: true
+    taxonomy: categories      # a post in a series links to the series' other posts
+  categoryChip:
+    enable: true
+  prefetch:
     enable: true
   footer:
     since: 2025
+    customText: 'Demo content for the <a href="https://github.com/tiennm99/nocturne">nocturne</a> Hugo theme.'
   license: "Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
+  editURL: https://github.com/tiennm99/nocturne/edit/main/exampleSite/content/
+  comments:
+    giscus:
+      enable: true
+      repo: tiennm99/nocturne
+      repoId: R_kgDOV1Vj5w
+      category: Announcements
+      categoryId: DIC_kwDOV1Vj584DLkwp
+      mapping: pathname
+      lang: vi
