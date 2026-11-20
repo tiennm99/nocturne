@@ -1,4 +1,4 @@
-# tsuki (月)
+# nocturne
 
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Hugo](https://img.shields.io/badge/hugo-%E2%89%A50.146-ff4088?logo=hugo)](https://gohugo.io)
@@ -6,13 +6,13 @@
 
 A Hugo blog + personal portfolio theme. The homepage *is* the portfolio — bio, featured projects, recent posts. Posts live at `/post/`. Vietnamese-first typography, View Transitions on navigation, Pagefind search, Giscus comments.
 
-> 月 (*tsuki*): the moon. Quiet, observed, returned to.
+> *nocturne*: a piece composed for the night. Quiet, unhurried, read after dark.
 
 **→ Live: [miti99.com](https://miti99.com)**, the blog this theme is built for.
 
 ## Status
 
-Not published on its own; see [installation](docs/installation.md) and the [CHANGELOG](CHANGELOG.md).
+No tagged releases: sites import `main` as a Hugo Module. See [installation](docs/installation.md) and the [CHANGELOG](CHANGELOG.md).
 
 ## Features
 
@@ -34,17 +34,24 @@ Not published on its own; see [installation](docs/installation.md) and the [CHAN
 
 ## Quick start
 
-Copy the [`themes/tsuki/`](https://github.com/tiennm99/blog/tree/main/themes/tsuki) folder into your site's `themes/`, then:
+Import the theme as a [Hugo Module](https://gohugo.io/hugo-modules/) (needs [Go](https://go.dev/doc/install)):
 
 ```bash
-echo 'theme: tsuki' >> hugo.yaml
+hugo mod init github.com/<you>/<your-site>
+```
+
+```yaml
+# hugo.yaml
+module:
+  imports:
+    - path: github.com/tiennm99/nocturne
 ```
 
 Install Pagefind in your site for search. Full guide (Pagefind setup, required site config): [`docs/installation.md`](docs/installation.md).
 
 ## Documentation
 
-- [`docs/installation.md`](docs/installation.md) — copy-in + Pagefind setup
+- [`docs/installation.md`](docs/installation.md) — Hugo Module + Pagefind setup
 - [`docs/config.md`](docs/config.md) — full params reference
 - [`docs/data-schemas.md`](docs/data-schemas.md) — `profile.yaml` + `projects.yaml`
 - [`docs/customization.md`](docs/customization.md) — override layouts, tokens, fonts, remote images

@@ -1,28 +1,28 @@
-/* tsuki: archive page — year/month groups */
+/* nocturne: archive page — year/month groups */
 
-.archive-year { margin-block-end: var(--tsuki-space-12); }
+.archive-year { margin-block-end: var(--nocturne-space-12); }
 .archive-year-heading {
-  font-size: var(--tsuki-fs-2xl);
-  margin: 0 0 var(--tsuki-space-4);
-  padding-block-end: var(--tsuki-space-2);
-  border-block-end: 1px solid var(--tsuki-border);
+  font-size: var(--nocturne-fs-2xl);
+  margin: 0 0 var(--nocturne-space-4);
+  padding-block-end: var(--nocturne-space-2);
+  border-block-end: 1px solid var(--nocturne-border);
   letter-spacing: -0.02em;
 }
 .archive-month {
-  margin-block-end: var(--tsuki-space-6);
+  margin-block-end: var(--nocturne-space-6);
   display: grid;
   grid-template-columns: 6rem 1fr;
-  gap: var(--tsuki-space-4);
+  gap: var(--nocturne-space-4);
   align-items: start;
 }
 .archive-month-heading {
-  font-size: var(--tsuki-fs-base);
+  font-size: var(--nocturne-fs-base);
   margin: 0;
-  color: var(--tsuki-fg-muted);
+  color: var(--nocturne-fg-muted);
   font-weight: 550;
   /* Same line box and top padding as the first post row, so the label centres on it. */
-  line-height: var(--tsuki-lh-body);
-  padding-block-start: var(--tsuki-space-2);
+  line-height: var(--nocturne-lh-body);
+  padding-block-start: var(--nocturne-space-2);
 }
 .archive-post-list {
   list-style: none;
@@ -32,23 +32,23 @@
 .archive-post-item {
   display: grid;
   grid-template-columns: 3.5rem 1fr;
-  gap: var(--tsuki-space-3);
-  padding-block: var(--tsuki-space-2);
+  gap: var(--nocturne-space-3);
+  padding-block: var(--nocturne-space-2);
   align-items: baseline;
 }
 .archive-post-date {
-  color: var(--tsuki-fg-subtle);
-  font-size: var(--tsuki-fs-sm);
+  color: var(--nocturne-fg-subtle);
+  font-size: var(--nocturne-fs-sm);
   font-variant-numeric: tabular-nums;
 }
-.archive-post-link { color: var(--tsuki-fg); }
-.archive-post-link:hover { color: var(--tsuki-accent); }
-.archive-empty { color: var(--tsuki-fg-muted); }
+.archive-post-link { color: var(--nocturne-fg); }
+.archive-post-link:hover { color: var(--nocturne-accent); }
+.archive-empty { color: var(--nocturne-fg-muted); }
 
 @media (max-width: 40rem) {
   .archive-month {
     grid-template-columns: 1fr;
-    gap: var(--tsuki-space-2);
+    gap: var(--nocturne-space-2);
   }
   .archive-month-heading { padding-block-start: 0; }
 }
@@ -56,18 +56,18 @@
 /* category and top-tag links above the timeline */
 .archive-terms {
   display: grid;
-  gap: var(--tsuki-space-4);
-  margin-block-end: var(--tsuki-space-12);
+  gap: var(--nocturne-space-4);
+  margin-block-end: var(--nocturne-space-12);
 }
 .archive-terms-heading {
-  font-size: var(--tsuki-fs-base);
-  margin: 0 0 var(--tsuki-space-2);
-  color: var(--tsuki-fg-muted);
+  font-size: var(--nocturne-fs-base);
+  margin: 0 0 var(--nocturne-space-2);
+  color: var(--nocturne-fg-muted);
   font-weight: 550;
 }
 .archive-terms-count {
-  font-size: var(--tsuki-fs-xs);
-  color: var(--tsuki-fg-subtle);
+  font-size: var(--nocturne-fs-xs);
+  color: var(--nocturne-fg-subtle);
   font-variant-numeric: tabular-nums;
   margin-inline-start: 0.125em;
 }

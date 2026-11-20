@@ -1,20 +1,20 @@
-/* tsuki: per-post extras — prev/next, details, code-copy polish, TOC narrow */
+/* nocturne: per-post extras — prev/next, details, code-copy polish, TOC narrow */
 
 .prev-next {
-  display: grid; grid-template-columns: 1fr 1fr; gap: var(--tsuki-space-4);
-  margin-block-start: var(--tsuki-space-12);
-  padding-block-start: var(--tsuki-space-6);
-  border-block-start: 1px solid var(--tsuki-border);
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--nocturne-space-4);
+  margin-block-start: var(--nocturne-space-12);
+  padding-block-start: var(--nocturne-space-6);
+  border-block-start: 1px solid var(--nocturne-border);
 }
 .prev-next a {
-  display: flex; flex-direction: column; gap: var(--tsuki-space-1);
-  padding: var(--tsuki-space-3);
-  border: 1px solid var(--tsuki-border); border-radius: var(--tsuki-radius);
-  color: var(--tsuki-fg); text-decoration: none; min-block-size: 3rem;
+  display: flex; flex-direction: column; gap: var(--nocturne-space-1);
+  padding: var(--nocturne-space-3);
+  border: 1px solid var(--nocturne-border); border-radius: var(--nocturne-radius);
+  color: var(--nocturne-fg); text-decoration: none; min-block-size: 3rem;
 }
-.prev-next a:hover { border-color: var(--tsuki-fg-muted); }
+.prev-next a:hover { border-color: var(--nocturne-fg-muted); }
 .prev-next-next { text-align: end; }
-.prev-next-label { font-size: var(--tsuki-fs-xs); color: var(--tsuki-fg-muted); }
+.prev-next-label { font-size: var(--nocturne-fs-xs); color: var(--nocturne-fg-muted); }
 .prev-next-title { font-weight: 550; }
 @media (max-width: 32rem) {
   .prev-next { grid-template-columns: 1fr; }
@@ -22,12 +22,12 @@
 }
 
 .post-content details {
-  border: 1px solid var(--tsuki-border); border-radius: var(--tsuki-radius);
-  padding: var(--tsuki-space-3) var(--tsuki-space-4);
-  margin-block: var(--tsuki-space-4);
+  border: 1px solid var(--nocturne-border); border-radius: var(--nocturne-radius);
+  padding: var(--nocturne-space-3) var(--nocturne-space-4);
+  margin-block: var(--nocturne-space-4);
 }
 .post-content details > summary { cursor: pointer; font-weight: 550; }
-.post-content details[open] > summary { margin-block-end: var(--tsuki-space-3); }
+.post-content details[open] > summary { margin-block-end: var(--nocturne-space-3); }
 
-.code-copy:hover { background: var(--tsuki-code-bg); }
-.code-copy[data-state="copied"] { opacity: 1; color: var(--tsuki-accent); border-color: var(--tsuki-accent); }
+.code-copy:hover { background: var(--nocturne-code-bg); }
+.code-copy[data-state="copied"] { opacity: 1; color: var(--nocturne-accent); border-color: var(--nocturne-accent); }

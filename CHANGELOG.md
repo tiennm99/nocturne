@@ -1,6 +1,14 @@
 # Changelog
 
-tsuki is vendored in [`tiennm99/blog`](https://github.com/tiennm99/blog/tree/main/themes/tsuki) and has no separate releases. Version entries below record the earlier standalone releases; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
+nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
+
+## 2026-11-20 — renamed to nocturne, own repo
+
+### Changed
+
+- The theme moved out of `tiennm99/blog` into its own repo, [`tiennm99/nocturne`](https://github.com/tiennm99/nocturne), with its history, and is imported as the Hugo Module `github.com/tiennm99/nocturne`.
+- Renamed from tsuki to nocturne: CSS custom properties are `--nocturne-*` (were `--tsuki-*`), keyframes `nocturne-fade-*`, CSS bundles `css/nocturne.{core,single}.css`, and `<meta name="generator">` emits `nocturne`. Sites that override tokens must rename them.
+- The reader's stored choices use the localStorage keys `theme` and `lang` (were `tsuki-theme` and `tsuki-lang`); saved choices reset once.
 
 ## 2026-11-16 — language dropdown
 

@@ -1,12 +1,12 @@
 # Migrating from hugo-theme-stack
 
-tsuki extracts Stack's information architecture (posts, tags, categories, archive, search, comments) and rewrites the visual layer + asset pipeline. Most posts will render unchanged. This guide covers what to delete, what to add, and where Stack-isms hide.
+nocturne extracts Stack's information architecture (posts, tags, categories, archive, search, comments) and rewrites the visual layer + asset pipeline. Most posts will render unchanged. This guide covers what to delete, what to add, and where Stack-isms hide.
 
 ## What carries over
 
 - Post frontmatter: `title`, `date`, `description`, `tags`, `categories`, `image`, `draft`
 - Content path convention `content/post/YYYY/MM/DD/slug/index.md`
-- Permalink shape `/:year/:month/:day/:slug/` (set `:contentbasename` on tsuki for clean ASCII)
+- Permalink shape `/:year/:month/:day/:slug/` (set `:contentbasename` on nocturne for clean ASCII)
 - Tags and categories taxonomies
 - Archive page (`content/archives/_index.md`)
 - Giscus comment provider
@@ -22,28 +22,31 @@ git submodule deinit themes/hugo-theme-stack
 git rm themes/hugo-theme-stack
 ```
 
-Then copy the `themes/tsuki/` folder from [`tiennm99/blog`](https://github.com/tiennm99/blog/tree/main/themes/tsuki) into your site (see [installation.md](installation.md)).
+Then import nocturne as a Hugo Module (see [installation.md](installation.md)).
 
-### Update `theme:`
+### Replace `theme:`
 
 ```yaml
-theme: tsuki                       # was: hugo-theme-stack
+# was: theme: hugo-theme-stack
+module:
+  imports:
+    - path: github.com/tiennm99/nocturne
 ```
 
 ### Drop these (Stack-only)
 
-- `params.sidebar.*` — tsuki has no sidebar
+- `params.sidebar.*` — nocturne has no sidebar
 - `params.widgets.*` — no widget system; portfolio is in homepage hero/projects
 - `params.article.headingAnchor` — the heading render hook always adds anchors; to drop them, override `_markup/render-heading.html` in your site
 - `params.colorScheme.toggleIcon` — fixed icon
-- `params.imageProcessing.*` — tsuki uses Hugo's default image processing
+- `params.imageProcessing.*` — nocturne uses Hugo's default image processing
 - `params.comments.provider` — only Giscus is supported; no Disqus / Utterances / Waline
-- TypeScript build pipeline (`assets/ts/`, `tsconfig.json`) — tsuki ships ES modules directly
-- SCSS pipeline (`assets/scss/`) — tsuki uses plain CSS with custom properties
+- TypeScript build pipeline (`assets/ts/`, `tsconfig.json`) — nocturne ships ES modules directly
+- SCSS pipeline (`assets/scss/`) — nocturne uses plain CSS with custom properties
 
 ### Param mapping
 
-| Stack | tsuki | Notes |
+| Stack | nocturne | Notes |
 |---|---|---|
 | `params.description` | `params.description` | unchanged |
 | `params.sidebar.avatar.src` | `data/profile.yaml: avatar` | now data-driven |
@@ -60,8 +63,8 @@ theme: tsuki                       # was: hugo-theme-stack
 
 Stack-specific fields ignored without error:
 
-- `image` — Stack used this for sidebar cover; tsuki uses it for OG image only
-- `categories[0]` weight quirks — tsuki uses Hugo defaults
+- `image` — Stack used this for sidebar cover; nocturne uses it for OG image only
+- `categories[0]` weight quirks — nocturne uses Hugo defaults
 - `menu`, `weight` — still respected
 - `slug` — still respected
 

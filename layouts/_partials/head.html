@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="tsuki">
+<meta name="generator" content="nocturne">
 <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14151a" media="(prefers-color-scheme: dark)">
 
@@ -16,7 +16,7 @@
 <script>
 (function () {
   try {
-    var stored = localStorage.getItem('tsuki-theme');
+    var stored = localStorage.getItem('theme');
     if (stored === 'dark' || stored === 'light') {
       document.documentElement.setAttribute('data-theme', stored);
     }
@@ -43,7 +43,7 @@
 <script>
 (function () {
   try {
-    var want = localStorage.getItem('tsuki-lang');
+    var want = localStorage.getItem('lang');
     if (!want || want === {{ .Language.Lang }}) return;
     var alt = document.querySelector('link[rel="alternate"][hreflang="' + want + '"]');
     if (alt) location.replace(alt.href + location.search + location.hash);
@@ -83,7 +83,7 @@
   (resources.Get "css/components.css")
   (resources.Get "css/view-transitions.css")
 -}}
-{{- $core := $coreFiles | resources.Concat "css/tsuki.core.css" | minify | fingerprint -}}
+{{- $core := $coreFiles | resources.Concat "css/nocturne.core.css" | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $core.RelPermalink }}" integrity="{{ $core.Data.Integrity }}" crossorigin="anonymous">
 
 {{- if .IsHome }}
@@ -98,7 +98,7 @@
   (resources.Get "css/single-extras.css")
 -}}
 {{- with resources.Get "css/syntax.css" }}{{ $singleFiles = $singleFiles | append . }}{{ end -}}
-{{- $single := $singleFiles | resources.Concat "css/tsuki.single.css" | minify | fingerprint -}}
+{{- $single := $singleFiles | resources.Concat "css/nocturne.single.css" | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $single.RelPermalink }}" integrity="{{ $single.Data.Integrity }}" crossorigin="anonymous">
 {{- end }}
 

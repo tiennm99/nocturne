@@ -10,8 +10,8 @@ Drop a file with the same path under your site's `layouts/` to replace the theme
 your-site/
 └── layouts/
     ├── _partials/
-    │   └── footer.html      # overrides themes/tsuki/layouts/_partials/footer.html
-    └── single.html          # overrides themes/tsuki/layouts/single.html
+    │   └── footer.html      # overrides the theme's layouts/_partials/footer.html
+    └── single.html          # overrides the theme's layouts/single.html
 ```
 
 To extend rather than replace, copy the theme partial into your site, then modify. Common overrides:
@@ -34,16 +34,16 @@ Tokens are CSS custom properties in `assets/css/tokens.css`: light values on `:r
 ```css
 /* your-site/assets/css/custom.css */
 :root {
-  --tsuki-accent: #cc7a3b;        /* warmer accent */
-  --tsuki-font-sans: "Public Sans", system-ui, sans-serif;
-  --tsuki-content-width: 48rem;   /* wider posts */
+  --nocturne-accent: #cc7a3b;        /* warmer accent */
+  --nocturne-font-sans: "Public Sans", system-ui, sans-serif;
+  --nocturne-content-width: 48rem;   /* wider posts */
 }
 :root[data-theme="dark"] {
-  --tsuki-accent: #f0a070;
+  --nocturne-accent: #f0a070;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --tsuki-accent: #f0a070;
+    --nocturne-accent: #f0a070;
   }
 }
 ```
@@ -109,7 +109,7 @@ Set CSS variables inline via a frontmatter `style` you wire up yourself, or use 
 {{ define "body_class" }}list section-work{{ end }}
 ```
 
-Then style `body.section-work { --tsuki-accent: #...; }` in your custom CSS.
+Then style `body.section-work { --nocturne-accent: #...; }` in your custom CSS.
 
 ## Remote images
 
@@ -138,7 +138,7 @@ The byline reads `5 phút đọc · 1024 từ` (translated via the `wordCount` i
 The theme includes accessibility features that require no configuration:
 
 - **Skip-link** — first focusable element on every page; jumps to `<main id="main">` (WCAG 2.4.1 Bypass Blocks)
-- **Focus rings** — visible outline via `--tsuki-accent` on `:focus-visible` for keyboard navigation
+- **Focus rings** — visible outline via `--nocturne-accent` on `:focus-visible` for keyboard navigation
 - **Lastmod byline** — shows "Cập nhật {date}" when modified date is ≥24h newer than publish date
 - **Lazy-load images** — in-content images get `loading="lazy" decoding="async"`, except a first image near the top of a post, which gets `loading="eager" fetchpriority="high"` as the likely LCP element
 - **External link security** — all Markdown links to `http://` / `https://` / `//` get `rel="noopener noreferrer"` automatically

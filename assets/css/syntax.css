@@ -1,19 +1,19 @@
-/* tsuki: Chroma syntax colours. Light: github, dark: github-dark.
+/* nocturne: Chroma syntax colours. Light: github, dark: github-dark.
    Regenerate with `hugo gen chromastyles --style=github|github-dark`;
    dark rules also reset light-only declarations. Background comes from
-   --tsuki-code-bg, and github's .bp is darkened to #57606a for WCAG AA contrast. */
+   --nocturne-code-bg, and github's .bp is darkened to #57606a for WCAG AA contrast. */
 
 /* Code block frame. The wrapper stays put (it holds the copy toolbar);
    the inner .chroma scrolls sideways. */
 .highlight {
   position: relative;
-  margin-block: var(--tsuki-space-6);
+  margin-block: var(--nocturne-space-6);
   /* Long lines must not widen the page (grid/flex parents): scroll instead. */
   contain: inline-size;
 }
 .highlight > .chroma {
-  background: var(--tsuki-code-bg);
-  border-radius: var(--tsuki-radius);
+  background: var(--nocturne-code-bg);
+  border-radius: var(--nocturne-radius);
   overflow-x: auto;
 }
 .highlight pre { margin: 0; }
@@ -39,17 +39,17 @@
   background: none;
   overflow: visible;
 }
-.highlight .lntd:first-child pre { padding-inline-end: var(--tsuki-space-2); }
+.highlight .lntd:first-child pre { padding-inline-end: var(--nocturne-space-2); }
 .highlight .lntd:last-child { width: 100%; }
-.highlight .lntd:last-child pre { padding-inline-start: var(--tsuki-space-2); }
+.highlight .lntd:last-child pre { padding-inline-start: var(--nocturne-space-2); }
 .chroma .lnt,
 .chroma .ln {
   white-space: pre;
   -webkit-user-select: none;
   user-select: none;
-  color: var(--tsuki-fg-muted);
+  color: var(--nocturne-fg-muted);
 }
-.chroma .ln { margin-inline-end: var(--tsuki-space-3); }
+.chroma .ln { margin-inline-end: var(--nocturne-space-3); }
 .chroma .lnlinks { outline: none; text-decoration: none; color: inherit; }
 
 /* Token colours */
@@ -121,7 +121,7 @@
 
 /* Dark palette is screen-only: print resets to the light tokens, so code keeps the light palette on paper. */
 @media screen {
-  :root[data-theme="dark"] .chroma { color: var(--tsuki-fg); }
+  :root[data-theme="dark"] .chroma { color: var(--nocturne-fg); }
   :root[data-theme="dark"] .chroma .err { color:#f85149;background-color:transparent }
   :root[data-theme="dark"] .chroma .hl { background-color:#6e7681 }
   :root[data-theme="dark"] .chroma .k { color:#ff7b72 }
@@ -199,7 +199,7 @@
 }
 
 @media screen and (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .chroma { color: var(--tsuki-fg); }
+  :root:not([data-theme="light"]) .chroma { color: var(--nocturne-fg); }
   :root:not([data-theme="light"]) .chroma .err { color:#f85149;background-color:transparent }
   :root:not([data-theme="light"]) .chroma .hl { background-color:#6e7681 }
   :root:not([data-theme="light"]) .chroma .k { color:#ff7b72 }

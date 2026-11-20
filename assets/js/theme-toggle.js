@@ -1,4 +1,4 @@
-const KEY = "tsuki-theme";
+const KEY = "theme";
 const root = document.documentElement;
 const btn = document.querySelector("[data-theme-toggle]");
 const mq = matchMedia("(prefers-color-scheme: dark)");
@@ -13,7 +13,7 @@ const metas = [...document.querySelectorAll('meta[name="theme-color"]')]
  */
 function syncThemeColor() {
   const bg = root.hasAttribute("data-theme")
-    && getComputedStyle(root).getPropertyValue("--tsuki-bg").trim();
+    && getComputedStyle(root).getPropertyValue("--nocturne-bg").trim();
   for (const [meta, def] of metas) meta.setAttribute("content", bg || def);
 }
 

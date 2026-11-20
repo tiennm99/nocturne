@@ -1,6 +1,6 @@
 # Configuration
 
-Reference for `hugo.yaml` keys that tsuki reads. Hugo merges `params` and `outputFormats` from the theme's `hugo.yaml`, so the theme's param defaults apply without copying them. Everything else (markup, permalinks, pagination, related, outputs, language settings) must be set in your *site's* `hugo.yaml`; see [Why theme defaults don't merge](#why-theme-defaults-dont-merge).
+Reference for `hugo.yaml` keys that nocturne reads. Hugo merges `params` and `outputFormats` from the theme's `hugo.yaml`, so the theme's param defaults apply without copying them. Everything else (markup, permalinks, pagination, related, outputs, language settings) must be set in your *site's* `hugo.yaml`; see [Why theme defaults don't merge](#why-theme-defaults-dont-merge).
 
 ## Required
 
@@ -9,7 +9,9 @@ Copy this block into your site `hugo.yaml`:
 ```yaml
 languageCode: vi
 defaultContentLanguage: vi
-theme: tsuki
+module:
+  imports:
+    - path: github.com/tiennm99/nocturne
 
 pagination:
   pagerSize: 10
@@ -186,7 +188,7 @@ A post gets a TOC when all of these hold: `params.toc.enable` is not `false`, th
 A single-language site needs only `languageCode` and `defaultContentLanguage` from the required block. For more than one language, add a `languages:` map to the site config (see [Hugo's multilingual docs](https://gohugo.io/content-management/multilingual/)); the theme then:
 
 - renders a language dropdown in the header that lists only the languages the current page exists in, so an untranslated post shows just its own language;
-- remembers the reader's pick in `localStorage` (`tsuki-lang`) and, on later visits, opens the page's translation in that language when one exists;
+- remembers the reader's pick in `localStorage` (`lang`) and, on later visits, opens the page's translation in that language when one exists;
 - emits `<link rel="alternate" hreflang>` for every translation plus `x-default` pointing at the site home.
 
 A post's translation is a sibling file in its bundle, such as `index.en.md` next to `index.md`; it is served under `/<lang>/`. Each extra language also needs its own `_index.<lang>.md` for the home, `archives` and `search` sections, so its header menu and search page exist.
@@ -202,7 +204,7 @@ The theme bundles `i18n/vi.yml` and `i18n/en.yml`. To change a string, or to add
 
 ## SEO output
 
-Tsuki emits SEO metadata in `_partials/head/seo.html` (called from `head.html`):
+nocturne emits SEO metadata in `_partials/head/seo.html` (called from `head.html`):
 
 - **OpenGraph** — `og:title`, `og:description`, `og:url`, `og:type`, `og:site_name`, `og:locale`, `og:image`. Posts also get `article:published_time`, `article:modified_time`, `article:author`, one `article:tag` per tag.
 - **Twitter Card** — `summary_large_image` for a post or fallback image, `summary` for the avatar fallback or when there is no image; `twitter:site` + `twitter:creator` only when `params.social.twitter` is set.

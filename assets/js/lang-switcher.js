@@ -1,5 +1,5 @@
 // Must match the key read by the inline redirect script in _partials/head.html.
-const KEY = "tsuki-lang";
+const KEY = "lang";
 
 for (const menu of document.querySelectorAll("[data-lang-switcher]")) {
   // remember the picked language, so later visits open its translation

@@ -1,16 +1,36 @@
 # Installation
 
-tsuki is not published on its own: it is vendored in [`tiennm99/blog`](https://github.com/tiennm99/blog/tree/main/themes/tsuki) at `themes/tsuki/` and edited in place there. There are no releases or tags to pin, and no Hugo Module path.
+nocturne is a [Hugo Module](https://gohugo.io/hugo-modules/). Hugo Modules need [Go](https://go.dev/doc/install) wherever the site builds, locally and in CI.
 
-## Copy the theme
+## Add the module
 
-Copy the `themes/tsuki/` folder from `tiennm99/blog` into your site's `themes/tsuki/`, then set the theme in your site `hugo.yaml`:
+Turn your site into a module once, then import the theme in your site `hugo.yaml`:
 
-```yaml
-theme: tsuki
+```bash
+hugo mod init github.com/<you>/<your-site>
 ```
 
-To update, copy a newer version of the folder over yours. Keep your changes in your site's `layouts/` and `assets/` (see [`customization.md`](customization.md)) rather than in the copied folder, so an update does not overwrite them.
+```yaml
+module:
+  imports:
+    - path: github.com/tiennm99/nocturne
+```
+
+The first build downloads the theme and records its version in `go.mod` and `go.sum`; commit both. There are no tagged releases, so `go.mod` pins a pseudo-version of a `main` commit. To move to the latest `main`:
+
+```bash
+hugo mod get -u github.com/tiennm99/nocturne
+```
+
+Keep your changes in your site's `layouts/` and `assets/` (see [`customization.md`](customization.md)) instead of editing the theme, so an update does not overwrite them.
+
+## Work on the theme locally
+
+To try theme edits in a site before pushing them, point the module at a local checkout of this repo:
+
+```bash
+HUGO_MODULE_REPLACEMENTS="github.com/tiennm99/nocturne -> /path/to/nocturne" hugo server
+```
 
 ## Required site config
 
@@ -62,6 +82,6 @@ After installing, run `hugo server` from your site. You should see:
 - `/post/` list with pagination
 - `/tags/<slug>/`, `/categories/<slug>/`, `/archives/`
 - Single post with reading-time byline, related posts at the bottom
-- `<head>` containing OG, Twitter, JSON-LD on posts; `<meta name=generator content="tsuki">`
+- `<head>` containing OG, Twitter, JSON-LD on posts; `<meta name=generator content="nocturne">`
 
-If something looks off, see [`customization.md`](customization.md) for override patterns, or open an issue at [tiennm99/blog](https://github.com/tiennm99/blog/issues).
+If something looks off, see [`customization.md`](customization.md) for override patterns, or open an issue at [tiennm99/nocturne](https://github.com/tiennm99/nocturne/issues).

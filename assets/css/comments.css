@@ -1,13 +1,13 @@
-/* tsuki: Giscus comments — reserve space to prevent layout shift on iframe load */
+/* nocturne: Giscus comments — reserve space to prevent layout shift on iframe load */
 
 .comments {
-  margin-block-start: var(--tsuki-space-12);
-  padding-block-start: var(--tsuki-space-8);
-  border-block-start: 1px solid var(--tsuki-border);
+  margin-block-start: var(--nocturne-space-12);
+  padding-block-start: var(--nocturne-space-8);
+  border-block-start: 1px solid var(--nocturne-border);
 }
 .comments-heading {
-  font-size: var(--tsuki-fs-xl);
-  margin: 0 0 var(--tsuki-space-4);
+  font-size: var(--nocturne-fs-xl);
+  margin: 0 0 var(--nocturne-space-4);
 }
 .giscus,
 .giscus-frame { min-block-size: 12rem; }

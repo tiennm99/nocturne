@@ -1,4 +1,4 @@
-/* tsuki: minimal modern reset */
+/* nocturne: minimal modern reset */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -7,9 +7,9 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: var(--tsuki-font-sans);
-  background: var(--tsuki-bg);
-  color: var(--tsuki-fg);
+  font-family: var(--nocturne-font-sans);
+  background: var(--nocturne-bg);
+  color: var(--nocturne-fg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -23,10 +23,10 @@ img, picture, svg, video, canvas {
 
 button { font: inherit; cursor: pointer; }
 
-a { color: var(--tsuki-accent); text-decoration: none; }
-a:hover { color: var(--tsuki-accent-hover); text-decoration: underline; }
+a { color: var(--nocturne-accent); text-decoration: none; }
+a:hover { color: var(--nocturne-accent-hover); text-decoration: underline; }
 
-::selection { background: var(--tsuki-selection-bg); }
+::selection { background: var(--nocturne-selection-bg); }
 
 ul, ol { padding-inline-start: 1.25rem; }
 
