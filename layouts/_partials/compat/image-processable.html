@@ -1,0 +1,8 @@
+{{- /*
+  Takes a resource and reports whether Hugo can decode and resize it.
+  Hugo also types svg, ico, heic, heif and avif as images, but cannot
+  process them in every supported version (0.154.5+), so those are used
+  as is, without width/height.
+*/ -}}
+{{- $ok := and (eq .ResourceType "image") (in (slice "jpeg" "png" "webp" "tiff" "bmp" "gif") .MediaType.SubType) -}}
+{{- return $ok -}}

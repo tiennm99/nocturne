@@ -1,19 +1,28 @@
 {{- /*
   Feed images: absolute URLs, because feed readers resolve relative URLs
-  against the feed, not the post. Resolution matches render-image.html.
+  against the feed, not the post. Resolution matches render-image.html: a
+  root-relative path (a file in static/) gets the site's base URL, any other
+  relative path resolves against the post. Markdown attributes are kept.
 */ -}}
 {{- $res := "" -}}
 {{- $u := urls.Parse .Destination -}}
 {{- if and (not $u.IsAbs) (not $u.Host) $u.Path -}}
   {{- $res = or (.PageInner.Resources.Get (strings.TrimPrefix "./" $u.Path)) (resources.Get (strings.TrimPrefix "/" $u.Path)) -}}
 {{- end -}}
-{{- $src := "" -}}
+{{- $src := ((urls.Parse .PageInner.Permalink).ResolveReference $u).String -}}
 {{- with $res -}}
   {{- $src = .Permalink -}}
 {{- else -}}
-  {{- $src = ((urls.Parse .PageInner.Permalink).ResolveReference $u).String -}}
+  {{- $base := printf "%s/" (strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path) -}}
+  {{- if and (strings.HasPrefix .Destination "/") (not (strings.HasPrefix .Destination "//")) (not (strings.HasPrefix .Destination $base)) -}}
+    {{- $src = strings.TrimPrefix "/" .Destination | absURL -}}
+  {{- end -}}
 {{- end -}}
 {{- if and .IsBlock .Title }}<figure>{{ end -}}
-<img src="{{ $src | safeURL }}" alt="{{ .PlainText }}"{{ if and .Title (not .IsBlock) }} title="{{ .Title }}"{{ end }}>
+<img src="{{ $src | safeURL }}" alt="{{ .PlainText }}"{{ if and .Title (not .IsBlock) }} title="{{ .Title }}"{{ end }}
+  {{- range $k, $v := .Attributes -}}
+    {{- if and $v (not (in (slice "src" "alt" "title") $k)) }}{{ printf " %s=%q" $k ($v | transform.HTMLEscape) | safeHTMLAttr }}{{ end -}}
+  {{- end -}}
+>
 {{- if and .IsBlock .Title }}<figcaption>{{ .Title }}</figcaption></figure>{{ end -}}
 {{- /**/ -}}

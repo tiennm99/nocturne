@@ -6,18 +6,18 @@
   head.html sends later visits to that language's translation when one exists.
 */ -}}
 {{- if hugo.IsMultilingual -}}
-{{- $current := .Language.Lang -}}
+{{- $current := .Language.Name -}}
 <details class="lang-switcher" data-lang-switcher>
-  <summary aria-label="{{ i18n "language" | default "Language" }}: {{ .Language.LanguageName }}">
+  <summary aria-label="{{ i18n "language" | default "Language" }}: {{ partial "compat/lang-label.html" .Language | default (upper $current) }}">
     {{ partial "icon.html" "globe" }}<span class="lang-switcher-current">{{ upper $current }}</span>
   </summary>
   <ul class="lang-switcher-menu">
     {{- range .AllTranslations }}
-    {{- $lang := .Language.Lang }}
+    {{- $lang := .Language.Name }}
     <li>
       <a href="{{ .RelPermalink }}" hreflang="{{ $lang }}" lang="{{ $lang }}" data-lang="{{ $lang }}"
         {{- if eq $lang $current }} aria-current="page"{{ end }}>
-        {{- .Language.LanguageName | default (upper $lang) -}}
+        {{- partial "compat/lang-label.html" .Language | default (upper $lang) -}}
       </a>
     </li>
     {{- end }}

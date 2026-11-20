@@ -48,13 +48,14 @@ Drop a `data/profile.yaml` and `data/projects.yaml` next; see [`data-schemas.md`
 
 ## Content pages
 
-`/search/` and `/archives/` render only when the site has a section page for them. Create both:
+`/search/` and `/archives/` render only when the site has a section page for them. Create both, with HTML output only so Hugo writes no empty feed for them:
 
 ```yaml
 # content/search/_index.md
 ---
 title: "Search"
 description: "Search all posts."   # optional
+outputs: [html]
 ---
 ```
 
@@ -62,6 +63,7 @@ description: "Search all posts."   # optional
 # content/archives/_index.md
 ---
 title: "Archives"
+outputs: [html]
 ---
 ```
 
@@ -87,7 +89,7 @@ If you don't want search at all, set `params.search.enable: false` in your `hugo
 After installing, run `hugo server` from your site. You should see:
 
 - Homepage with hero, optional projects grid, recent posts
-- `/post/` list with pagination
+- the post section list (`/post/`, or whichever section `mainSections` names) with pagination
 - `/tags/<slug>/`, `/categories/<slug>/`, `/archives/`
 - Single post with reading-time byline, related posts at the bottom
 - `<head>` containing OG, Twitter, JSON-LD on posts; `<meta name=generator content="nocturne">`

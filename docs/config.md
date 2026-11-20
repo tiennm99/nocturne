@@ -1,6 +1,6 @@
 # Configuration
 
-Reference for `hugo.yaml` keys that nocturne reads. Hugo merges `params` and `outputFormats` from the theme's `hugo.yaml`, so the theme's param defaults apply without copying them. Everything else (markup, permalinks, pagination, related, outputs, language settings) must be set in your *site's* `hugo.yaml`; see [Why theme defaults don't merge](#why-theme-defaults-dont-merge).
+Reference for `hugo.yaml` keys that nocturne reads. The theme targets Hugo **0.154.5**, the version Ubuntu 26.04 LTS ships, and keeps working on newer releases. Hugo merges `params` and `outputFormats` from the theme's `hugo.yaml`, so the theme's param defaults apply without copying them. Everything else (markup, permalinks, pagination, related, outputs, language settings) must be set in your *site's* `hugo.yaml`; see [Why theme defaults don't merge](#why-theme-defaults-dont-merge).
 
 ## Required
 
@@ -22,14 +22,14 @@ taxonomies:
   tag: tags
 
 permalinks:
-  post: /:year/:month/:day/:contentbasename/
+  post: /:year/:month/:day/:slugorcontentbasename/   # front matter `slug:` wins over the file name
 
 markup:
   goldmark:
     renderer:
       unsafe: true
     parser:
-      autoHeadingIDType: github-ascii  # ASCII slugs for vi diacritics
+      autoHeadingIDType: github-ascii  # ASCII slugs for vi diacritics; drops đ/Đ ("Đặc biệt" → #ac-biet)
   highlight:
     noClasses: false               # Chroma emits classes, so assets/css/syntax.css colours code
   tableOfContents:
@@ -52,14 +52,21 @@ outputs:
   home: [html, rss, llmtxt]        # llmtxt adds /llms.txt
 ```
 
+Every post needs a `date`: a post without one sorts under year 0001 in the archive and the feed. Posts are the regular pages of `mainSections` (Hugo's default is the section with the most pages); set it when your posts share a section with more pages:
+
+```yaml
+params:
+  mainSections: [post]
+```
+
 ## Theme params
 
 ```yaml
 params:
   description: "Site description used in <meta>, falls back to site.Title."
   author: "Your Name"       # OG + JSON-LD article author; falls back to data/profile.yaml name.
-                            # Keep it a string: the {name, email} map form is read only by
-                            # rss.xml (managingEditor), and <head> would print the map as is
+                            # The {name, email} map form also works: <head> uses its name,
+                            # rss.xml its email and name (managingEditor)
   logo: "img/logo.png"      # JSON-LD publisher logo; default: data/profile.yaml avatar
   favicon: "favicon.svg"    # path under static/ (default favicon.svg); the theme ships none,
                             # so add the file or this 404s. .svg, .png or .ico
@@ -95,7 +102,8 @@ params:
 
   prefetch:
     enable: false           # Speculation Rules prefetch hints (Chromium); off by default
-    rules: ""               # optional JSON to replace the default rules (same-site links, not /search/)
+    rules: ""               # optional JSON to replace the default rules (same-site links under the
+                            # base path, except this language's search page)
 
   prevNextNav:
     enable: true            # prev/next links under posts in site.MainSections (other pages get none)
@@ -149,7 +157,7 @@ The homepage portfolio reads from data files, **not** `params`:
 ---
 title: "Tiêu đề bài viết"
 date: 2026-05-07T19:00:00+07:00
-lastmod: 2026-05-08T10:00:00+07:00  # shows "Cập nhật {date}" if ≥24h newer than date
+lastmod: 2026-05-08T10:00:00+07:00  # shows "Cập nhật {date}" if at least 24h newer than date
 draft: false
 description: "Tóm tắt 1-2 câu (dùng cho meta + post-card)."
 tags: ["hugo", "viet"]
@@ -169,27 +177,33 @@ image: "img/cover.jpg"    # legacy alias for `cover.image`; either works
 menus:
   main:
     - name: "Bài viết"
-      url: /post/
+      pageRef: /post
       weight: 10
     - name: "Lưu trữ"
-      url: /archives/
+      pageRef: /archives
       weight: 20
     - name: "Thẻ"
-      url: /tags/
+      pageRef: /tags
       weight: 30
 ```
 
+`pageRef` entries link to the page's permalink, so they follow the base path and the language. Plain `url:` entries also work.
+
 ## Table of contents
 
-A post gets a TOC when all of these hold: `params.toc.enable` is not `false`, the page is a single page, its word count exceeds `params.toc.minWordCount` (default 400), its frontmatter does not say `toc: false`, and it has at least one heading in the `markup.tableOfContents` range.
+A post gets a TOC when all of these hold: `params.toc.enable` is not `false`, the page is a single page, its word count exceeds `params.toc.minWordCount` (default 400), its frontmatter does not say `toc: false`, and its table of contents has at least one entry (a heading in the `markup.tableOfContents` range).
+
+## Word count
+
+`params.showWordCount: true` (default `false`) adds the word count after the reading time in the post byline; see [customization.md](customization.md#show-word-count).
 
 ## Languages
 
-A single-language site needs only `languageCode` and `defaultContentLanguage` from the required block. For more than one language, add a `languages:` map to the site config (see [Hugo's multilingual docs](https://gohugo.io/content-management/multilingual/)); the theme then:
+A single-language site needs only `languageCode` and `defaultContentLanguage` from the required block (Hugo 0.158 and later also accept `locale`, and the theme reads either). For more than one language, add a `languages:` map to the site config (see [Hugo's multilingual docs](https://gohugo.io/content-management/multilingual/)); the theme then:
 
 - renders a language dropdown in the header that lists only the languages the current page exists in, so an untranslated post shows just its own language;
 - remembers the reader's pick in `localStorage` (`lang`) and, on later visits, opens the page's translation in that language when one exists;
-- emits `<link rel="alternate" hreflang>` for every translation plus `x-default` pointing at the site home.
+- emits `<link rel="alternate" hreflang>` for every translation plus `x-default` pointing at the site home. Paginated pages after the first emit no alternates and never redirect, since the other language's page N may not exist.
 
 A post's translation is a sibling file in its bundle, such as `index.en.md` next to `index.md`; it is served under `/<lang>/`. Each extra language also needs its own `_index.<lang>.md` for the home, `archives` and `search` sections, so its header menu and search page exist.
 
@@ -197,7 +211,7 @@ The theme bundles `i18n/vi.yml` and `i18n/en.yml`. To change a string, or to add
 
 ## Outputs
 
-- **RSS** — `rss.xml` is Hugo's feed plus `params.rssFullContent`. Feed-only render hooks (`_markup/*.rss.xml`) make image URLs absolute and drop the heading `#` anchors.
+- **RSS** — `rss.xml` is Hugo's feed plus `params.rssFullContent`. Feed-only render hooks (`_markup/*.rss.xml`) make image and link URLs absolute, drop the heading `#` anchors and the table wrapper. Pages advertise a feed only when they have posts, so `archives/` and `search/` link none; give their `_index.md` `outputs: [html]` so Hugo does not write an empty `index.xml` either.
 - **llms.txt** — the theme defines the `llmtxt` output format (`layouts/index.llmtxt.txt`): site title, description, profile, recent posts and projects. Hugo never merges `outputs` from a theme, so list `llmtxt` in the site's `outputs.home`, as in the required block.
 - **robots.txt** — `layouts/robots.txt` allows everything and points at the sitemap. Hugo renders it only when the site sets `enableRobotsTXT: true`.
 - **Search** — `/search/?q=<term>` (or `?keyword=<term>`) pre-fills the Pagefind search.
@@ -206,9 +220,9 @@ The theme bundles `i18n/vi.yml` and `i18n/en.yml`. To change a string, or to add
 
 nocturne emits SEO metadata in `_partials/head/seo.html` (called from `head.html`):
 
-- **OpenGraph** — `og:title`, `og:description`, `og:url`, `og:type`, `og:site_name`, `og:locale`, `og:image`. Posts also get `article:published_time`, `article:modified_time`, `article:author`, one `article:tag` per tag.
+- **OpenGraph** — `og:title`, `og:description`, `og:url`, `og:type`, `og:site_name`, `og:locale`, `og:image`. Posts (regular pages in `mainSections`) get `og:type=article` plus `article:published_time`, `article:modified_time`, `article:author`, one `article:tag` per tag; other pages are `website`.
 - **Twitter Card** — `summary_large_image` for a post or fallback image, `summary` for the avatar fallback or when there is no image; `twitter:site` + `twitter:creator` only when `params.social.twitter` is set.
-- **JSON-LD Article schema** — emitted only on single post pages (`IsPage` + `Kind == "page"`); covers `headline`, `url`, `datePublished`, `dateModified`, `author` (Person, URL from `params.profile.url`), `publisher` (Organization, logo from `params.logo`), `image`, `description`, `keywords`.
+- **JSON-LD Article schema** — emitted only on posts (regular pages in `mainSections`); covers `headline`, `url`, `datePublished`, `dateModified`, `author` (Person, URL from `params.profile.url`), `publisher` (Organization, logo from `params.logo`), `image`, `description`, `keywords`.
 - **OG image** — `_partials/head/image.html` owns the lookup order (post cover, post image, `params.og.fallbackImage`, then the `data/profile.yaml` avatar). Raster images found as resources are resized (fit 1200×1200 JPEG, 600×600 for the avatar) and get `og:image:width`/`og:image:height`.
 
 To override, drop `_partials/head/seo.html` and/or `_partials/head/image.html` into your site `layouts/`.

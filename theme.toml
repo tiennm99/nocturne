@@ -6,7 +6,7 @@ homepage = "https://github.com/tiennm99/nocturne"
 demosite = "https://tiennm99.github.io/nocturne/"
 tags = ["blog", "portfolio", "personal", "minimal", "dark", "vietnamese", "pagefind", "view-transitions"]
 features = ["blog", "portfolio", "search", "comments", "dark-mode", "responsive", "i18n", "rss", "json-ld"]
-min_version = "0.146.0"
+min_version = "0.154.5"
 
 [author]
   name = "Tien Nguyen"

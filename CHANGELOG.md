@@ -2,6 +2,40 @@
 
 nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-11-20 — review fixes, Hugo 0.154.5 target
+
+### Changed
+
+- The theme targets Hugo 0.154.5, the version Ubuntu 26.04 LTS ships (`min_version` was 0.146.0), and builds on newer releases without template deprecation warnings: `site.Data`, `.Language.LanguageCode`/`LanguageName` and `.Language.Lang` go through `_partials/compat/` or their 0.153+ replacements.
+- Posts are the regular pages of `site.MainSections` instead of the hard-coded `post` section: home recent posts, archives, 404, `llms.txt` and section pagination. `layouts/post/list.html` is gone; `list.html` paginates every main section (`body.list.section-<section>`).
+- Recent-post lists (home, 404, `llms.txt`) sort newest first by date, so a `weight` no longer reorders them.
+- `og:type=article` and the JSON-LD `Article` apply only to posts; other pages are `website`.
+- Legacy template paths moved to the new template system: `_default/taxonomy.html` → `taxonomy.html`, `taxonomy/term.html` → `term.html`.
+- Required permalink is `/:year/:month/:day/:slugorcontentbasename/`, so front matter `slug:` works.
+
+### Added
+
+- GitHub alerts (`> [!NOTE]` and the other four types) render with their type or custom title (`blockquote.alert.alert-<type>`), in pages and feeds.
+- The link hook resolves page and resource destinations (`other.md`, `/post/x.md#part`) like Hugo's built-in hook; feeds make every link absolute.
+- Markdown attributes (`{.class}`, `{#id}`) are kept on headings and images.
+- Feeds get a plain table hook (`render-table.rss.xml`).
+
+### Fixed
+
+- Header menu links doubled the base path on subpath sites (`/nocturne/nocturne/post/`).
+- English archive months printed `Month %!d(string=11)`; they now show the month name.
+- Custom `prefetch.rules` were HTML-escaped; default rules now exclude the search page per language and base path.
+- Descriptions with `'`, `"` or `&` reached JSON-LD and `llms.txt` as HTML entities.
+- An empty TOC box rendered when no heading fell in the TOC range.
+- `giscus-theme.js` loaded when comments were not fully configured.
+- The `params.author` map form printed `map[...]` in `<head>`.
+- The home page had no `<h1>` without `data/profile.yaml`.
+- Archives and search advertised empty feeds; the taxonomy, category and 404 titles were English on non-English sites.
+- A remembered language redirected paginated pages and 404 pages to the other language's page 1; pager pages 2+ emitted hreflang to page 1.
+- Root-relative `static/` images ignored the base path; reference-style linked images nested `<a>`; ICO and other unprocessable images broke the build; image `sizes` was narrower than the column.
+- Invalid `aria-label` on a `<span>` in the taxonomy list; the theme toggle showed without JS; links in post text were told apart by colour only; unhighlighted code blocks were not focusable; the Pagefind input had no label.
+- Copying a block with inline line numbers copied the numbers; the last-card separator rule removed every separator in `li`-wrapped lists; the "updated" byline missed an exactly-24h update.
+
 ## 2026-11-20 — dark by default
 
 ### Changed

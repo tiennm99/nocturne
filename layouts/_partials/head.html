@@ -1,6 +1,7 @@
-{{- $title := cond .IsHome site.Title (printf "%s · %s" .Title site.Title) -}}
+{{- $title := cond .IsHome site.Title (printf "%s · %s" (partial "head/title.html" .) site.Title) -}}
 {{- $description := partial "head/description.html" . -}}
 {{- $pager := partial "head/pager.html" . -}}
+{{- $laterPage := and $pager (gt $pager.PageNumber 1) -}}
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,24 +26,27 @@
 {{/* SEO: OpenGraph + Twitter Cards + JSON-LD Article */}}
 {{ partial "head/seo.html" . }}
 
-{{/* RSS autodiscovery */}}
+{{/* RSS autodiscovery — not for sections without posts of their own (archives, search), whose feeds are empty */}}
+{{- if not (and (eq .Kind "section") (not .RegularPages)) }}
 {{- with .OutputFormats.Get "RSS" }}
 <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">
 {{- end }}
-
-{{/* hreflang alternates — emit only on multilingual sites */}}
-{{- if hugo.IsMultilingual }}
-{{- range .AllTranslations }}
-<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
 {{- end }}
-{{- with site.Home }}<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">{{- end }}
-{{- /* Open the translation in the language the reader last picked (js/lang-switcher.js stores it) */}}
-{{- if gt (len .AllTranslations) 1 }}
+
+{{/* hreflang alternates — emit only on multilingual sites. Translations are page-1 URLs, so pager pages 2+ get none. */}}
+{{- if and hugo.IsMultilingual (not $laterPage) }}
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.Name }}" href="{{ .Permalink }}">
+{{- end }}
+{{- with site.Sites.Default.Home }}<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">{{- end }}
+{{- /* Open the translation in the language the reader last picked (js/lang-switcher.js stores it).
+  Not on the 404 page: the host serves it for any missing URL, and redirecting loses the URL the reader asked for. */}}
+{{- if and (gt (len .AllTranslations) 1) (ne .Kind "404") }}
 <script>
 (function () {
   try {
     var want = localStorage.getItem('lang');
-    if (!want || want === {{ .Language.Lang }}) return;
+    if (!want || want === {{ .Language.Name }}) return;
     var alt = document.querySelector('link[rel="alternate"][hreflang="' + want + '"]');
     if (alt) location.replace(alt.href + location.search + location.hash);
   } catch (e) {}
@@ -62,14 +66,23 @@
 {{- $faviconType := index (dict ".svg" "image/svg+xml" ".png" "image/png" ".ico" "image/x-icon") (path.Ext $favicon | lower) -}}
 <link rel="icon" href="{{ strings.TrimPrefix "/" $favicon | relURL }}"{{ with $faviconType }} type="{{ . }}"{{ end }}>
 
-{{/* Speculation Rules — Chromium prefetch hints; gated, off by default */}}
+{{/* Speculation Rules — Chromium prefetch hints; gated, off by default.
+  Default: prefetch links under the base path, except this language's search page. */}}
 {{- $prefetch := site.Params.prefetch -}}
 {{- if and $prefetch $prefetch.enable }}
-<script type="speculationrules">
-{{- with $prefetch.rules -}}{{ . | safeJS }}{{- else -}}
-{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/search/*"}}]},"eagerness":"moderate"}]}
-{{- end -}}
-</script>
+{{- /* Custom rules (a map, or a JSON string) are re-serialized: jsonify escapes "<", so a "</script>" inside a JSON string cannot end the element. */}}
+{{- $rules := dict -}}
+{{- with $prefetch.rules -}}
+  {{- if reflect.IsMap . }}{{ $rules = . }}{{ else }}{{ $rules = transform.Unmarshal . }}{{ end -}}
+{{- else -}}
+  {{- $where := dict "and" (slice
+    (dict "href_matches" (printf "%s*" ("" | relURL)))
+    (dict "not" (dict "href_matches" (printf "%s*" ("search/" | relLangURL))))
+  ) -}}
+  {{- $rules = dict "prefetch" (slice (dict "source" "document" "where" $where "eagerness" "moderate")) -}}
+{{- end }}
+{{- /* A non-JavaScript script type is an HTML text context for html/template, so safeJS would not stop the escaping. */}}
+<script type="speculationrules">{{ $rules | jsonify | safeHTML }}</script>
 {{- end }}
 
 {{/* Theme CSS — per-page-kind bundles. Core loads everywhere; kind-specific bundles add only when needed. */}}

@@ -1,5 +1,6 @@
 {{- $count := site.Params.home.recentPostsCount | default 5 -}}
-{{- $all := where site.RegularPages "Type" "post" -}}
+{{- /* Newest first by date, so a post's `weight` does not move it up. */ -}}
+{{- $all := (where site.RegularPages "Section" "in" site.MainSections).ByDate.Reverse -}}
 {{- $posts := first $count $all -}}
 {{- with $posts -}}
 <section class="home-recent-posts" aria-labelledby="home-recent-heading">
@@ -14,9 +15,11 @@
   </ul>
 
   {{- if gt (len $all) $count }}
+  {{- with site.GetPage (printf "/%s" (index site.MainSections 0)) }}
   <p class="home-recent-more">
-    <a href="{{ "post/" | relLangURL }}">{{ i18n "viewAll" | default "View all" }} →</a>
+    <a href="{{ .RelPermalink }}">{{ i18n "viewAll" | default "View all" }} →</a>
   </p>
+  {{- end }}
   {{- end }}
 </section>
 {{- end -}}

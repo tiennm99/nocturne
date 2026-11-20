@@ -24,7 +24,10 @@
   padding-block: var(--nocturne-space-6);
   border-block-end: 1px solid var(--nocturne-border);
 }
-.post-card:last-child { border-block-end: none; }
+/* only the list's final card drops its separator; cards are either direct
+   children of the list or each wrapped in their own li */
+.post-list > .post-card:last-child,
+li:last-child > .post-card { border-block-end: none; }
 .post-card-title {
   font-size: var(--nocturne-fs-xl);
   margin: 0 0 var(--nocturne-space-2);

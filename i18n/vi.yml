@@ -83,8 +83,13 @@
 - id: archiveTerms
   translation: "Chuyên mục và thẻ"
 
+# .Number is the month as an integer, .Name its English name.
 - id: month
   translation: "Tháng {{ .Number }}"
+
+# Go time layout for the day in the archive list.
+- id: archiveDateFormat
+  translation: "02/01"
 
 - id: comments
   translation: "Bình luận"
@@ -133,3 +138,27 @@
 
 - id: language
   translation: "Ngôn ngữ"
+
+- id: tags
+  translation: "Thẻ"
+
+- id: categories
+  translation: "Chuyên mục"
+
+- id: notFoundTitle
+  translation: "Không tìm thấy trang"
+
+- id: alertNote
+  translation: "Ghi chú"
+
+- id: alertTip
+  translation: "Mẹo"
+
+- id: alertImportant
+  translation: "Quan trọng"
+
+- id: alertWarning
+  translation: "Cảnh báo"
+
+- id: alertCaution
+  translation: "Thận trọng"

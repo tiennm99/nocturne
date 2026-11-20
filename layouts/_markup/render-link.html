@@ -1,9 +1,31 @@
-{{- /* External markdown links get rel="noopener noreferrer". No target="_blank" — UX choice. */ -}}
+{{- /*
+  Internal destinations resolve like Hugo's embedded link hook: a page
+  (other.md, /post/x.md, /about/), then a page resource, then a global
+  resource (assets/), keeping any ?query and #fragment; anything else stays
+  as written. A bare #fragment stays relative to the current page.
+  External links get rel="noopener noreferrer". No target="_blank" — UX choice.
+*/ -}}
 {{- $external := or
   (strings.HasPrefix .Destination "http://")
   (strings.HasPrefix .Destination "https://")
   (strings.HasPrefix .Destination "//")
 -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $href := .Destination -}}
+{{- if and (not $u.IsAbs) (not $u.Host) $u.Path -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with or (.PageInner.GetPage $path) (.PageInner.Resources.Get $path) (resources.Get $path) -}}
+    {{- $href = .RelPermalink -}}
+    {{- with $u.RawQuery }}{{ $href = printf "%s?%s" $href . }}{{ end -}}
+    {{- with $u.Fragment }}{{ $href = printf "%s#%s" $href . }}{{ end -}}
+  {{- else -}}
+    {{- /* A root-relative path to a static/ file gets the base path once, as in render-image.html. */ -}}
+    {{- $base := printf "%s/" (strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path) -}}
+    {{- if and (strings.HasPrefix $href "/") (not (strings.HasPrefix $href $base)) -}}
+      {{- $href = strings.TrimPrefix "/" $href | relURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 {{- /*
   Link text that is one long path or host (owner/repo, example.com/path) has
   no break opportunity, so it sets a table column's minimum width or overflows
@@ -15,7 +37,7 @@
   {{- $text = replaceRE `/(\w)` "/<wbr>$1" (string $text) -}}
   {{- $text = replaceRE `(\w)\.` "$1<wbr>." $text | safeHTML -}}
 {{- end -}}
-<a href="{{ .Destination | safeURL }}"
+<a href="{{ $href | safeURL }}"
   {{- with .Title }} title="{{ . }}"{{ end -}}
   {{- if $external }} rel="noopener noreferrer"{{ end -}}
 >{{ $text }}</a>

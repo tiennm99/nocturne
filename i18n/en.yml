@@ -67,8 +67,11 @@
 - id: next
   translation: "Next"
 
+# Called with the term's post count (taxonomy list), so English pluralises.
 - id: posts
-  translation: "posts"
+  translation:
+    one: "post"
+    other: "posts"
 
 - id: archiveEmpty
   translation: "No posts yet."
@@ -83,8 +86,13 @@
 - id: archiveTerms
   translation: "Categories and tags"
 
+# .Number is the month as an integer, .Name its English name.
 - id: month
-  translation: "{{ .Number | printf \"Month %d\" }}"
+  translation: "{{ .Name }}"
+
+# Go time layout for the day in the archive list.
+- id: archiveDateFormat
+  translation: "Jan 2"
 
 - id: comments
   translation: "Comments"
@@ -133,3 +141,27 @@
 
 - id: language
   translation: "Language"
+
+- id: tags
+  translation: "Tags"
+
+- id: categories
+  translation: "Categories"
+
+- id: notFoundTitle
+  translation: "Page not found"
+
+- id: alertNote
+  translation: "Note"
+
+- id: alertTip
+  translation: "Tip"
+
+- id: alertImportant
+  translation: "Important"
+
+- id: alertWarning
+  translation: "Warning"
+
+- id: alertCaution
+  translation: "Caution"

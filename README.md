@@ -1,10 +1,10 @@
 # nocturne
 
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
-[![Hugo](https://img.shields.io/badge/hugo-%E2%89%A50.146-ff4088?logo=hugo)](https://gohugo.io)
+[![Hugo](https://img.shields.io/badge/hugo-%E2%89%A50.154.5-ff4088?logo=hugo)](https://gohugo.io)
 [![a11y](https://img.shields.io/badge/a11y-WCAG%202.2%20AA-success)](docs/accessibility.md)
 
-A Hugo blog + personal portfolio theme. The homepage *is* the portfolio — bio, featured projects, recent posts. Posts live at `/post/`. Vietnamese-first typography, View Transitions on navigation, Pagefind search, Giscus comments.
+A Hugo blog + personal portfolio theme. The homepage *is* the portfolio — bio, featured projects, recent posts. Posts live in your main section (`/post/` in the demo). Vietnamese-first typography, View Transitions on navigation, Pagefind search, Giscus comments. Built for Hugo 0.154.5, the version Ubuntu 26.04 LTS ships.
 
 > *nocturne*: a piece composed for the night. Quiet, unhurried, read after dark.
 
@@ -24,7 +24,7 @@ No tagged releases: sites import `main` as a Hugo Module. See [installation](doc
 - **Multilingual** — vi and en i18n bundles, a language switcher and hreflang alternates when the site defines more than one language ([languages](docs/config.md#languages))
 - **Dark by default** — dark for every reader, with a toggle to light that persists; no flash of the wrong theme
 - **View Transitions** — cross-document transitions between pages (CSS `@view-transition`) in supporting browsers
-- **Table of contents** — auto-mounted on long posts, sticky on wide viewports, IntersectionObserver active highlight
+- **Table of contents** — auto-mounted on long posts, sticky on wide viewports, active heading highlighted on scroll
 - **RSS full content** — `params.rssFullContent: true` puts each post's full content in the feed instead of its summary
 - **llms.txt** — `/llms.txt` index of the site ([outputs](docs/config.md#outputs))
 - **Prefetch** — optional Speculation Rules hints (`params.prefetch.enable`), off by default

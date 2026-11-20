@@ -138,6 +138,8 @@ main,
   color: var(--nocturne-fg-muted);
   transition: var(--nocturne-transition);
 }
+/* display above beats the UA [hidden] rule; stay hidden until theme-toggle.js runs */
+.theme-toggle[hidden] { display: none; }
 .theme-toggle:hover { color: var(--nocturne-fg); border-color: var(--nocturne-fg-muted); }
 .theme-toggle svg { width: 1rem; height: 1rem; }
 /* the button shows the theme a click switches to */

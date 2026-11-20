@@ -1,0 +1,9 @@
+{{- /*
+  Reports whether the page shows Giscus comments: a single page, giscus
+  enabled with repo, repoId and categoryId set, and no `comments: false` in
+  the page's front matter. comments.html renders on it and footer.html loads
+  js/giscus-theme.js on it, so the two cannot disagree.
+*/ -}}
+{{- $g := site.Params.comments.giscus -}}
+{{- $on := and (eq .Kind "page") $g $g.enable $g.repo $g.repoId $g.categoryId (ne .Params.comments false) -}}
+{{- return $on -}}

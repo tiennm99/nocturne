@@ -4,7 +4,7 @@
 <footer class="site-footer">
   <p class="copyright">
     © {{ $years }}
-    {{- with site.Data.profile }} {{ .name | default site.Title }}{{ else }} {{ site.Title }}{{ end }}.
+    {{- with (partial "compat/data.html" .).profile }} {{ .name | default site.Title }}{{ else }} {{ site.Title }}{{ end }}.
   </p>
   {{- with $footer.customText }}
   <p class="footer-custom-text">{{ . | safeHTML }}</p>
@@ -37,8 +37,7 @@
 {{- $tocJs := resources.Get "js/toc-active.js" | js.Build (dict "minify" true) | fingerprint -}}
 <script type="module" src="{{ $tocJs.RelPermalink }}" integrity="{{ $tocJs.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}
-{{- $giscus := site.Params.comments.giscus -}}
-{{- if and (eq .Kind "page") $giscus $giscus.enable (ne .Params.comments false) }}
+{{- if partial "comments-enabled.html" . }}
 {{- $giscusJs := resources.Get "js/giscus-theme.js" | js.Build (dict "minify" true) | fingerprint -}}
 <script type="module" src="{{ $giscusJs.RelPermalink }}" integrity="{{ $giscusJs.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}

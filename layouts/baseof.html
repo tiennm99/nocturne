@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default site.Language.Lang | default "en" }}"
+<html lang="{{ partial "compat/lang-code.html" site.Language | default "en" }}"
   data-copy-code="{{ i18n "copyCode" | default "Copy" }}"
   data-copied-code="{{ i18n "copiedCode" | default "Copied" }}">
 <head>

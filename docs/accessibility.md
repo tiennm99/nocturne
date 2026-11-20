@@ -9,12 +9,15 @@ nocturne targets **WCAG 2.2 AA** conformance and aims for **Lighthouse Accessibi
 | Skip link | ✅ Shipped | First focusable; jumps to `<main id="main">` |
 | Landmark roles | ✅ Shipped | `<header>`, `<nav>`, `<main>`, `<aside>`, `<footer>` |
 | Visible focus rings | ✅ Shipped | `:focus-visible` with 2px outline + accent colour |
-| `<html lang>` correctness | ✅ Shipped | Resolves from the language's `languageCode`, else its key; falls back to `"en"` |
-| `aria-pressed` on toggle | ✅ Shipped | The toggle stays hidden until its script runs, then reflects the active theme (pressed = dark) |
+| `<html lang>` correctness | ✅ Shipped | Resolves from the language's `languageCode` (`locale` on Hugo 0.158+), else its key; falls back to `"en"` |
+| `aria-pressed` on toggle | ✅ Shipped | The toggle stays hidden until its script runs (also without JS), then reflects the active theme (pressed = dark) |
 | `<meta name="theme-color">` | ✅ Shipped | Dark by default; the toggle switches it to the light background |
 | Heading anchors | ✅ Shipped | Empty, `aria-hidden` and out of the tab order; the glyph comes from CSS, so heading names and summaries stay clean |
 | Reduced motion | ✅ Shipped | View Transitions + animations honour `prefers-reduced-motion` |
 | Colour contrast (text) | ✅ Shipped | All body text ≥ 4.5:1 in both themes; `--nocturne-fg-subtle` is `#6b6b6b` (light) for AA compliance |
+| Links in text | ✅ Shipped | Links in post content and the license line are underlined, not told apart by colour alone |
+| Code blocks | ✅ Shipped | Every code block, highlighted or not, is keyboard-focusable so it can be scrolled |
+| Search input label | ✅ Shipped | The Pagefind input gets an `aria-label` from the `search` i18n key |
 | Pagination disabled-state contrast | ✅ Shipped | Uses `--nocturne-fg-muted` + `cursor: not-allowed`; no `opacity` compound |
 | Tap targets ≥ 40×40 | ✅ Shipped | Header toggle/search-button 2.5rem; pagination 2.75rem; footer links padded |
 | Tap targets ≥ 48×48 (strict Lighthouse) | ⚠️ Partial | Header buttons are 40×40 (2.5rem); the strict Lighthouse tap-target audit may flag them |

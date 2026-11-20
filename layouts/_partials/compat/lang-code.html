@@ -1,0 +1,13 @@
+{{- /*
+  Takes a Language and returns its BCP 47 code (`locale`, formerly
+  `languageCode`), falling back to the language key. Language.Locale replaced
+  Language.LanguageCode in Hugo 0.158.0; methods resolve at run time, so the
+  branch for the other version is never evaluated.
+*/ -}}
+{{- $code := "" -}}
+{{- if ge hugo.Version "0.158.0" -}}
+  {{- $code = .Locale -}}
+{{- else -}}
+  {{- $code = .LanguageCode | default .Name -}}
+{{- end -}}
+{{- return $code -}}

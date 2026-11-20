@@ -1,0 +1,14 @@
+{{- /*
+  Returns the page's own title, without the site-title suffix. Hugo names
+  generated taxonomy lists ("Tags") and the 404 page ("404 Page not found")
+  in English, so those use the theme's i18n strings instead.
+*/ -}}
+{{- $title := .Title -}}
+{{- if .IsHome -}}
+  {{- $title = site.Title -}}
+{{- else if eq .Kind "404" -}}
+  {{- $title = i18n "notFoundTitle" | default .Title -}}
+{{- else if and (eq .Kind "taxonomy") (not .File) (in (slice "tags" "categories") .Data.Plural) -}}
+  {{- $title = i18n .Data.Plural | default .Title -}}
+{{- end -}}
+{{- return $title -}}

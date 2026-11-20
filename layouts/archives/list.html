@@ -25,7 +25,7 @@
 {{- end }}
 
 <div class="archive">
-  {{- $posts := where site.RegularPages "Section" "post" }}
+  {{- $posts := where site.RegularPages "Section" "in" site.MainSections }}
   {{- range $posts.GroupByDate "2006" }}
     {{ partial "archive-group.html" . }}
   {{- else }}

@@ -2,8 +2,17 @@
   <ul>
   {{- range site.Menus.main }}
     {{- $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+    {{- /* .URL is already final for page-backed entries (the page's RelPermalink) and for external urls.
+      A root-relative `url:` comes back with the base path added but not the language prefix: take the
+      base path off and let relLangURL put both back (it skips a language prefix that is already there). */}}
+    {{- $href := .URL }}
+    {{- if and (not .Page) (strings.HasPrefix $href "/") (not (strings.HasPrefix $href "//")) }}
+      {{- $href = strings.TrimPrefix ("" | relURL) $href | strings.TrimPrefix "/" | relLangURL }}
+      {{- /* Hugo ties no page to a `url:` entry, so IsMenuCurrent never matches it; compare URLs instead. */}}
+      {{- $current = or $current (eq $href $.RelPermalink) }}
+    {{- end }}
     <li>
-      <a href="{{ strings.TrimPrefix "/" .URL | relLangURL }}"{{ if $current }} aria-current="page"{{ end }} data-text="{{ .Name }}">{{ .Name }}</a>
+      <a href="{{ $href }}"{{ if $current }} aria-current="page"{{ end }} data-text="{{ .Name }}">{{ .Name }}</a>
     </li>
   {{- end }}
   </ul>

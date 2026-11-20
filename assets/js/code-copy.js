@@ -33,6 +33,8 @@ function codeBlocks() {
     box.className = "code-block";
     pre.replaceWith(box);
     box.appendChild(pre);
+    // Chroma blocks get tabindex="0" from Hugo; match it so keyboard users can scroll this one too.
+    if (!pre.hasAttribute("tabindex")) pre.tabIndex = 0;
     blocks.push({ box, code });
   }
   return blocks;
@@ -52,9 +54,12 @@ function bindCopy(btn, code) {
   let timer = 0;
   btn.addEventListener("click", async () => {
     try {
-      // textContent keeps the source newlines exactly; innerText would add
-      // extra breaks for Chroma's flex line spans.
-      await navigator.clipboard.writeText(code.textContent.replace(/\n$/, ""));
+      // Inline line numbers (linenos=inline) are .ln spans inside the code;
+      // copy a clone without them. textContent keeps the source newlines
+      // exactly; innerText would add extra breaks for Chroma's flex line spans.
+      const clean = /** @type {HTMLElement} */ (code.cloneNode(true));
+      for (const ln of clean.querySelectorAll(".ln")) ln.remove();
+      await navigator.clipboard.writeText(clean.textContent.replace(/\n$/, ""));
       btn.textContent = COPIED;
       btn.setAttribute("data-state", "copied");
       status.textContent = COPIED;

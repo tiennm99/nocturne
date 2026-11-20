@@ -5,9 +5,10 @@
   Lookup order: per-post `cover.image` → per-post `image` →
   site `og.fallbackImage` → `data/profile.yaml: avatar`.
   Each value is tried as a page resource, then a global asset (assets/),
-  then used as a plain path or URL. Raster resources are always processed
-  (fit 1200x1200, 600x600 for the avatar), so a huge original is never
-  published and cards stay well under the platforms' size limits.
+  then used as a plain path or URL. Raster resources Hugo can process
+  (compat/image-processable.html) are always processed (fit 1200x1200,
+  600x600 for the avatar), so a huge original is never published and cards
+  stay well under the platforms' size limits. Other formats are used as is.
   `avatar` is true when the card falls back to the profile avatar, which
   head/seo.html renders as a `summary` card instead of a large image.
 */ -}}
@@ -17,7 +18,7 @@
 {{- if not $src -}}{{- $src = .Params.image -}}{{- end -}}
 {{- if not $src -}}{{- $src = site.Params.og.fallbackImage -}}{{- end -}}
 {{- if not $src -}}
-  {{- with site.Data.profile -}}{{- $src = .avatar -}}{{- $avatar = true -}}{{- end -}}
+  {{- with (partial "compat/data.html" .).profile -}}{{- $src = .avatar -}}{{- $avatar = true -}}{{- end -}}
 {{- end -}}
 
 {{- $result := false -}}
@@ -27,7 +28,7 @@
     {{- $res = $.Resources.Get . -}}
     {{- if not $res -}}{{- $res = resources.Get (strings.TrimPrefix "/" .) -}}{{- end -}}
   {{- end -}}
-  {{- if and $res (eq $res.ResourceType "image") (ne $res.MediaType.SubType "svg") -}}
+  {{- if and $res (partial "compat/image-processable.html" $res) -}}
     {{- $max := cond $avatar 600 1200 -}}
     {{- $res = $res.Process (printf "fit %dx%d jpg q80" $max $max) -}}
     {{- $result = dict "url" $res.Permalink "width" $res.Width "height" $res.Height "avatar" $avatar -}}

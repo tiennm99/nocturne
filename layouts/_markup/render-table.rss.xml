@@ -1,0 +1,33 @@
+{{- /*
+  Feed tables: a plain <table>. Without this file Hugo 0.170+ falls back to
+  render-table.html, whose scroll wrapper (role, tabindex) means nothing in
+  a feed reader.
+*/ -}}
+<table
+  {{- range $k, $v := .Attributes }}
+    {{- if $v }}{{ printf " %s=%q" $k $v | safeHTMLAttr }}{{ end }}
+  {{- end }}>
+  {{- with .THead }}
+  <thead>
+    {{- range . }}
+    <tr>
+      {{- range . }}
+      <th{{ with .Alignment }}{{ printf " style=%q" (printf "text-align: %s" .) | safeHTMLAttr }}{{ end }}>{{ .Text }}</th>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </thead>
+  {{- end }}
+  {{- with .TBody }}
+  <tbody>
+    {{- range . }}
+    <tr>
+      {{- range . }}
+      <td{{ with .Alignment }}{{ printf " style=%q" (printf "text-align: %s" .) | safeHTMLAttr }}{{ end }}>{{ .Text }}</td>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </tbody>
+  {{- end }}
+</table>
+{{- /**/ -}}

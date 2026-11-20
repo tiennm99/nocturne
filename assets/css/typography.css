@@ -28,6 +28,27 @@ blockquote {
   font-style: italic;
 }
 
+/* GitHub-style alerts (render-blockquote hook): upright body text, accent
+   border and a bold title; one restrained look for every alert type. */
+blockquote.alert {
+  color: var(--nocturne-fg);
+  font-style: normal;
+  border-inline-start-color: var(--nocturne-accent);
+}
+.alert-title {
+  font-weight: 650;
+  margin-block-end: var(--nocturne-space-2);
+}
+
+/* Links inside running text need more than colour to stand out (WCAG 1.4.1).
+   The heading "#" and the image link wrapper are not text links. */
+.post-content a:not(.heading-anchor, .image-link),
+.post-license a {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
 code {
   font-family: var(--nocturne-font-mono);
   font-size: 0.9em;

@@ -2,8 +2,10 @@
   In-content images.
 
   The destination resolves as a page resource, then a global resource
-  (assets/), then falls back to the raw URL. Raster resources get width and
-  height plus a WebP srcset; SVG and GIF are served as they are.
+  (assets/), then falls back to the raw URL; a root-relative path (a file in
+  static/) gets the site's base path. Formats Hugo can process (JPEG, PNG,
+  WebP, TIFF, BMP) get width and height plus a WebP srcset; any other format
+  (SVG, GIF, ICO, AVIF, HEIC…) is served as it is.
 
   Remote images pass through unchanged unless the site provides
   layouts/_partials/image/remote.html. That partial receives the destination
@@ -22,8 +24,11 @@
   markup.goldmark.parser.wrapStandAloneImageWithinParagraph: false; otherwise
   every image renders inline. Inline images never get a link. Hugo also
   reports an image as block when it is the only child of a Markdown link
-  ([![alt](img)](url)), so the source is checked for that pattern to avoid
-  nesting one link inside another.
+  ([![alt](img)](url) or [![alt](img)][ref]), so the source is checked for
+  those patterns to avoid nesting one link inside another.
+
+  Markdown attributes ({#id .class}) go on the <img>/<video>, except the
+  ones the theme sets itself.
 */ -}}
 {{- $res := "" -}}
 {{- $u := urls.Parse .Destination -}}
@@ -32,7 +37,12 @@
 {{- end -}}
 
 {{- $src := .Destination -}}
-{{- $href := .Destination -}}
+{{- /* A path that already starts with the base path is left as written. */ -}}
+{{- $base := printf "%s/" (strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path) -}}
+{{- if and (strings.HasPrefix $src "/") (not (strings.HasPrefix $src "//")) (not (strings.HasPrefix $src $base)) -}}
+  {{- $src = strings.TrimPrefix "/" $src | relURL -}}
+{{- end -}}
+{{- $href := $src -}}
 {{- $width := 0 -}}
 {{- $height := 0 -}}
 {{- $srcset := slice -}}
@@ -40,7 +50,7 @@
 {{- with $res -}}
   {{- $src = .RelPermalink -}}
   {{- $href = .RelPermalink -}}
-  {{- if and (eq .MediaType.MainType "image") (not (in (slice "svg" "gif") .MediaType.SubType)) -}}
+  {{- if and (eq .MediaType.MainType "image") (in (slice "jpeg" "png" "webp" "tiff" "bmp") .MediaType.SubType) -}}
     {{- $width = .Width -}}
     {{- $height = .Height -}}
     {{- range slice 480 960 1440 -}}
@@ -74,7 +84,7 @@
 {{- $link := false -}}
 {{- if and .IsBlock $alt -}}
   {{- $dest := replaceRE `([\\.+*?()|\[\]{}^$])` `\$1` .Destination -}}
-  {{- $link = not (findRE (printf `\]\(<?%s>?(?:\s+"[^"]*")?\)\]\(` $dest) .PageInner.RawContent 1) -}}
+  {{- $link = not (findRE (printf `\]\(<?%s>?(?:\s+"[^"]*")?\)\][(\[]` $dest) .PageInner.RawContent 1) -}}
 {{- end -}}
 
 {{- $early := false -}}
@@ -82,19 +92,43 @@
   {{- $early = lt (len (index (split .PageInner.RawContent .Destination) 0)) 1500 -}}
 {{- end -}}
 
+{{- $attrs := "" -}}
+{{- $reserved := slice "src" "alt" "title" "srcset" "sizes" "width" "height" "loading" "fetchpriority" "decoding" "data-src" -}}
+{{- range $k, $v := .Attributes -}}
+  {{- if and $v (not (in $reserved $k)) -}}
+    {{- $attrs = printf "%s %s=%q" $attrs $k ($v | transform.HTMLEscape) -}}
+  {{- end -}}
+{{- end -}}
+
 {{- if $figure }}<figure>{{ end -}}
 {{- if $link }}<a class="image-link" href="{{ $href | safeURL }}">{{ end -}}
 {{- if $video -}}
-<video class="lazy-video" data-src="{{ $video | safeURL }}" muted loop playsinline preload="none"
+{{- /* lazy-video.js selects video.lazy-video, so an authored class joins it instead of adding a second class attribute. */ -}}
+{{- $videoAttrs := "" -}}
+{{- range $k, $v := .Attributes -}}
+  {{- if and $v (ne $k "class") (not (in $reserved $k)) -}}
+    {{- $videoAttrs = printf "%s %s=%q" $videoAttrs $k ($v | transform.HTMLEscape) -}}
+  {{- end -}}
+{{- end -}}
+<video class="lazy-video{{ with .Attributes.class }} {{ . }}{{ end }}" data-src="{{ $video | safeURL }}" muted loop playsinline preload="none"
   {{- with $alt }} aria-label="{{ . }}"{{ end -}}
-  {{- with $width }} width="{{ . }}" height="{{ $height }}"{{ end }}></video>
+  {{- with $width }} width="{{ . }}" height="{{ $height }}"{{ end }}{{ $videoAttrs | safeHTMLAttr }}></video>
 <noscript><img src="{{ $href | safeURL }}" alt="{{ $alt }}"{{ with $width }} width="{{ . }}" height="{{ $height }}"{{ end }}></noscript>
 {{- else -}}
 <img src="{{ $src | safeURL }}" alt="{{ $alt }}"
-  {{- /* safeHTMLAttr: CDN transform URLs carry commas and colons (q_auto:good) that Go's srcset filter rejects. */ -}}
-  {{- with $srcset }} {{ printf "srcset=%q" (delimit . ", ") | safeHTMLAttr }} sizes="(min-width: 44rem) 42rem, 100vw"{{ end -}}
+  {{- /*
+    safeHTMLAttr: CDN transform URLs carry commas and colons (q_auto:good) that Go's srcset filter rejects.
+    sizes is the post column width; keep it in sync with assets/css: main is
+    --nocturne-content-width (42rem) with 1.5rem padding each side, so 39rem;
+    from 64rem a post with a TOC widens main to --nocturne-wide-width (64rem)
+    and gives the text column 64 - 3 - 14 (TOC) - 3 (gap) = 44rem (toc.css).
+    The hook cannot tell whether the post has a TOC, so wide screens use the
+    larger column.
+  */ -}}
+  {{- with $srcset }} {{ printf "srcset=%q" (delimit . ", ") | safeHTMLAttr }} sizes="(min-width: 64rem) 44rem, (min-width: 42rem) 39rem, calc(100vw - 3rem)"{{ end -}}
   {{- with $width }} width="{{ . }}" height="{{ $height }}"{{ end -}}
   {{- if and .Title (not $figure) }} title="{{ .Title }}"{{ end -}}
+  {{- $attrs | safeHTMLAttr -}}
   {{- if $early }} loading="eager" fetchpriority="high"{{ else }} loading="lazy"{{ end }} decoding="async">
 {{- end -}}
 {{- if $link }}</a>{{ end -}}

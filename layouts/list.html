@@ -1,14 +1,22 @@
-{{ define "body_class" }}list{{ end }}
+{{ define "body_class" }}list{{ if partial "head/pager.html" . }} section-{{ .Section }}{{ end }}{{ end }}
 
 {{ define "main" }}
+{{- /* Main sections (site.MainSections) are paginated, other sections list all their pages; head/pager.html decides. */}}
+{{- $pager := partial "head/pager.html" . }}
+{{- $pages := .Pages }}
+{{- with $pager }}{{ $pages = .Pages }}{{ end }}
 <header class="list-header">
   <h1 class="list-title">{{ .Title }}</h1>
   {{- with .Description }}<p class="list-description">{{ . }}</p>{{ end }}
 </header>
 
 <div class="post-list">
-  {{- range .Pages }}
+  {{- range $pages }}
     {{ partial "post-card.html" (dict "page" . "level" 2) }}
   {{- end }}
 </div>
+
+{{- if $pager }}
+{{ partial "pagination.html" . }}
+{{- end }}
 {{ end }}

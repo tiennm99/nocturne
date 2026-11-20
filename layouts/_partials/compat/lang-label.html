@@ -1,0 +1,12 @@
+{{- /*
+  Takes a Language and returns its display name (`label`, formerly
+  `languageName`); empty when the site sets none. Language.Label replaced
+  Language.LanguageName in Hugo 0.158.0.
+*/ -}}
+{{- $label := "" -}}
+{{- if ge hugo.Version "0.158.0" -}}
+  {{- $label = .Label -}}
+{{- else -}}
+  {{- $label = .LanguageName -}}
+{{- end -}}
+{{- return $label -}}

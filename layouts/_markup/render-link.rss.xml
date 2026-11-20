@@ -1,10 +1,33 @@
-{{- /* Feed copy of render-link.html without the <wbr> break hints, which only matter for the site layout. */ -}}
+{{- /*
+  Feed copy of render-link.html without the <wbr> break hints, which only
+  matter for the site layout. Every link ends up absolute: feed readers
+  resolve relative URLs against the feed, not the post, so fragments and
+  relative paths resolve against the post's permalink, as in
+  render-image.rss.xml.
+*/ -}}
 {{- $external := or
   (strings.HasPrefix .Destination "http://")
   (strings.HasPrefix .Destination "https://")
   (strings.HasPrefix .Destination "//")
 -}}
-<a href="{{ .Destination | safeURL }}"
+{{- $u := urls.Parse .Destination -}}
+{{- $href := .Destination -}}
+{{- if and (not $u.IsAbs) (not $u.Host) $u.Path -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with or (.PageInner.GetPage $path) (.PageInner.Resources.Get $path) (resources.Get $path) -}}
+    {{- $href = .Permalink -}}
+    {{- with $u.RawQuery }}{{ $href = printf "%s?%s" $href . }}{{ end -}}
+    {{- with $u.Fragment }}{{ $href = printf "%s#%s" $href . }}{{ end -}}
+  {{- else -}}
+    {{- /* A root-relative path to a static/ file gets the base path once, as in render-image.rss.xml. */ -}}
+    {{- $base := printf "%s/" (strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path) -}}
+    {{- if and (strings.HasPrefix $href "/") (not (strings.HasPrefix $href $base)) -}}
+      {{- $href = strings.TrimPrefix "/" $href | absURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $href = ((urls.Parse .PageInner.Permalink).ResolveReference (urls.Parse $href)).String -}}
+<a href="{{ $href | safeURL }}"
   {{- with .Title }} title="{{ . }}"{{ end -}}
   {{- if $external }} rel="noopener noreferrer"{{ end -}}
 >{{ .Text }}</a>

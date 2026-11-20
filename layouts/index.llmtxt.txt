@@ -1,9 +1,12 @@
-{{- $profile := site.Data.profile -}}
+{{- $data := partial "compat/data.html" . -}}
+{{- $profile := $data.profile -}}
 # {{ site.Title }}
+{{- with site.Params.description }}
 
-{{ with site.Params.description }}> {{ . }}{{ end }}
-
+> {{ . }}
+{{- end }}
 {{- with $profile }}
+
 ## About
 
 {{ with .name }}**{{ . }}**{{ with $profile.tagline }} — {{ . }}{{ end }}{{ end }}
@@ -13,11 +16,11 @@
 
 ## Recent posts
 
-{{- range first 10 (where site.RegularPages "Section" "post") }}
+{{- range first 10 (where site.RegularPages "Section" "in" site.MainSections).ByDate.Reverse }}
 - [{{ .Title }}]({{ .Permalink }}){{ with partial "head/description.html" . }}: {{ . }}{{ end }}
 {{- end }}
 
-{{- with site.Data.projects.featured }}
+{{- with $data.projects.featured }}
 
 ## Projects
 

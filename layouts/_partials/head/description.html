@@ -4,5 +4,6 @@
   OpenGraph, Twitter Cards and JSON-LD so all of them say the same thing.
 */ -}}
 {{- $raw := .Description | default .Summary | default site.Params.description | default site.Title -}}
-{{- $desc := $raw | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace | truncate 160 -}}
+{{- /* truncate HTML-escapes a plain string; unescape so JSON-LD and llms.txt get plain text (HTML contexts re-escape it). */ -}}
+{{- $desc := $raw | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace | truncate 160 | htmlUnescape -}}
 {{- return $desc -}}

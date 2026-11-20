@@ -1,3 +1,7 @@
-{{- /* Feed headings: keep the id, drop the "#" anchor link. */ -}}
-<h{{ .Level }} id="{{ .Anchor }}">{{ .Text }}</h{{ .Level }}>
+{{- /* Feed headings: keep the id and Markdown attributes, drop the "#" anchor link. */ -}}
+<h{{ .Level }} id="{{ .Anchor }}"
+  {{- range $k, $v := .Attributes -}}
+    {{- if and $v (ne $k "id") }}{{ printf " %s=%q" $k ($v | transform.HTMLEscape) | safeHTMLAttr }}{{ end -}}
+  {{- end -}}
+>{{ .Text }}</h{{ .Level }}>
 {{- /**/ -}}

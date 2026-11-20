@@ -7,7 +7,7 @@
   <p><a href="{{ site.Home.RelPermalink }}">{{ i18n "backHome" | default "Về trang chủ" }}</a>
     {{- if site.Params.search.enable | default true }} · <a href="{{ "search/" | relLangURL }}">{{ i18n "search" | default "Tìm kiếm" }}</a>{{ end }}</p>
 </section>
-{{- with first 5 (where site.RegularPages "Type" "post") }}
+{{- with first 5 (where site.RegularPages "Section" "in" site.MainSections).ByDate.Reverse }}
 <section class="error-404-recent" aria-labelledby="error-recent-heading">
   <h2 id="error-recent-heading">{{ i18n "recentPosts" | default "Bài viết gần đây" }}</h2>
   <ul class="post-list">

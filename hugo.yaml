@@ -24,7 +24,7 @@ taxonomies:
   tag: tags
 
 permalinks:
-  post: /:year/:month/:day/:contentbasename/
+  post: /:year/:month/:day/:slugorcontentbasename/
 
 markup:
   goldmark:

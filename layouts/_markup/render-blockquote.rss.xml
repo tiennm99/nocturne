@@ -1,0 +1,17 @@
+{{- /*
+  Feed blockquotes: as render-blockquote.html, with the alert title in
+  <strong> so it still reads as a title without the site's CSS.
+*/ -}}
+{{- if eq .Type "alert" -}}
+{{- $type := strings.FirstUpper .AlertType -}}
+<blockquote>
+  <p><strong>{{ .AlertTitle | default (i18n (printf "alert%s" $type) | default $type) }}</strong></p>
+  {{ .Text }}
+</blockquote>
+{{- else -}}
+<blockquote
+  {{- range $k, $v := .Attributes }} {{ $k }}="{{ $v }}"{{ end -}}
+>
+  {{ .Text }}
+</blockquote>
+{{- end -}}

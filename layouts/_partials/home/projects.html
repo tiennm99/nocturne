@@ -1,4 +1,4 @@
-{{- with site.Data.projects.featured -}}
+{{- with (partial "compat/data.html" .).projects.featured -}}
 <section class="home-projects" aria-labelledby="home-projects-heading">
   <h2 id="home-projects-heading" class="home-projects-heading">
     {{ i18n "featuredProjects" | default "Featured Projects" }}

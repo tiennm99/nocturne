@@ -1,9 +1,23 @@
 {{- /*
   Blockquote render hook. Keeps Markdown attributes ({.class}) on the
-  element. Alert syntax (> [!note]) renders as a plain blockquote.
+  element. Alerts (> [!WARNING] Optional title) get class "alert alert-<type>"
+  and a title line: the custom title, else the translated type name
+  (i18n key alert<Type>, e.g. alertWarning).
 */ -}}
+{{- if eq .Type "alert" -}}
+{{- $class := printf "alert alert-%s" .AlertType -}}
+{{- with .Attributes.class }}{{ $class = printf "%s %s" $class . }}{{ end -}}
+{{- $type := strings.FirstUpper .AlertType -}}
+<blockquote class="{{ $class }}"
+  {{- range $k, $v := .Attributes }}{{ if ne $k "class" }} {{ $k }}="{{ $v }}"{{ end }}{{ end -}}
+>
+  <p class="alert-title">{{ .AlertTitle | default (i18n (printf "alert%s" $type) | default $type) }}</p>
+  {{ .Text }}
+</blockquote>
+{{- else -}}
 <blockquote
   {{- range $k, $v := .Attributes }} {{ $k }}="{{ $v }}"{{ end -}}
 >
   {{ .Text }}
 </blockquote>
+{{- end -}}

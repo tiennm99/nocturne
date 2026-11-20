@@ -97,7 +97,7 @@ The theme stack is `"Inter", "Be Vietnam Pro", system-ui, ...`. The first two fa
 
 ## Override colors per-page
 
-Set CSS variables inline via a frontmatter `style` you wire up yourself, or use the `body_class` block from `baseof.html`. The post list page has `body.list.section-post` and single posts have `body.post`; for another section, give its list template a class:
+Set CSS variables inline via a frontmatter `style` you wire up yourself, or use the `body_class` block from `baseof.html`. Each `mainSections` list page has `body.list.section-<section>` (`section-post` in the demo) and single posts have `body.post`; for another section, give its list template a class:
 
 ```html
 <!-- layouts/work/list.html: copy the theme's layouts/list.html, then change the class -->
@@ -134,7 +134,7 @@ The theme includes accessibility features that require no configuration:
 
 - **Skip-link** — first focusable element on every page; jumps to `<main id="main">` (WCAG 2.4.1 Bypass Blocks)
 - **Focus rings** — visible outline via `--nocturne-accent` on `:focus-visible` for keyboard navigation
-- **Lastmod byline** — shows "Cập nhật {date}" when modified date is ≥24h newer than publish date
+- **Lastmod byline** — shows "Cập nhật {date}" when the modified date is at least 24h newer than the publish date
 - **Lazy-load images** — in-content images get `loading="lazy" decoding="async"`, except a first image near the top of a post, which gets `loading="eager" fetchpriority="high"` as the likely LCP element
 - **External link security** — all Markdown links to `http://` / `https://` / `//` get `rel="noopener noreferrer"` automatically
 
@@ -144,11 +144,11 @@ All of these are transparent — no override hooks needed unless you want to cus
 
 The theme's Markdown render hooks live in `layouts/_markup/`; override one by adding the same file to your site.
 
-- **Images** (`render-image.html`) — resolve as a page resource, then a global `assets/` resource, then the raw URL. Raster resources get `width`/`height` and a WebP `srcset` (480, 960, 1440 and the original width); SVG and GIF are served as they are. A block image (alone in its paragraph) links to the original file and becomes `<figure>` with `<figcaption>` when it has a title; Hugo marks images as block only when the site sets `markup.goldmark.parser.wrapStandAloneImageWithinParagraph: false`. Absolute URLs go through the [remote image hook](#remote-images).
-- **Links** (`render-link.html`) — external links get `rel="noopener noreferrer"` (no `target="_blank"`). Link text that is one long path or host gets `<wbr>` break points after `/` and before `.`.
-- **Headings** (`render-heading.html`) — an empty `aria-hidden` `#` anchor follows the text; CSS draws the glyph.
+- **Images** (`render-image.html`) — resolve as a page resource, then a global `assets/` resource, then the raw URL (a root-relative URL such as `/img/x.png` from `static/` gets the site base path). JPEG, PNG, WebP, TIFF and BMP resources get `width`/`height` and a WebP `srcset` (480, 960, 1440 and the original width); SVG, GIF and other formats are served as they are. Markdown attributes (`{#id .class}`) are kept. A block image (alone in its paragraph) links to the original file, unless it already sits inside a link, and becomes `<figure>` with `<figcaption>` when it has a title; Hugo marks images as block only when the site sets `markup.goldmark.parser.wrapStandAloneImageWithinParagraph: false`. Absolute URLs go through the [remote image hook](#remote-images).
+- **Links** (`render-link.html`) — like Hugo's built-in hook, a destination that names a page (`other.md`, `/post/x.md#part`) or a resource resolves to its permalink. External links get `rel="noopener noreferrer"` (no `target="_blank"`). Link text that is one long path or host gets `<wbr>` break points after `/` and before `.`.
+- **Headings** (`render-heading.html`) — an empty `aria-hidden` `#` anchor follows the text; CSS draws the glyph. Markdown attributes such as `{.class}` are kept.
 - **Tables** (`render-table.html`) — wrapped in a focusable, horizontally scrolling region.
-- **Blockquotes** (`render-blockquote.html`) — keep Markdown attributes; alert syntax (`> [!note]`) renders as a plain blockquote.
+- **Blockquotes** (`render-blockquote.html`) — keep Markdown attributes. GitHub alerts (`> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]`) render as `<blockquote class="alert alert-<type>">` with a title: the custom one (`> [!WARNING] Title`) or the translated type name.
 
 Feeds use their own image, link and heading hooks (`*.rss.xml`); see [config.md](config.md#outputs).
 

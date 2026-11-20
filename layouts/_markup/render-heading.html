@@ -6,9 +6,14 @@
   summaries, the Pagefind index or copied text. Keep the space before it:
   plainify inserts no separator at </hN>, so this space is what keeps a
   heading and the next paragraph apart in auto summaries.
+  Markdown attributes ({.class}) are kept; .Anchor is always the id.
 */ -}}
 {{- $id := .Anchor -}}
-<h{{ .Level }} id="{{ $id }}">
+<h{{ .Level }} id="{{ $id }}"
+  {{- range $k, $v := .Attributes -}}
+    {{- if and $v (ne $k "id") }}{{ printf " %s=%q" $k ($v | transform.HTMLEscape) | safeHTMLAttr }}{{ end -}}
+  {{- end -}}
+>
   {{- .Text -}}
   {{- " " -}}<a class="heading-anchor" href="#{{ $id }}" aria-hidden="true" tabindex="-1"></a></h{{ .Level }}>
 {{- /**/ -}}

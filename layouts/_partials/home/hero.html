@@ -1,11 +1,11 @@
-{{- $profile := site.Data.profile -}}
+{{- $profile := (partial "compat/data.html" .).profile -}}
 {{- with $profile -}}
 <section class="home-hero" aria-labelledby="home-hero-name">
   {{- with .avatar }}
   {{- /* An avatar under assets/ is cropped to 240x240 WebP (2x the 120px display size); anything else is linked as is. */}}
   {{- $src := strings.TrimPrefix "/" . | relURL }}
   {{- with resources.Get (strings.TrimPrefix "/" .) }}
-    {{- if and (eq .ResourceType "image") (ne .MediaType.SubType "svg") }}
+    {{- if partial "compat/image-processable.html" . }}
       {{- $src = (.Fill "240x240 webp").RelPermalink }}
     {{- else }}
       {{- $src = .RelPermalink }}
@@ -37,4 +37,7 @@
   </ul>
   {{- end }}
 </section>
+{{- else -}}
+{{- /* No profile: the page still needs its one h1; the header already shows the title, so hide it visually. */}}
+<h1 class="visually-hidden">{{ site.Title }}</h1>
 {{- end -}}

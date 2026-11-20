@@ -1,0 +1,24 @@
+{{ define "body_class" }}list taxonomy-list{{ end }}
+
+{{ define "main" }}
+{{- /* Hugo titles a taxonomy without an _index.md in English ("Tags"); use the theme's translation then, as head.html does for <title>.
+       Only tags/categories have keys: looking up any other plural would log a missing-translation warning. */}}
+{{- $title := .Title }}
+{{- if and (not .File) (in (slice "tags" "categories") .Data.Plural) }}{{ $title = i18n .Data.Plural }}{{ end }}
+<header class="list-header">
+  <h1 class="list-title">{{ $title }}</h1>
+  {{- with .Description }}<p class="list-description">{{ . }}</p>{{ end }}
+</header>
+
+<ul class="terms-list">
+  {{- range .Pages.ByTitle }}
+  {{- $count := len .Pages }}
+  <li class="term-item">
+    <a class="term-link" href="{{ .RelPermalink }}">
+      <span class="term-name">{{ .Title }}</span>
+      <span class="term-count">{{ $count }}<span class="visually-hidden"> {{ i18n "posts" $count | default "bài" }}</span></span>
+    </a>
+  </li>
+  {{- end }}
+</ul>
+{{ end }}

@@ -6,7 +6,7 @@ nocturne extracts Stack's information architecture (posts, tags, categories, arc
 
 - Post frontmatter: `title`, `date`, `description`, `tags`, `categories`, `image`, `draft`
 - Content path convention `content/post/YYYY/MM/DD/slug/index.md`
-- Permalink shape `/:year/:month/:day/:slug/` (set `:contentbasename` on nocturne for clean ASCII)
+- Permalink shape `/:year/:month/:day/:slug/` (use `:slugorcontentbasename` on nocturne: clean ASCII from the file name, `slug:` still wins)
 - Tags and categories taxonomies
 - Archive page (`content/archives/_index.md`)
 - Giscus comment provider
@@ -57,7 +57,7 @@ module:
 | `params.search.fuse` | — | replaced by Pagefind (different config; see [config.md](config.md)) |
 | `params.colorScheme.default` | — | always dark by default; the light pick from the toggle persists in localStorage |
 | `params.dateFormat.published` | — | uses `time.Format ":date_long"` with site language |
-| `params.imageProcessing.cover.enabled` | — | dropped; cover image renders as-is |
+| `params.imageProcessing.cover.enabled` | — | dropped; the cover image is used for the OG/Twitter card only, not rendered on the page |
 
 ### Content frontmatter
 
