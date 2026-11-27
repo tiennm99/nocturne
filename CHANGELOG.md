@@ -18,6 +18,7 @@ nocturne has no tagged releases; sites import `main` as a Hugo Module. Version e
 - `og:locale:alternate` for each translation of the page, from that language's own `og:locale`.
 - `inLanguage` in the JSON-LD Article.
 - JSON-LD `WebSite` (name, url, inLanguage) on the default language's home page.
+- Tag and category pages with no `description` or text of their own get a translated meta description naming the term (`tagDescription`, `categoryDescription`, `tagsDescription`, `categoriesDescription`) instead of the site-wide `params.description`.
 
 ## 2026-11-27 — English is the default language
 

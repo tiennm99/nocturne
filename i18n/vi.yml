@@ -189,3 +189,16 @@
 
 - id: llmsGenerator
   translation: "Tạo bởi {{ .Theme }}, theme Hugo cho blog và portfolio."
+
+# Meta description of tag and category pages that have none of their own. .Title is the term or taxonomy title, .Site the site title.
+- id: tagDescription
+  translation: "Các bài viết gắn thẻ {{ .Title }} trên {{ .Site }}."
+
+- id: categoryDescription
+  translation: "Các bài viết trong chuyên mục {{ .Title }} trên {{ .Site }}."
+
+- id: tagsDescription
+  translation: "Tất cả thẻ trên {{ .Site }}."
+
+- id: categoriesDescription
+  translation: "Tất cả chuyên mục trên {{ .Site }}."

@@ -3,7 +3,15 @@
   truncated to about 160 characters. Shared by <meta name="description">,
   OpenGraph, Twitter Cards and JSON-LD so all of them say the same thing.
 */ -}}
-{{- $raw := .Description | default .Summary | default site.Params.description | default site.Title -}}
+{{- $raw := .Description | default .Summary -}}
+{{- /* Tag and category pages without their own text get a translated line naming the term, not the site description. */ -}}
+{{- if and (not $raw) (in (slice "term" "taxonomy") .Kind) (in (slice "tags" "categories") .Data.Plural) -}}
+  {{- /* Keys: tagDescription, categoryDescription (one term), tagsDescription, categoriesDescription (the list). */ -}}
+  {{- $name := cond (eq .Kind "term") (index (dict "tags" "tag" "categories" "category") .Data.Plural) .Data.Plural -}}
+  {{- $key := printf "%sDescription" $name -}}
+  {{- $raw = i18n $key (dict "Title" .Title "Site" site.Title) -}}
+{{- end -}}
+{{- $raw = $raw | default site.Params.description | default site.Title -}}
 {{- /* truncate HTML-escapes a plain string; unescape so JSON-LD and llms.txt get plain text (HTML contexts re-escape it). */ -}}
 {{- $desc := $raw | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace | truncate 160 | htmlUnescape -}}
 {{- return $desc -}}
