@@ -67,20 +67,20 @@ params:
   author: "Your Name"       # OG + JSON-LD article author; falls back to data/profile.yaml name.
                             # The {name, email} map form also works: <head> uses its name,
                             # rss.xml its email and name (managingEditor)
-  logo: "img/logo.png"      # JSON-LD publisher logo; default: data/profile.yaml avatar
+  logo: "img/logo.png"      # JSON-LD author/publisher image; default: data/profile.yaml avatar
   favicon: "favicon.svg"    # path under static/ (default favicon.svg); the theme ships none,
                             # so add the file or this 404s. .svg, .png or .ico
 
   profile:
-    url: "https://<you>.example.com/about/"  # JSON-LD author URL; default: data/profile.yaml url,
-                                             # then the site home
+    url: "https://<you>.example.com/about/"  # JSON-LD author URL and article:author; default: data/profile.yaml url,
+                                             # then the site home (JSON-LD only)
 
   social:
     twitter: "yourhandle"   # adds twitter:site + twitter:creator (no @ prefix)
 
   og:
     fallbackImage: "img/og-default.png"  # site-wide OG/Twitter image when a post has none
-    locale: "vi_VN"         # og:locale; default maps vi, en, ja, zh, ko, fr, de, else languageCode
+    locale: "vi_VN"         # og:locale (set it per language); default maps vi, en, ja, zh, ko, fr, de, else languageCode
 
   search:
     enable: true            # header search button + Pagefind UI on /search/
@@ -220,9 +220,10 @@ The theme bundles `i18n/vi.yml` and `i18n/en.yml`. To change a string, or to add
 
 nocturne emits SEO metadata in `_partials/head/seo.html` (called from `head.html`):
 
-- **OpenGraph** — `og:title`, `og:description`, `og:url`, `og:type`, `og:site_name`, `og:locale`, `og:image`. Posts (regular pages in `mainSections`) get `og:type=article` plus `article:published_time`, `article:modified_time`, `article:author`, one `article:tag` per tag; other pages are `website`.
+- **OpenGraph** — `og:title`, `og:description`, `og:url`, `og:type`, `og:site_name`, `og:locale`, one `og:locale:alternate` per translation, `og:image`. Posts (regular pages in `mainSections`) get `og:type=article` plus `article:published_time`, `article:modified_time`, `article:author` (only when an author profile URL is set), one `article:tag` per tag; other pages are `website`.
 - **Twitter Card** — `summary_large_image` for a post or fallback image, `summary` for the avatar fallback or when there is no image; `twitter:site` + `twitter:creator` only when `params.social.twitter` is set.
-- **JSON-LD Article schema** — emitted only on posts (regular pages in `mainSections`); covers `headline`, `url`, `datePublished`, `dateModified`, `author` (Person, URL from `params.profile.url`), `publisher` (Organization, logo from `params.logo`), `image`, `description`, `keywords`.
+- **JSON-LD Article schema** — emitted only on posts (regular pages in `mainSections`); covers `headline`, `url`, `datePublished`, `dateModified`, `inLanguage`, `author` and `publisher` (the same Person: name, URL from `params.profile.url`, image from `params.logo`, `sameAs` from the absolute `http(s)` links in `data/profile.yaml`), `image`, `description`, `keywords`.
+- **JSON-LD WebSite schema** — `name`, `url` and `inLanguage`, on the home page of the default content language only.
 - **OG image** — `_partials/head/image.html` owns the lookup order (post cover, post image, `params.og.fallbackImage`, then the `data/profile.yaml` avatar). Raster images found as resources are resized (fit 1200×1200 JPEG, 600×600 for the avatar) and get `og:image:width`/`og:image:height`.
 
 To override, drop `_partials/head/seo.html` and/or `_partials/head/image.html` into your site `layouts/`.

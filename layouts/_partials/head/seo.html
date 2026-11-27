@@ -1,5 +1,5 @@
 {{- /*
-  SEO partial — OpenGraph, Twitter Cards, JSON-LD Article schema.
+  SEO partial — OpenGraph, Twitter Cards, JSON-LD Article and WebSite schema.
   Override: drop `layouts/_partials/head/seo.html` into your site to replace.
 */ -}}
 {{- $pageTitle := partial "head/title.html" . -}}
@@ -16,7 +16,7 @@
 {{- $canonical := partial "head/canonical.html" . -}}
 {{- /* Card image: see head/image.html for the lookup order. */ -}}
 {{- $img := partial "head/image.html" . -}}
-{{- /* publisher.logo: site `logo` param, else the profile avatar. Asset images are resized copies. */ -}}
+{{- /* The author's (and publisher's) image: site `logo` param, else the profile avatar. Asset images are resized copies. */ -}}
 {{- $logo := "" -}}
 {{- with site.Params.logo | default (and $profile $profile.avatar) -}}
   {{- $logo = . | absURL -}}
@@ -29,8 +29,25 @@
   {{- end -}}
 {{- end -}}
 
-{{- /* OG locale: map common Hugo lang codes to OpenGraph IETF-with-region. */ -}}
-{{- $ogLocale := site.Params.og.locale | default (index (dict "vi" "vi_VN" "en" "en_US" "ja" "ja_JP" "zh" "zh_CN" "ko" "ko_KR" "fr" "fr_FR" "de" "de_DE") site.Language.Name) | default (partial "compat/lang-code.html" site.Language) -}}
+{{- /* An explicit author profile URL: params.profile.url, else data/profile.yaml url. Only this goes in article:author. */ -}}
+{{- $profileURL := "" -}}
+{{- with site.Params.profile }}{{ $profileURL = .url }}{{ end -}}
+{{- if not $profileURL }}{{ with $profile }}{{ $profileURL = .url }}{{ end }}{{ end -}}
+{{- with $profileURL }}{{ $profileURL = . | absURL }}{{ end -}}
+{{- $sites := partial "compat/sites.html" . -}}
+{{- $langCode := partial "compat/lang-code.html" site.Language -}}
+
+{{- /* OG locale of this language, then one og:locale:alternate per translation in another language. */ -}}
+{{- $ogLocale := partial "head/og-locale.html" site -}}
+{{- $ogAlternates := slice -}}
+{{- range .Translations -}}
+  {{- $lang := .Language.Name -}}
+  {{- range $sites -}}
+    {{- if eq .Language.Name $lang -}}
+      {{- with partial "head/og-locale.html" . }}{{ if ne . $ogLocale }}{{ $ogAlternates = $ogAlternates | append . }}{{ end }}{{ end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 
 {{/* OpenGraph */}}
 <meta property="og:title" content="{{ $ogTitle }}">
@@ -43,6 +60,9 @@
 {{- with $ogLocale }}
 <meta property="og:locale" content="{{ . }}">
 {{- end }}
+{{- range $ogAlternates | uniq }}
+<meta property="og:locale:alternate" content="{{ . }}">
+{{- end }}
 {{- with $img }}
 <meta property="og:image" content="{{ .url }}">
 {{- with .width }}<meta property="og:image:width" content="{{ . }}">{{ end }}
@@ -53,7 +73,8 @@
 {{- with .Lastmod }}
 <meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">
 {{- end }}
-{{- with $author }}
+{{- /* Open Graph wants a profile URL here, so a bare name or the home page fallback is left out. */}}
+{{- with $profileURL }}
 <meta property="article:author" content="{{ . }}">
 {{- end }}
 {{- range .GetTerms "tags" }}
@@ -76,25 +97,42 @@
 <meta name="twitter:image" content="{{ .url }}">
 {{- end }}
 
-{{- /* JSON-LD Article — only on posts (see $isArticle). */ -}}
+{{- /* JSON-LD WebSite — only on the default language's home page (page 1); search engines read site names from the root home. */ -}}
+{{- $pager := partial "head/pager.html" . -}}
+{{- if and .IsHome (eq site.Language.Name $sites.Default.Language.Name) (not (and $pager (gt $pager.PageNumber 1))) -}}
+{{- $site := dict
+  "@context" "https://schema.org"
+  "@type" "WebSite"
+  "name" site.Title
+  "url" site.Home.Permalink
+  "inLanguage" $langCode
+-}}
+<script type="application/ld+json">{{ $site | jsonify (dict "indent" "  ") | safeJS }}</script>
+{{- end -}}
+
+{{- /* JSON-LD Article — only on posts (see $isArticle). The author is a Person who also publishes the site. */ -}}
 {{- if $isArticle -}}
-{{- $authorName := $author | default site.Title -}}
-{{- $authorURL := "" -}}
-{{- with site.Params.profile -}}{{- $authorURL = .url -}}{{- end -}}
-{{- if not $authorURL -}}{{- with $profile -}}{{- $authorURL = .url -}}{{- end -}}{{- end -}}
-{{- if not $authorURL -}}{{- $authorURL = site.Home.Permalink -}}{{- end -}}
+{{- $person := dict "@type" "Person" "name" ($author | default site.Title) "url" ($profileURL | default site.Home.Permalink) -}}
+{{- with $logo }}{{- $person = merge $person (dict "image" .) -}}{{- end -}}
+{{- /* sameAs: the profile's absolute web links (not mailto:, feeds or other site-relative paths). */ -}}
+{{- $sameAs := slice -}}
+{{- with $profile -}}
+  {{- range .links -}}
+    {{- if or (strings.HasPrefix .url "https://") (strings.HasPrefix .url "http://") }}{{ $sameAs = $sameAs | append .url }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- with $sameAs }}{{- $person = merge $person (dict "sameAs" .) -}}{{- end -}}
 {{- $keywords := slice -}}
 {{- range .GetTerms "tags" -}}{{- $keywords = $keywords | append .LinkTitle -}}{{- end -}}
-{{- $publisher := dict "@type" "Organization" "name" site.Title -}}
-{{- with $logo }}{{- $publisher = merge $publisher (dict "logo" (dict "@type" "ImageObject" "url" .)) -}}{{- end -}}
 {{- $ld := dict
   "@context" "https://schema.org"
   "@type" "Article"
   "headline" .Title
   "url" .Permalink
   "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
-  "author" (dict "@type" "Person" "name" $authorName "url" $authorURL)
-  "publisher" $publisher
+  "author" $person
+  "publisher" $person
+  "inLanguage" $langCode
 -}}
 {{- if not .Date.IsZero }}{{- $ld = merge $ld (dict "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")) -}}{{- end -}}
 {{- if not .Lastmod.IsZero }}{{- $ld = merge $ld (dict "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")) -}}{{- end -}}

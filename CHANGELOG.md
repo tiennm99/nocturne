@@ -10,6 +10,14 @@ nocturne has no tagged releases; sites import `main` as a Hugo Module. Version e
 - Template fallbacks for missing translation keys are English (they were Vietnamese), and Giscus `lang` defaults to `en`, as `docs/config.md` documents. Sites whose language has an `i18n` table see no change.
 - Feed channel titles and descriptions, the featured-project repo and demo link labels, and the `llms.txt` headings and footer come from new `i18n` keys (`feedTitle`, `feedDescription`, `feedSectionDescription`, `projectRepo`, `projectDemo`, `about`, `projects`, `llmsGenerator`), so a non-English language no longer gets English text there.
 - The `llms.txt` tagline is the home page's `description`, falling back to `params.description`, so each language can have its own.
+- JSON-LD Article `publisher` is the same Person as `author` (was an Organization with a logo). The Person carries `params.logo` (else the profile avatar) as `image` and the profile's absolute `http(s)` links as `sameAs`.
+- `article:author` is the author profile URL (`params.profile.url`, else `data/profile.yaml` `url`) and is left out without one; it was the author's name.
+
+### Added
+
+- `og:locale:alternate` for each translation of the page, from that language's own `og:locale`.
+- `inLanguage` in the JSON-LD Article.
+- JSON-LD `WebSite` (name, url, inLanguage) on the default language's home page.
 
 ## 2026-11-27 — English is the default language
 

@@ -4,7 +4,7 @@ The homepage portfolio is data-driven. Two YAML files in `data/`.
 
 ## `data/profile.yaml`
 
-Powers the homepage hero, the header and footer name, `/llms.txt`, and the OG image, author and publisher-logo fallbacks.
+Powers the homepage hero, the header and footer name, `/llms.txt`, and the OG image, JSON-LD author (name, URL, image, `sameAs`) and `article:author` fallbacks.
 
 ```yaml
 name: "Your Name"             # required: display name
@@ -32,10 +32,10 @@ Field reference:
 |---------|--------|----------|-------------------------------------------|
 | name    | string | yes      | falls back to `site.Title` if absent      |
 | tagline | string | no       | rendered as `<p>` under name              |
-| avatar  | string | no       | a raster image under `assets/` is cropped to 240×240 WebP in the hero and resized for the OG card and publisher logo; any other path (e.g. under `static/`) is linked as is |
-| url     | string | no       | JSON-LD author URL; `params.profile.url` overrides it, the site home is the fallback |
+| avatar  | string | no       | a raster image under `assets/` is cropped to 240×240 WebP in the hero and resized for the OG card and the JSON-LD author image; any other path (e.g. under `static/`) is linked as is |
+| url     | string | no       | author profile URL (JSON-LD author and `article:author`), such as the site's about page; `params.profile.url` overrides it; without one, JSON-LD falls back to the site home and `article:author` is left out |
 | bio     | string | no       | markdown; `markdownify` filter applied — see security note below |
-| links   | array  | no       | empty list = no links section; a site-relative `url` goes through `relLangURL` |
+| links   | array  | no       | empty list = no links section; a site-relative `url` goes through `relLangURL`; absolute `http(s)` URLs become the JSON-LD author's `sameAs` |
 
 Built-in link icons under `assets/icons/`: `facebook`, `github`, `gitlab`, `linkedin`, `mail`, `rss` (`moon`, `search` and `sun` are UI icons). Add your own SVGs there with `currentColor` fill; see [customization.md](customization.md#add-custom-icons).
 
