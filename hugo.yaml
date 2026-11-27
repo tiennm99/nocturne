@@ -3,9 +3,6 @@ module:
   hugoVersion:
     min: "0.154.5"
 
-languageCode: en
-defaultContentLanguage: en
-
 # llms.txt (https://llmstxt.org) from layouts/home.llmtxt.txt.
 # Hugo merges `outputFormats` from the theme but never `outputs`: add `llmtxt`
 # to the site's `outputs.home` to get /llms.txt.

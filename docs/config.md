@@ -1,6 +1,6 @@
 # Configuration
 
-Reference for `hugo.yaml` keys that nocturne reads. The theme targets Hugo **0.154.5**, the version Ubuntu 26.04 LTS ships, and keeps working on newer releases. Hugo merges `params` and `outputFormats` from the theme's `hugo.yaml`, so the theme's param defaults apply without copying them. Everything else (markup, permalinks, pagination, related, outputs, language settings) must be set in your *site's* `hugo.yaml`; see [Why theme defaults don't merge](#why-theme-defaults-dont-merge).
+Reference for `hugo.yaml` keys that nocturne reads. The theme targets Hugo **0.154.5**, the version Ubuntu 26.04 LTS ships, and keeps working on newer releases. Hugo merges `params` and `outputFormats` from the theme's `hugo.yaml`, so the theme's param defaults apply without copying them. Everything else (markup, permalinks, pagination, taxonomies, related, outputs, language settings) must be set in your *site's* `hugo.yaml`; see [Why theme defaults don't merge](#why-theme-defaults-dont-merge).
 
 ## Required
 
@@ -229,7 +229,7 @@ To override, drop `_partials/head/seo.html` and/or `_partials/head/image.html` i
 
 ## Why theme defaults don't merge
 
-Hugo merges a theme's `params` and `outputFormats` into the site config, but not `markup`, `permalinks`, `pagination`, `related`, `outputs` or the language settings. The theme's `hugo.yaml` therefore leaves out `markup`, `permalinks`, `pagination`, `taxonomies`, `related` and `outputs`; the [required block](#required) is the only place they are given, and consumer sites must copy it.
+Hugo merges a theme's `params` and `outputFormats` into the site config, but not `markup`, `permalinks`, `pagination`, `taxonomies`, `related`, `outputs` or the language settings (`languageCode`, `defaultContentLanguage`). The theme's `hugo.yaml` therefore leaves them all out; the [required block](#required) is the only place they are given, and consumer sites must copy it.
 
 ## Theme contract: taxonomies and content
 

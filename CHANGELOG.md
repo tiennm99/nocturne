@@ -6,7 +6,7 @@ nocturne has no tagged releases; sites import `main` as a Hugo Module. Version e
 
 ### Removed
 
-- The `outputs`, `pagination`, `taxonomies`, `permalinks`, `markup` and `related` blocks from the theme's `hugo.yaml`. Hugo never merges them from a theme, so they never reached a consuming site; the required block in `docs/config.md` stays the place to copy them from. The built output is unchanged.
+- The `outputs`, `pagination`, `taxonomies`, `permalinks`, `markup` and `related` blocks, and the `languageCode` and `defaultContentLanguage` keys, from the theme's `hugo.yaml`. Hugo never merges them from a theme, so they never reached a consuming site; the required block in `docs/config.md` stays the place to copy them from. The built output is unchanged.
 
 ### Changed
 
