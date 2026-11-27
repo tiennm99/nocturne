@@ -12,6 +12,7 @@ nocturne has no tagged releases; sites import `main` as a Hugo Module. Version e
 - The `llms.txt` tagline is the home page's `description`, falling back to `params.description`, so each language can have its own.
 - JSON-LD Article `publisher` is the same Person as `author` (was an Organization with a logo). The Person carries `params.logo` (else the profile avatar) as `image` and the profile's absolute `http(s)` links as `sameAs`.
 - `article:author` is the author profile URL (`params.profile.url`, else `data/profile.yaml` `url`) and is left out without one; it was the author's name.
+- Icons, the image-processable check and the meta description are rendered once and reused (`partialCached`); the description is cached per page path and language, so a site override of `head/description.html` must not vary by anything else. The built output is unchanged.
 
 ### Added
 

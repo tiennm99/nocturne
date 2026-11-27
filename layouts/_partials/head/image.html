@@ -28,7 +28,7 @@
     {{- $res = $.Resources.Get . -}}
     {{- if not $res -}}{{- $res = resources.Get (strings.TrimPrefix "/" .) -}}{{- end -}}
   {{- end -}}
-  {{- if and $res (partial "compat/image-processable.html" $res) -}}
+  {{- if and $res (partialCached "compat/image-processable.html" $res $res.ResourceType $res.MediaType.Type) -}}
     {{- $max := cond $avatar 600 1200 -}}
     {{- $res = $res.Process (printf "fit %dx%d jpg q80" $max $max) -}}
     {{- $result = dict "url" $res.Permalink "width" $res.Width "height" $res.Height "avatar" $avatar -}}

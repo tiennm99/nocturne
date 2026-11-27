@@ -2,6 +2,8 @@
   Returns the page's meta description as plain text, whitespace collapsed and
   truncated to about 160 characters. Shared by <meta name="description">,
   OpenGraph, Twitter Cards and JSON-LD so all of them say the same thing.
+  Callers cache it per page path and language (partialCached), so an
+  override must not depend on anything else, such as the pager page.
 */ -}}
 {{- $raw := .Description | default .Summary -}}
 {{- /* Tag and category pages without their own text get a translated line naming the term, not the site description. */ -}}

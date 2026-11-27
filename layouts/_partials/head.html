@@ -1,5 +1,5 @@
 {{- $title := cond .IsHome site.Title (printf "%s · %s" (partial "head/title.html" .) site.Title) -}}
-{{- $description := partial "head/description.html" . -}}
+{{- $description := partialCached "head/description.html" . .Path .Language.Name -}}
 {{- $pager := partial "head/pager.html" . -}}
 {{- $laterPage := and $pager (gt $pager.PageNumber 1) -}}
 

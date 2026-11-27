@@ -9,7 +9,7 @@
 {{- $current := .Language.Name -}}
 <details class="lang-switcher" data-lang-switcher>
   <summary aria-label="{{ i18n "language" | default "Language" }}: {{ partial "compat/lang-label.html" .Language | default (upper $current) }}">
-    {{ partial "icon.html" "globe" }}<span class="lang-switcher-current">{{ upper $current }}</span>
+    {{ partialCached "icon.html" "globe" "globe" }}<span class="lang-switcher-current">{{ upper $current }}</span>
   </summary>
   <ul class="lang-switcher-menu">
     {{- range .AllTranslations }}

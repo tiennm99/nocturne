@@ -5,7 +5,7 @@
   {{- /* An avatar under assets/ is cropped to 240x240 WebP (2x the 120px display size); anything else is linked as is. */}}
   {{- $src := strings.TrimPrefix "/" . | relURL }}
   {{- with resources.Get (strings.TrimPrefix "/" .) }}
-    {{- if partial "compat/image-processable.html" . }}
+    {{- if partialCached "compat/image-processable.html" . .ResourceType .MediaType.Type }}
       {{- $src = (.Fill "240x240 webp").RelPermalink }}
     {{- else }}
       {{- $src = .RelPermalink }}
@@ -29,7 +29,7 @@
     {{- range . }}
     <li>
       <a href="{{ strings.TrimPrefix "/" .url | relLangURL }}" rel="me noopener" aria-label="{{ .label | default .icon }}">
-        {{- with .icon }}{{ partial "icon.html" . }}{{ end }}
+        {{- with .icon }}{{ partialCached "icon.html" . . }}{{ end }}
         <span>{{ .label | default .icon }}</span>
       </a>
     </li>

@@ -12,7 +12,7 @@
 {{- $author := site.Params.author -}}
 {{- if reflect.IsMap $author }}{{ $author = $author.name }}{{ end -}}
 {{- $author = $author | default (and $profile $profile.name) -}}
-{{- $desc := partial "head/description.html" . -}}
+{{- $desc := partialCached "head/description.html" . .Path .Language.Name -}}
 {{- $canonical := partial "head/canonical.html" . -}}
 {{- /* Card image: see head/image.html for the lookup order. */ -}}
 {{- $img := partial "head/image.html" . -}}
@@ -21,7 +21,7 @@
 {{- with site.Params.logo | default (and $profile $profile.avatar) -}}
   {{- $logo = . | absURL -}}
   {{- with resources.Get (strings.TrimPrefix "/" .) -}}
-    {{- if partial "compat/image-processable.html" . -}}
+    {{- if partialCached "compat/image-processable.html" . .ResourceType .MediaType.Type -}}
       {{- $logo = (.Process "fit 600x600").Permalink -}}
     {{- else -}}
       {{- $logo = .Permalink -}}

@@ -17,7 +17,7 @@
 ## {{ i18n "recentPosts" | default "Recent posts" }}
 
 {{- range first 10 (where site.RegularPages "Section" "in" site.MainSections).ByDate.Reverse }}
-{{- $desc := partial "head/description.html" . }}
+{{- $desc := partialCached "head/description.html" . .Path .Language.Name }}
 - [{{ .Title }}]({{ .Permalink }}){{ with $desc }}: {{ . }}{{ end }}
 {{- end }}
 
