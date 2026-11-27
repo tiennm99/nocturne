@@ -52,11 +52,10 @@ outputs:
   home: [html, rss, llmtxt]        # llmtxt adds /llms.txt
 ```
 
-Every post needs a `date`: a post without one sorts under year 0001 in the archive and the feed. Posts are the regular pages of `mainSections` (Hugo's default is the section with the most pages); set it when your posts share a section with more pages:
+Every post needs a `date`: a post without one sorts under year 0001 in the archive and the feed. Posts are the regular pages of [`mainSections`](https://gohugo.io/methods/site/mainsections/). Hugo's default is the top-level section with the most pages, which usually needs no setting. Set the top-level key only when another section has more pages than your posts:
 
 ```yaml
-params:
-  mainSections: [post]
+mainSections: [post]
 ```
 
 ## Theme params
@@ -230,7 +229,7 @@ To override, drop `_partials/head/seo.html` and/or `_partials/head/image.html` i
 
 ## Why theme defaults don't merge
 
-Hugo merges a theme's `params` and `outputFormats` into the site config, but not `markup`, `permalinks`, `pagination`, `related`, `outputs` or the language settings. The theme's `hugo.yaml` sets those too, for reference only; consumer sites must copy the [required block](#required).
+Hugo merges a theme's `params` and `outputFormats` into the site config, but not `markup`, `permalinks`, `pagination`, `related`, `outputs` or the language settings. The theme's `hugo.yaml` therefore leaves out `markup`, `permalinks`, `pagination`, `taxonomies`, `related` and `outputs`; the [required block](#required) is the only place they are given, and consumer sites must copy it.
 
 ## Theme contract: taxonomies and content
 

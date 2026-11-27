@@ -2,6 +2,16 @@
 
 nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-11-27 — theme config holds only what Hugo merges
+
+### Removed
+
+- The `outputs`, `pagination`, `taxonomies`, `permalinks`, `markup` and `related` blocks from the theme's `hugo.yaml`. Hugo never merges them from a theme, so they never reached a consuming site; the required block in `docs/config.md` stays the place to copy them from. The built output is unchanged.
+
+### Changed
+
+- `docs/config.md` shows `mainSections` as the top-level key Hugo documents, not under `params`, and says that Hugo's default (the section with the most pages) usually needs no setting.
+
 ## 2026-11-27 — SEO and i18n fixes
 
 ### Changed

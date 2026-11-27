@@ -17,45 +17,6 @@ outputFormats:
     notAlternative: true
     permalinkable: false
 
-outputs:
-  home: [html, rss, llmtxt]
-
-pagination:
-  pagerSize: 10
-  path: page
-
-taxonomies:
-  category: categories
-  tag: tags
-
-permalinks:
-  post: /:year/:month/:day/:slugorcontentbasename/
-
-markup:
-  goldmark:
-    renderer:
-      unsafe: true
-    parser:
-      autoHeadingIDType: github-ascii
-  highlight:
-    noClasses: false
-    lineNos: false
-  tableOfContents:
-    startLevel: 2
-    endLevel: 4
-
-related:
-  threshold: 80
-  includeNewer: true
-  toLower: true
-  indices:
-    - name: tags
-      weight: 100
-    - name: categories
-      weight: 60
-    - name: date
-      weight: 10
-
 params:
   search:
     enable: true
