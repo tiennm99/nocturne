@@ -1,4 +1,4 @@
 ---
-title: "Nhật ký Hugo"
-description: "Loạt bài ghi lại quá trình quay lại với Hugo và tự viết theme nocturne."
+title: "Hugo diary"
+description: "A series on coming back to Hugo and writing the nocturne theme."
 ---

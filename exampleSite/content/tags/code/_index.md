@@ -1,4 +1,4 @@
 ---
 title: "code"
-description: "Khối code, tô sáng cú pháp và nút sao chép."
+description: "Code blocks, syntax highlighting and the copy button."
 ---

@@ -1,4 +1,4 @@
 ---
-title: "Ghi chép"
-description: "Những dòng ghi lại khi làm, khi đọc và khi nhìn lại."
+title: "Journal"
+description: "Things written down while working, reading and looking back."
 ---

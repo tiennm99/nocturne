@@ -1,5 +1,5 @@
 ---
-title: "Lưu trữ"
-description: "Toàn bộ bài viết theo năm và tháng, cùng các chuyên mục và thẻ."
+title: "Archives"
+description: "Every post by year and month, plus categories and tags."
 outputs: [html]
 ---

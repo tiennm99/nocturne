@@ -3,37 +3,21 @@
 # (themesDir ../.. resolves to the directory that holds the checkout).
 # Every theme param is switched on here, so the demo shows each feature.
 baseURL: https://tiennm99.github.io/nocturne/
-languageCode: vi
-defaultContentLanguage: vi
+languageCode: en
+defaultContentLanguage: en
 title: nocturne
 themesDir: ../..
 theme: nocturne
 enableRobotsTXT: true
 
-# Vietnamese at the root, English under /en/. A post's translation is a
-# sibling file in its bundle (index.en.md next to index.md).
+# English at the root, Vietnamese under /vi/. A post's translation is a
+# sibling file in its bundle (index.vi.md next to index.md).
 languages:
-  vi:
-    languageName: Tiếng Việt
-    languageCode: vi
-    title: nocturne
-    weight: 1
-    menus:
-      main:
-        - name: Bài viết
-          pageRef: /post
-          weight: 10
-        - name: Lưu trữ
-          pageRef: /archives
-          weight: 20
-        - name: Giới thiệu
-          pageRef: /about
-          weight: 30
   en:
     languageName: English
     languageCode: en
     title: nocturne
-    weight: 2
+    weight: 1
     menus:
       main:
         - name: Posts
@@ -43,6 +27,22 @@ languages:
           pageRef: /archives
           weight: 20
         - name: About
+          pageRef: /about
+          weight: 30
+  vi:
+    languageName: Tiếng Việt
+    languageCode: vi
+    title: nocturne
+    weight: 2
+    menus:
+      main:
+        - name: Bài viết
+          pageRef: /post
+          weight: 10
+        - name: Lưu trữ
+          pageRef: /archives
+          weight: 20
+        - name: Giới thiệu
           pageRef: /about
           weight: 30
     params:

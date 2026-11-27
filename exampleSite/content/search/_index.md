@@ -1,5 +1,5 @@
 ---
-title: "Tìm kiếm"
-description: "Tìm trong toàn bộ bài viết và ghi chú của trang."
+title: "Search"
+description: "Search every post and note on the site."
 outputs: [html]
 ---

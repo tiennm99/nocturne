@@ -7,8 +7,8 @@ Reference for `hugo.yaml` keys that nocturne reads. The theme targets Hugo **0.1
 Copy this block into your site `hugo.yaml`:
 
 ```yaml
-languageCode: vi
-defaultContentLanguage: vi
+languageCode: en
+defaultContentLanguage: en
 module:
   imports:
     - path: github.com/tiennm99/nocturne
@@ -135,7 +135,7 @@ params:
       reactionsEnabled: "1"
       inputPosition: "bottom"  # top | bottom
       theme: "dark"
-      lang: "vi"
+      lang: "en"
 ```
 
 Generate Giscus values at [giscus.app](https://giscus.app). Comments render only when `enable`, `repo`, `repoId` and `categoryId` are all set; a missing ID turns them off. The other keys default to the values shown. The site's light/dark toggle drives the Giscus theme at runtime, so a custom `theme` value applies only until the first sync.
@@ -205,7 +205,7 @@ A single-language site needs only `languageCode` and `defaultContentLanguage` fr
 - remembers the reader's pick in `localStorage` (`lang`) and, on later visits, opens the page's translation in that language when one exists;
 - emits `<link rel="alternate" hreflang>` for every translation plus `x-default` pointing at the site home. Paginated pages after the first emit no alternates and never redirect, since the other language's page N may not exist.
 
-A post's translation is a sibling file in its bundle, such as `index.en.md` next to `index.md`; it is served under `/<lang>/`. Each extra language also needs its own `_index.<lang>.md` for the home, `archives` and `search` sections, so its header menu and search page exist.
+A post's translation is a sibling file in its bundle, such as `index.vi.md` next to `index.md`; it is served under `/<lang>/`. A file with no language suffix belongs to `defaultContentLanguage`, which is served at the site root. Each extra language also needs its own `_index.<lang>.md` for the home, `archives` and `search` sections, so its header menu and search page exist.
 
 The theme bundles `i18n/vi.yml` and `i18n/en.yml`. To change a string, or to add another language, put a file with the same keys in the site's `i18n/` (for example `i18n/ja.yml`); site files override the theme's.
 

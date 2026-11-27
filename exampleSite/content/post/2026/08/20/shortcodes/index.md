@@ -1,73 +1,73 @@
 ---
-title: "Shortcode có sẵn của Hugo"
+title: "Hugo's built-in shortcodes"
 date: 2026-08-20T19:30:00+07:00
-description: "figure, details, highlight, qr, param, ref và relref — những shortcode Hugo mang sẵn, chạy được với nocturne mà theme không phải thêm cái nào."
+description: "figure, details, highlight, qr, param, ref and relref — the shortcodes Hugo ships with, all working in nocturne without the theme adding any of its own."
 categories: ["demo"]
 tags: ["shortcode", "hugo"]
 ---
 
-Shortcode là một đoạn template nhỏ gọi từ giữa Markdown, viết trong cặp ngoặc `{{</* tên tham-số */>}}`. Hugo mang sẵn một bộ shortcode, và bài này thử lần lượt từng cái. Mỗi mục có đoạn mã nguồn trước, kết quả ngay sau.
+A shortcode is a small template you call from the middle of Markdown, written as `{{</* name params */>}}`. Hugo ships a set of them, and this post tries each one in turn. Every section shows the source first and the result right after.
 
-Các shortcode nhúng nội dung bên thứ ba (YouTube, Vimeo, X, Instagram) không có mặt ở đây: chúng tải mã từ máy chủ của bên khác ngay khi trang mở, điều mà một trang demo không nên ép người xem nhận.
+The shortcodes that embed third-party content (YouTube, Vimeo, X, Instagram) are left out: they pull in code from someone else's servers as soon as the page opens, and a demo site should not push that on its visitors.
 
-## Vì sao nocturne không có shortcode riêng
+## Why nocturne has no shortcodes of its own
 
-Một bài dùng shortcode riêng của theme sẽ gắn chặt với theme đó: đổi sang theme khác là bản build báo lỗi ngay ở bài ấy, và bạn phải sửa từng tệp. nocturne muốn nội dung của bạn mãi là Markdown thuần, đọc được trên GitHub, trong trình soạn thảo, và dời đi đâu cũng được.
+A post that uses a theme's own shortcode is tied to that theme: switch themes and the build fails on that post, and you are left fixing files one by one. nocturne wants your content to stay plain Markdown that reads fine on GitHub, in your editor, and wherever you move it next.
 
-Những gì theme cần làm với nội dung đều đi qua render hook: ảnh có chú thích, hộp thông báo kiểu GitHub, bảng cuộn ngang, liên kết tới tệp `.md`. Bạn viết cú pháp Markdown chuẩn, theme lo phần hiển thị. Nếu thật sự cần một shortcode, hãy đặt nó trong `layouts/_shortcodes/` của site — nó thuộc về nội dung của bạn, không thuộc về theme.
+Everything the theme does to your content goes through render hooks instead: captioned images, GitHub-style alerts, scrolling tables, links to `.md` files. You write standard Markdown and the theme handles the presentation. If you really need a shortcode, put it in your site's `layouts/_shortcodes/` — it belongs to your content, not to the theme.
 
 ## figure
 
-Ảnh có chú thích và liên kết, viết bằng shortcode thay vì cú pháp ảnh của Markdown:
+An image with a caption and a link, written as a shortcode rather than Markdown image syntax:
 
 ```markdown
 {{</* figure
   src="https://tiennm99.github.io/nocturne/img/tinh-tu-static.png"
-  alt="Màn hình thử sóng với sáu sọc màu dọc"
-  caption="Màn hình thử sóng, đặt trong thư mục static."
+  alt="A test card with six vertical colour bars"
+  caption="A test card, stored in the static folder."
   link="https://en.wikipedia.org/wiki/Test_card"
 */>}}
 ```
 
 {{< figure
   src="https://tiennm99.github.io/nocturne/img/tinh-tu-static.png"
-  alt="Màn hình thử sóng: sáu sọc dọc đỏ, xanh lá, vàng, xanh dương, hồng tím và xanh lơ, một vệt cầu vồng chạy chéo qua"
-  caption="Màn hình thử sóng, đặt trong thư mục static. Bấm vào ảnh để đọc về loại hình này (tiếng Anh)."
+  alt="A broadcast test card: six vertical bars in red, green, yellow, blue, magenta and cyan, crossed by a diagonal rainbow streak"
+  caption="A test card, stored in the static folder. Click the image to read about test cards."
   link="https://en.wikipedia.org/wiki/Test_card"
 >}}
 
-Với ảnh trong bundle, cú pháp Markdown `![alt](anh.jpg "chú thích")` cho ra cùng một `<figure>` mà còn có thêm `srcset`; xem [bài về hình ảnh](/post/2026/06/12/hinh-anh/index.md).
+For an image in the bundle, the Markdown syntax `![alt](image.jpg "caption")` produces the same `<figure>` and adds a `srcset` on top; see [the post about images](/post/2026/06/12/hinh-anh/index.md).
 
-> [!WARNING] Site nằm trong thư mục con
-> `figure` tìm `src` trong bundle rồi trong `assets/`, nhưng không thêm đường dẫn gốc cho tệp trong `static/`. Trang demo chạy dưới `/nocturne/`, nên `src="/img/tinh-tu-static.png"` sẽ trỏ ra ngoài site; vì thế ví dụ trên dùng URL đầy đủ. Cú pháp ảnh của Markdown không vướng chuyện này, vì render hook của theme tự thêm đường dẫn gốc.
+> [!WARNING] Sites in a subfolder
+> `figure` looks for `src` in the bundle and then in `assets/`, but it does not add the base path to files in `static/`. The demo lives under `/nocturne/`, so `src="/img/tinh-tu-static.png"` would point outside the site; that is why the example above uses a full URL. Markdown image syntax has no such problem, because the theme's render hook adds the base path for you.
 
 ## details
 
-Khối đóng mở, nội dung bên trong vẫn viết bằng Markdown:
+A collapsible block whose content is still written in Markdown:
 
 ```markdown
-{{</* details summary="Xem phần đầu của hugo.yaml" */>}}
+{{</* details summary="Show the top of hugo.yaml" */>}}
 ...
 {{</* /details */>}}
 ```
 
-{{< details summary="Xem phần đầu của hugo.yaml" >}}
-Ba dòng mở đầu `hugo.yaml` của một site tiếng Việt dùng nocturne:
+{{< details summary="Show the top of hugo.yaml" >}}
+The first three lines of `hugo.yaml` for an English site using nocturne:
 
 ```yaml
 theme: nocturne
-languageCode: vi
-defaultContentLanguage: vi
+languageCode: en
+defaultContentLanguage: en
 ```
 
-Khối cấu hình bắt buộc đầy đủ có trong [tài liệu cấu hình](https://github.com/tiennm99/nocturne/blob/main/docs/config.md).
+The full required block is in the [configuration docs](https://github.com/tiennm99/nocturne/blob/main/docs/config.md).
 {{< /details >}}
 
-Thêm `open=true` để khối mở sẵn khi trang tải.
+Add `open=true` to have the block open when the page loads.
 
 ## highlight
 
-Cùng bộ tô màu với khối code có rào, nhưng tùy chọn được truyền như tham số của shortcode:
+The same highlighter as fenced code blocks, with the options passed as shortcode parameters:
 
 ```markdown
 {{</* highlight go "linenos=inline,hl_lines=3" */>}}
@@ -78,52 +78,52 @@ Cùng bộ tô màu với khối code có rào, nhưng tùy chọn được truy
 {{< highlight go "linenos=inline,hl_lines=3" >}}
 func greet(name string) string {
 	if name == "" {
-		name = "bạn"
+		name = "friend"
 	}
-	return "Chào " + name
+	return "Hello, " + name
 }
 {{< /highlight >}}
 
-Trong bài viết, khối code có rào như ` ```go {hl_lines=3} ` gọn hơn; `highlight` hữu ích khi code nằm trong một template hay một shortcode khác.
+In a post, a fenced block such as ` ```go {hl_lines=3} ` is tidier; `highlight` earns its keep when the code sits inside a template or another shortcode.
 
 ## qr
 
-Tạo mã QR lúc build, thành một ảnh PNG nằm cùng trang web:
+Generates a QR code at build time, as a PNG served with the site:
 
 ```markdown
 {{</* qr text="https://tiennm99.github.io/nocturne/" alt="..." /*/>}}
 ```
 
-{{< qr text="https://tiennm99.github.io/nocturne/" alt="Mã QR dẫn tới trang demo của nocturne" />}}
+{{< qr text="https://tiennm99.github.io/nocturne/" alt="QR code linking to the nocturne demo site" />}}
 
-Quét mã bằng điện thoại để mở trang demo này.
+Scan it with your phone to open this demo.
 
 ## param
 
-Đọc một tham số, tìm ở front matter của trang trước rồi mới tới `params` của site:
+Reads a parameter, looking in the page's front matter first and then in the site's `params`:
 
-| Mã nguồn                            | Kết quả                         |
-| :---------------------------------- | :------------------------------ |
-| `{{</* param "author" */>}}`          | {{< param "author" >}}          |
+| Source                                | Result                           |
+| :------------------------------------ | :------------------------------- |
+| `{{</* param "author" */>}}`           | {{< param "author" >}}           |
 | `{{</* param "toc.minWordCount" */>}}` | {{< param "toc.minWordCount" >}} |
-| `{{</* param "description" */>}}`     | {{< param "description" >}}     |
+| `{{</* param "description" */>}}`      | {{< param "description" >}}      |
 
-Dòng cuối là một cái bẫy nhỏ: site có `params.description`, nhưng bài này cũng có `description` trong front matter, nên `param` trả về mô tả của bài. Dấu chấm trong `toc.minWordCount` đi vào tham số lồng nhau.
+The last row is a small trap: the site has `params.description`, but this post has a `description` in its front matter too, so `param` returns the post's own. The dot in `toc.minWordCount` reaches into a nested parameter.
 
-## ref và relref
+## ref and relref
 
-Hai shortcode này tìm một trang theo đường dẫn trong `content/` và trả về URL của nó. Nếu trang không tồn tại, bản build báo lỗi, nên liên kết hỏng không thể lọt lên mạng.
+These two look up a page by its path under `content/` and return its URL. If the page does not exist the build fails, so a broken link can never go live.
 
-- `ref` trả về URL đầy đủ: `{{< ref "/post/2026/07/03/khoi-code" >}}`
-- `relref` trả về đường dẫn tương đối với tên miền: `{{< relref "/post/2026/07/03/khoi-code" >}}`
+- `ref` returns the full URL: `{{< ref "/post/2026/07/03/khoi-code" >}}`
+- `relref` returns the path without the host: `{{< relref "/post/2026/07/03/khoi-code" >}}`
 
-Thường thì chúng nằm trong một liên kết Markdown, có thể kèm mảnh `#` trỏ tới một tiêu đề:
+Most of the time they sit inside a Markdown link, optionally with a `#` fragment pointing at a heading:
 
 ```markdown
-[Dạo một vòng Markdown]({{</* relref "/post/2026/05/07/sample" */>}})
-[mục Hộp thông báo]({{</* relref "/post/2026/05/07/sample#hop-thong-bao" */>}})
+[A Markdown tour]({{</* relref "/post/2026/05/07/sample" */>}})
+[its Alerts section]({{</* relref "/post/2026/05/07/sample#alerts" */>}})
 ```
 
-Kết quả: [Dạo một vòng Markdown]({{< relref "/post/2026/05/07/sample" >}}) và [mục Hộp thông báo]({{< relref "/post/2026/05/07/sample#hop-thong-bao" >}}) của bài ấy.
+The result: [A Markdown tour]({{< relref "/post/2026/05/07/sample" >}}) and [its Alerts section]({{< relref "/post/2026/05/07/sample#alerts" >}}).
 
-Với nocturne, một liên kết Markdown trỏ thẳng tới tệp như `[bài](/post/2026/05/07/sample/index.md)` cũng cho ra đúng URL ấy mà không cần shortcode; `ref` và `relref` vẫn hữu ích khi bạn muốn bản build dừng lại ngay nếu trang đích biến mất.
+In nocturne, a Markdown link straight to the file, such as `[post](/post/2026/05/07/sample/index.md)`, gives the same URL without any shortcode; `ref` and `relref` still pay off when you want the build to stop the moment the target page disappears.

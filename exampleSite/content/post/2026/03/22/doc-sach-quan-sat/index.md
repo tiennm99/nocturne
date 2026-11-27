@@ -1,38 +1,38 @@
 ---
-title: "Đọc sách và quan sát"
+title: "Reading and noticing"
 date: 2026-03-22T15:00:00+07:00
 lastmod: 2026-03-25T09:30:00+07:00
 draft: false
 tags: ["doc-sach", "ghi-chep"]
 categories: ["ghi-chu"]
-description: "Đọc chậm hơn, viết ngắn hơn, quan sát kỹ hơn: mấy điều học được khi đọc lại những cuốn sách cũ."
+description: "Read slower, write shorter, look closer: what rereading old books has taught me."
 toc: false
 ---
 
-Mấy tháng nay tôi thử đọc lại những cuốn sách cũ. Lần đầu đọc lướt, chủ yếu để biết kết thúc. Lần này đọc chậm, có cây bút chì bên cạnh, và cho phép mình dừng lại ở bất kỳ trang nào.
+For a few months now I have been rereading old books. The first time round I skimmed, mostly to find out how they ended. This time I read slowly, with a pencil nearby, and let myself stop on any page.
 
-Phát hiện đầu tiên khá bất ngờ: phần lớn ấn tượng ban đầu của tôi về một cuốn sách là sai. Không phải vì cuốn sách thay đổi, mà vì tôi đã đọc khác đi. Có nhân vật từng thấy phiền phức, giờ lại thấy thương. Có chương từng tưởng là thừa, hoá ra là chỗ cả câu chuyện xoay quanh.
+The first discovery surprised me: most of my first impressions of a book were wrong. Not because the book had changed, but because I was reading it differently. A character I once found tiresome now seems sad and likeable. A chapter I thought was padding turns out to be the one the whole story turns on.
 
-## Đọc chậm {#doc-cham}
+## Reading slowly
 
-Đọc chậm không có nghĩa là đọc từng chữ. Nó có nghĩa là không vội sang trang khi chưa hiểu trang này. Khi một câu làm mình khựng lại, tôi đọc lại câu đó, rồi đọc lại cả đoạn. Thường thì chỗ khựng lại chính là chỗ đáng nhớ nhất.
+Reading slowly does not mean reading word by word. It means not turning the page before you understand this one. When a sentence makes me pause, I read it again, then the whole paragraph. More often than not, the place where I paused is the part most worth remembering.
 
-Tôi cũng bỏ thói quen đặt mục tiêu số trang. Một buổi tối đọc được mười trang mà nhớ được cả mười, vẫn hơn năm mươi trang mà sáng hôm sau chẳng còn gì.
+I also dropped the habit of page targets. An evening of ten pages I still remember beats fifty pages that are gone by morning. A book is not a race, and nobody is keeping score.
 
-## Viết ngắn
+## Writing short
 
-Sau mỗi buổi đọc, tôi viết đúng ba dòng: một điều mới, một câu muốn giữ lại, một câu hỏi. Không hơn. Giới hạn ba dòng buộc tôi phải chọn, và việc chọn mới là lúc mình thật sự nghĩ về những gì vừa đọc.
+After each session I write exactly three lines: one new thing, one sentence I want to keep, one question. No more. The three-line limit forces me to choose, and choosing is when I actually think about what I just read.
 
-> Ghi chép dài là để khỏi phải nhớ. Ghi chép ngắn là để nhớ được.
+> Long notes are so you don't have to remember. Short notes are so you do.
 
-Câu trên là của tôi, viết vào một tối đọc xong mà chẳng còn sức viết gì dài hơn. Đọc lại thì thấy nó đúng.
+That line is mine, written one night when I had finished reading and had no energy left for anything longer. Reading it back, I think it holds.
 
-## Quan sát
+## Noticing
 
-Thói quen đọc chậm lan sang những việc khác lúc nào không hay. Đi bộ, tôi để ý đến cái cây đầu ngõ đã ra lá non. Nói chuyện, tôi nghe hết câu của người kia rồi mới nghĩ xem mình sẽ đáp gì. Những việc nhỏ, nhưng làm cho một ngày dài ra theo cách dễ chịu.
+The habit of reading slowly crept into other things without my noticing. On walks, I see that the tree at the end of the lane has new leaves. In conversation, I hear the other person out before thinking about my reply. Small things, but they make a day feel longer in a good way.
 
-Quan sát cũng là kỹ năng cần luyện, giống như đọc. Lúc đầu thấy rất ít; càng nhìn lâu, càng thấy nhiều. Và cũng giống như đọc, điều quan trọng không phải là thấy hết, mà là thấy rõ một vài thứ.
+Noticing is a skill you practise, just like reading. At first you see very little; the longer you look, the more there is. And as with reading, the point is not to see everything but to see a few things clearly.
 
-## Cuốn tiếp theo
+## The next book
 
-Danh sách đọc lại vẫn còn dài, nhưng tôi không vội. Cuốn tiếp theo là một tập truyện ngắn đã nằm trên kệ gần mười năm. Lần trước tôi bỏ dở ở giữa. Lần này, tôi sẽ đọc từng truyện một, mỗi tuần một truyện, và xem nó có khác đi không.
+The reread list is still long, but there is no hurry. Next up is a short story collection that has sat on the shelf for almost ten years. Last time I gave up halfway. This time I will read one story a week and see whether it feels different.

@@ -2,6 +2,14 @@
 
 nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-11-27 — English is the default language
+
+### Changed
+
+- The theme's `hugo.yaml` defaults to English: `languageCode: en` and `defaultContentLanguage: en` (was `vi`). Sites that set both keys themselves, as the required config block asks, are unaffected. A site that relied on the theme's default must now set `defaultContentLanguage: vi` to keep Vietnamese at the root.
+- The `exampleSite/` demo serves English at `/` and Vietnamese under `/vi/`. Each bundle's English text is `index.md` and its Vietnamese text is `index.vi.md`.
+- `docs/config.md` shows English in the required block and the Giscus example.
+
 ## 2026-11-20 — ready for the Hugo themes list
 
 ### Changed

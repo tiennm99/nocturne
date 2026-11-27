@@ -1,38 +1,38 @@
 ---
-title: "Giới thiệu"
-description: "Trang demo của nocturne: trang chủ gồm những gì, các bài trình diễn tính năng nằm ở đâu và cách đổi ngôn ngữ, giao diện."
+title: "About"
+description: "The nocturne demo: what the home page is made of, where the feature posts are, and how to switch language and theme."
 comments: false
 toc: false
 ---
 
-Đây là trang demo của [nocturne](https://github.com/tiennm99/nocturne), một theme Hugo cho blog kèm portfolio cá nhân: ưu tiên tiếng Việt, nền tối mặc định, không cần bước build. Mọi tính năng của theme đều được bật ở đây, và mỗi bài viết trình diễn một vài trong số đó. "Your Name" là một nhân vật giả định; thay bằng tên bạn khi dùng theme.
+This is the demo site for [nocturne](https://github.com/tiennm99/nocturne), a Hugo theme for a blog with a personal portfolio: Vietnamese first, dark by default, no build step. Every theme feature is switched on here, and each post shows off a few of them. "Your Name" is a stand-in; put your own name there when you use the theme.
 
-## Trang chủ gồm những gì
+## What the home page is made of
 
-[Trang chủ](/) là portfolio, ghép từ ba phần:
+The [home page](/) is a portfolio built from three parts:
 
-1. **Phần giới thiệu**: tên, dòng mô tả ngắn, ảnh đại diện, tiểu sử và các đường dẫn, lấy từ `data/profile.yaml`.
-2. **Dự án nổi bật**: lưới thẻ dự án lấy từ `data/projects.yaml`. Thẻ nào có ảnh, liên kết demo hay thẻ phân loại thì hiện thêm phần đó.
-3. **Bài viết gần đây**: năm bài mới nhất trong mục [Bài viết](/post/), kèm liên kết xem tất cả.
+1. **The intro**: name, tagline, avatar, bio and links, read from `data/profile.yaml`.
+2. **Featured projects**: a grid of project cards from `data/projects.yaml`. A card shows an image, a demo link or tags only when the project has them.
+3. **Recent posts**: the five newest entries in [Posts](/post/), with a link to the full list.
 
-## Các bài trình diễn
+## Where the features are
 
-Bài viết được chia thành ba chuyên mục, mỗi chuyên mục cho thấy một nhóm tính năng:
+Posts fall into three categories, each showing a group of features:
 
-- [Demo](/categories/demo/) gom các bài kỹ thuật: [một vòng Markdown](/post/2026/05/07/sample/index.md) với bảng, chú thích, hộp lưu ý; [hình ảnh](/post/2026/06/12/hinh-anh/index.md) với `srcset`, chú thích ảnh và video thay GIF; [khối code](/post/2026/07/03/khoi-code/index.md) với tô sáng dòng và nút sao chép; [shortcode](/post/2026/08/20/shortcodes/index.md) có sẵn của Hugo.
-- [Nhật ký Hugo](/categories/nhat-ky-hugo/) là một loạt bài: chip chuyên mục ở trên tiêu đề, liên kết bài trước, bài sau chỉ đi trong loạt, và bài liên quan ở cuối trang.
-- [Ghi chú](/categories/ghi-chu/) cho thấy các tuỳ chỉnh theo từng bài: [một bài](/post/2025/12/01/cuoi-nam/index.md) tắt bình luận và dùng dòng giấy phép riêng, [một bài khác](/post/2026/03/22/doc-sach-quan-sat/index.md) tắt mục lục và hiện ngày cập nhật.
+- [Demo](/categories/demo/) holds the technical tours: [a Markdown tour](/post/2026/05/07/sample/index.md) with tables, footnotes and callouts; [images](/post/2026/06/12/hinh-anh/index.md) with `srcset`, captions and a GIF served as video; [code blocks](/post/2026/07/03/khoi-code/index.md) with line highlighting and a copy button; and Hugo's [built-in shortcodes](/post/2026/08/20/shortcodes/index.md).
+- [Hugo diary](/categories/nhat-ky-hugo/) is a series: a category chip above the title, previous and next links that stay within the series, and related posts at the end.
+- [Notes](/categories/ghi-chu/) shows per-post overrides: [one post](/post/2025/12/01/cuoi-nam/index.md) turns comments off and uses its own license line, [another](/post/2026/03/22/doc-sach-quan-sat/index.md) turns the table of contents off and shows an updated date.
 
-Ngoài ra còn có [Lưu trữ](/archives/) xếp bài theo năm và tháng, trang [Tìm kiếm](/search/) dùng Pagefind, danh sách [thẻ](/tags/) và [chuyên mục](/categories/).
+There is also the [Archives](/archives/) page, grouped by year and month, [Search](/search/) powered by Pagefind, and the lists of [tags](/tags/) and [categories](/categories/).
 
-## Đổi ngôn ngữ và giao diện {#doi-ngon-ngu-va-giao-dien}
+## Switching language and theme
 
-Trang có hai ngôn ngữ, tiếng Việt và tiếng Anh. Nút quả địa cầu ở góc trên bên phải mở danh sách các bản dịch của trang đang xem; lựa chọn được ghi nhớ, nên lần sau bạn sẽ được đưa thẳng đến ngôn ngữ đã chọn.
+The site comes in Vietnamese and English. The globe button in the top right lists the translations of the page you are on; your pick is remembered, so next time you land straight in that language.
 
-Nút mặt trăng, mặt trời bên cạnh chuyển giữa nền tối và nền sáng. Nền tối là mặc định; nếu bạn chọn nền sáng, trang sẽ nhớ và không nháy màu khi tải lại.
+The moon and sun button next to it switches between dark and light. Dark is the default; pick light and the site remembers it, without a flash of the wrong colours on reload.
 
-## Tìm hiểu thêm
+## Learn more
 
-- Mã nguồn và hướng dẫn cài đặt: [github.com/tiennm99/nocturne](https://github.com/tiennm99/nocturne).
-- Tài liệu cấu hình: [docs/config.md](https://github.com/tiennm99/nocturne/blob/main/docs/config.md), tuỳ biến: [docs/customization.md](https://github.com/tiennm99/nocturne/blob/main/docs/customization.md).
-- Nội dung của chính trang demo này nằm trong thư mục [exampleSite](https://github.com/tiennm99/nocturne/tree/main/exampleSite); mỗi bài có liên kết "Sửa trang này" dẫn thẳng đến file nguồn.
+- Source code and installation: [github.com/tiennm99/nocturne](https://github.com/tiennm99/nocturne).
+- Configuration reference: [docs/config.md](https://github.com/tiennm99/nocturne/blob/main/docs/config.md); customization: [docs/customization.md](https://github.com/tiennm99/nocturne/blob/main/docs/customization.md).
+- The content of this demo lives in the [exampleSite](https://github.com/tiennm99/nocturne/tree/main/exampleSite) folder; every post has an "Edit this page" link that opens its source file.

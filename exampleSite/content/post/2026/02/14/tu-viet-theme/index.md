@@ -1,45 +1,45 @@
 ---
-title: "Tự viết một theme Hugo"
+title: "Writing your own Hugo theme"
 date: 2026-02-14T21:00:00+07:00
 draft: false
 tags: ["theme", "hugo", "ghi-chep"]
 categories: ["nhat-ky-hugo"]
-description: "Sau một tháng viết nocturne: vì sao đáng tự làm, nên giữ những gì thật nhỏ, vì sao nền tối là mặc định và chữ tiếng Việt cần được chăm thế nào."
+description: "A month into nocturne: why it is worth building your own, what to keep small, why dark is the default, and what Vietnamese text needs."
 ---
 
-Một tháng sau [bản kế hoạch đầu năm](/post/2026/01/10/ke-hoach-dau-nam/index.md), `nocturne` đã đủ để tôi viết bài trên chính nó. Bài này ghi lại những quyết định đã định hình theme, để sau này khi muốn thêm gì đó, tôi nhớ vì sao lúc đầu mình đã không thêm.
+A month after [the new-year plan](/post/2026/01/10/ke-hoach-dau-nam/index.md), `nocturne` is good enough to write about on itself. This post records the decisions that shaped the theme, so that when I want to add something later, I remember why I left it out in the first place.
 
-## Vì sao đáng tự làm {#vi-sao-dang-tu-lam}
+## Why build your own
 
-Dùng theme có sẵn giống thuê một căn hộ đầy đủ nội thất: dọn vào ở ngay, nhưng muốn dời một cái kệ thì phải hỏi chủ nhà. Mỗi lần Hugo đổi gì đó, tôi lại phải đọc mã của người khác để biết theme có còn chạy không.
+Using a ready-made theme is like renting a furnished flat: you can move in today, but moving a shelf means asking the landlord. Every time Hugo changed something, I had to read someone else's code to find out whether the theme still worked.
 
-Tự viết thì chậm hơn lúc đầu, nhưng sau đó mọi thứ đều có chủ. Khi một trang hiển thị sai, tôi biết phải mở file nào. Khi Hugo ra bản mới, danh sách những thứ có thể vỡ ngắn đến mức đọc hết trong một buổi tối.
+Writing your own is slower at first, but afterwards everything has an owner. When a page renders wrong, I know which file to open. When a new Hugo release lands, the list of things that might break is short enough to read in one evening.
 
-Còn một lý do nữa: viết theme buộc mình hiểu Hugo thật sự. Lookup order, page bundle, render hook, cách đa ngôn ngữ hoạt động, tất cả đều phải chạm vào ít nhất một lần.
+There is one more reason: writing a theme makes you actually learn Hugo. Lookup order, page bundles, render hooks, how multilingual sites fit together; you have to touch each of them at least once.
 
-## Giữ cho thật nhỏ
+## Keep it small
 
-Nguyên tắc chung: mỗi thứ thêm vào phải trả lời được câu hỏi "người đọc được gì?". Nếu câu trả lời là "trông xịn hơn một chút", thường là không.
+The rule of thumb: everything added must answer "what does the reader get?". If the answer is "it looks a bit fancier", the answer is usually no.
 
-### Không bước build
+### No build step
 
-Không Node, không bundler, không PostCSS. CSS là vài file thuần được Hugo nối lại, nén và gắn mã băm. JavaScript là ES module nhỏ, mỗi file một việc: nút đổi giao diện, nút sao chép code, mục lục tự đánh dấu khi cuộn. Gộp lại chưa tới mười kilobyte trước khi nén.
+No Node, no bundler, no PostCSS. The CSS is a handful of plain files that Hugo joins, minifies and fingerprints. The JavaScript is small ES modules, one job each: the theme toggle, the copy button on code blocks, the table of contents that tracks your scroll. All of it together is under ten kilobytes before compression.
 
-### Dữ liệu thay vì tham số
+### Data, not params
 
-Trang chủ là portfolio, nhưng thông tin cá nhân không nằm trong `hugo.yaml`. Tiểu sử và đường dẫn ở `data/profile.yaml`, dự án nổi bật ở `data/projects.yaml`. File cấu hình chỉ còn những công tắc bật tắt tính năng, đọc là hiểu.
+The home page is a portfolio, but the personal details are not in `hugo.yaml`. The bio and links live in `data/profile.yaml`, the featured projects in `data/projects.yaml`. The config file is left with the switches that turn features on and off, and it reads at a glance.
 
-### Không shortcode riêng
+### No shortcodes of its own
 
-Theme không mang theo shortcode nào. Shortcode là cú pháp riêng của Hugo, viết vào bài rồi thì bài bị buộc vào theme. Những gì Markdown làm được, như ảnh có chú thích hay hộp lưu ý, theme xử lý bằng render hook, nên nội dung vẫn là Markdown thuần.
+The theme ships no shortcodes. A shortcode is Hugo-only syntax; once it is in a post, the post is tied to the theme. Whatever Markdown can express, such as captioned images or callout boxes, the theme handles with render hooks, so the content stays plain Markdown.
 
-## Nền tối là mặc định {#nen-toi-la-mac-dinh}
+## Dark by default
 
-Tôi viết và đọc chủ yếu vào buổi tối, nên giao diện tối là mặc định, không phải một tuỳ chọn phụ. Nút mặt trăng, mặt trời ở góc trên chuyển sang nền sáng, và lựa chọn đó được nhớ cho lần sau.
+I mostly write and read at night, so the dark look is the default, not an afterthought. The moon and sun button in the top corner switches to light, and the choice is remembered for next time.
 
-### Không nháy sáng khi tải
+### No white flash
 
-Cái khó của giao diện tối là khoảnh khắc trước khi CSS áp dụng: trang loé trắng rồi mới tối lại. Cách chữa là một đoạn script rất ngắn chạy ngay trong `<head>`, trước khi trình duyệt vẽ gì:
+The hard part of a dark theme is the moment before the CSS applies: the page flashes white, then goes dark. The cure is a tiny script that runs right in `<head>`, before the browser paints anything:
 
 ```js
 if (localStorage.getItem('theme') === 'light') {
@@ -47,31 +47,31 @@ if (localStorage.getItem('theme') === 'light') {
 }
 ```
 
-Vì tối là mặc định, script chỉ phải làm việc khi người đọc đã chọn nền sáng. Không có JavaScript thì trang vẫn tối và vẫn đọc được.
+Because dark is the default, the script only has work to do when the reader has picked light. With JavaScript off, the page is still dark and still readable.
 
-### Màu là token
+### Colours are tokens
 
-Mọi màu đều là biến CSS trong một file duy nhất: giá trị tối trên `:root`, giá trị sáng trên `:root[data-theme="light"]`. Muốn đổi màu nhấn cho cả hai chế độ, chỉ cần ghi đè vài biến từ site, không phải sửa theme.
+Every colour is a CSS variable in a single file: dark values on `:root`, light values on `:root[data-theme="light"]`. To change the accent colour in both modes, a site overrides a few variables and never touches the theme.
 
 > [!TIP]
-> Khi chọn màu cho nền tối, đừng dùng trắng tinh cho chữ. Một màu xám ấm, sáng vừa phải đỡ chói hơn nhiều khi đọc lâu.
+> When picking colours for a dark background, avoid pure white for text. A warm, moderately bright grey is far easier on the eyes over a long read.
 
-## Chữ tiếng Việt
+## Vietnamese typography
 
-Theme ưu tiên tiếng Việt, nên phần chữ được chăm kỹ nhất.
+The theme puts Vietnamese first, so the text got the most care.
 
-### Phông có đủ dấu {#phong-co-du-dau}
+### Fonts with every diacritic
 
-Chuỗi phông bắt đầu bằng Inter và Be Vietnam Pro, rồi lùi về phông hệ thống. Cả hai đều có đủ dấu tiếng Việt; nếu máy không có, phông hệ thống hiện đại cũng hiển thị tốt. Thứ cần tránh là phông thiếu vài ký tự như "ữ" hay "ặ", khiến một chữ lẫn hai kiểu phông.
+The font stack starts with Inter and Be Vietnam Pro, then falls back to system fonts. Both cover the full Vietnamese alphabet; when neither is installed, modern system fonts render it well too. What you want to avoid is a font missing a few glyphs like "ữ" or "ặ", leaving a single word set in two typefaces.
 
-### Khoảng cách dòng
+### Line height
 
-Tiếng Việt có dấu chồng lên nhau, phía trên và phía dưới chữ. Khoảng cách dòng 1.7 cho thân bài giúp dấu của dòng này không chạm vào dòng kia. Tiêu đề dùng khoảng cách chặt hơn vì chữ to và ít dòng.
+Vietnamese stacks diacritics above and below the letters. A body line height of 1.7 keeps one line's marks from touching the next. Headings use tighter spacing, since the type is larger and the lines are few.
 
-### Neo và ngày tháng
+### Anchors and dates
 
-ID của heading được sinh dạng ASCII, nên đường dẫn tới mục "Chữ tiếng Việt" là `#chu-tieng-viet`, gọn và dễ chia sẻ. Riêng chữ "đ" bị bỏ hẳn chứ không thành "d", nên những tiêu đề có "đ" trong bài này được đặt ID tay, như `## Nền tối là mặc định {#nen-toi-la-mac-dinh}`. Ngày tháng dùng định dạng của từng ngôn ngữ, nên bài tiếng Việt ghi "14 tháng 2, 2026" thay vì kiểu tiếng Anh.
+Heading IDs come out as ASCII, so on the Vietnamese page the section "Chữ tiếng Việt" is `#chu-tieng-viet`: short and easy to share. The letter "đ" is dropped rather than turned into "d", so the Vietnamese headings that contain it get a hand-written ID, as in `## Nền tối là mặc định {#nen-toi-la-mac-dinh}`. Dates follow each language's format, so a Vietnamese post shows the date the Vietnamese way rather than "February 14, 2026".
 
-## Còn lại
+## What's left
 
-Vẫn còn nhiều việc: trang lưu trữ, tìm kiếm, bản tiếng Anh. Nhưng phần lõi đã ổn, và quan trọng hơn, tôi hiểu nó từng dòng. Những phần còn lại để dành cho các bài sau.
+There is plenty still to do: the archive page, search, a second language. But the core is solid and, more importantly, I understand every line of it. The rest can wait for later posts.

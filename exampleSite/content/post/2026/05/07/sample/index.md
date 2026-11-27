@@ -1,145 +1,145 @@
 ---
-title: "Dạo một vòng Markdown"
+title: "A Markdown tour"
 date: 2026-05-07T19:00:00+07:00
 lastmod: 2026-05-21T08:30:00+07:00
-description: "Một bài gom đủ cú pháp Markdown mà Hugo hỗ trợ — chữ, danh sách, bảng, chú thích, hộp thông báo — để xem nocturne trình bày chúng ra sao."
+description: "Every bit of Markdown Hugo supports — text, lists, tables, footnotes, alerts — in one post, to see how nocturne presents it."
 categories: ["demo"]
 tags: ["markdown", "hugo", "theme"]
 ---
 
-Bài này là một chuyến dạo ngắn qua Markdown: mỗi mục dùng một cú pháp và cho thấy nocturne hiển thị nó thế nào. Muốn đối chiếu với mã nguồn, hãy bấm liên kết sửa bài ở cuối trang — nó mở đúng tệp `index.md` này trên GitHub.
+This post is a short walk through Markdown: each section uses one piece of syntax and shows how nocturne renders it. To compare with the source, follow the edit link at the end of the page — it opens this very `index.en.md` on GitHub.
 
-Bài đủ dài nên có mục lục. Trên màn hình rộng, mục lục đứng yên bên cạnh và tô sáng phần bạn đang đọc; trên điện thoại, nó nằm gọn phía trên nội dung.
+The post is long enough to get a table of contents. On a wide screen it sits beside the text and highlights the section you are reading; on a phone it tucks in above the content.
 
-## Chữ và liên kết
+## Text and links
 
-Một câu bình thường có thể chứa **chữ đậm**, *chữ nghiêng*, ***cả hai cùng lúc***, ~~một ý đã bỏ~~ và `mã inline` như `hugo server --buildDrafts`. Phím tắt thì viết bằng thẻ HTML: <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+A plain sentence can hold **bold**, *italics*, ***both at once***, ~~a dropped idea~~ and `inline code` such as `hugo server --buildDrafts`. Keyboard shortcuts use an HTML tag: <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-Đoạn này được gắn lớp `lead` bằng thuộc tính Markdown đặt ngay ở dòng dưới. Theme không định kiểu cho lớp ấy, nhưng nó vẫn có mặt trong HTML để CSS của riêng bạn bám vào.
+This paragraph carries a `lead` class, added by a Markdown attribute on the line right below it. The theme does not style that class, but it is in the HTML for your own CSS to pick up.
 {.lead}
 
-Liên kết ra ngoài như [tài liệu của Hugo](https://gohugo.io/documentation/) tự nhận thêm `rel="noopener noreferrer"`. Liên kết nội bộ có thể trỏ thẳng vào tệp Markdown: [bài về hình ảnh](/post/2026/06/12/hinh-anh/index.md) được đổi thành đường dẫn thật của bài, còn [phần số dòng trong bài khối code](/post/2026/07/03/khoi-code/index.md#so-dong) giữ nguyên cả mảnh `#so-dong`. Sau này có đổi cấu trúc URL, liên kết cũng không gãy.
+External links such as [Hugo's documentation](https://gohugo.io/documentation/) get `rel="noopener noreferrer"` added. Internal links can point straight at a Markdown file: [the post about images](/post/2026/06/12/hinh-anh/index.md) turns into that post's real URL, and [the line numbers section of the code post](/post/2026/07/03/khoi-code/index.md#line-numbers) keeps its `#line-numbers` fragment. Change your URL scheme later and these links still work.
 
-### Mục con mang lớp riêng {.special}
+### A heading with its own class {.special}
 
-Tiêu đề phía trên có thuộc tính `{.special}`. Lớp được giữ lại, còn `id` vẫn sinh tự động từ chữ không dấu, nên mục lục và dấu `#` hiện ra khi rê chuột vẫn hoạt động.
+The heading above has a `{.special}` attribute. The class is kept and the `id` is still generated, so the table of contents and the `#` that shows on hover keep working.
 
-## Danh sách và việc cần làm
+## Lists and to-dos
 
-Danh sách không thứ tự, lồng nhau:
+An unordered list, nested:
 
-- Nội dung
-  - Bài viết
-  - Trang giới thiệu
-- Giao diện
-  - Chế độ sáng và tối
-  - Phông chữ đọc tốt tiếng Việt
+- Content
+  - Posts
+  - About page
+- Look and feel
+  - Light and dark modes
+  - A typeface that handles Vietnamese well
 
-Danh sách có thứ tự, mỗi cấp đánh số riêng:
+An ordered list, numbered per level:
 
-1. Tạo thư mục cho bài viết.
-2. Viết `index.md`, rồi thêm bản dịch `index.en.md` bên cạnh.
-   1. Giữ nguyên ngày, chuyên mục và thẻ.
-   2. Dịch tiêu đề, mô tả và nội dung.
-3. Chạy `hugo server` và đọc lại một lượt.
+1. Create a folder for the post.
+2. Write `index.md`, then add the `index.en.md` translation next to it.
+   1. Keep the date, category and tags the same.
+   2. Translate the title, description and body.
+3. Run `hugo server` and read it through once.
 
-Danh sách công việc:
+A task list:
 
-- [x] Viết bản nháp
-- [x] Thêm ảnh vào bundle
-- [ ] Nhờ một người bạn đọc thử
-- [ ] Đăng bài
+- [x] Write a draft
+- [x] Add images to the bundle
+- [ ] Ask a friend to proofread
+- [ ] Publish
 
-### Danh sách thuật ngữ
+### Definition lists
 
 Bundle
-: Thư mục chứa `index.md` cùng ảnh và tệp đi kèm của một bài.
+: A folder holding `index.md` together with the post's images and other files.
 
 Front matter
-: Khối YAML ở đầu tệp, nơi khai báo tiêu đề, ngày, thẻ và chuyên mục.
+: The YAML block at the top of the file, where the title, date, tags and categories live.
 
 Render hook
-: Template nhỏ quyết định cách Hugo xuất ảnh, liên kết, tiêu đề, bảng và trích dẫn.
+: A small template that decides how Hugo outputs images, links, headings, tables and blockquotes.
 
-## Bảng
+## Tables
 
-Dấu hai chấm trong dòng phân cách quyết định căn lề của từng cột:
+Colons in the separator row set each column's alignment:
 
-| Cú pháp (trái) | Kết quả (giữa) | Số ký tự (phải) |
-| :------------- | :------------: | --------------: |
-| `**đậm**`      | **đậm**        | 7               |
-| `*nghiêng*`    | *nghiêng*      | 9               |
-| `~~gạch~~`     | ~~gạch~~       | 8               |
-| `` `mã` ``     | `mã`           | 4               |
+| Syntax (left)  | Result (centre) | Characters (right) |
+| :------------- | :-------------: | -----------------: |
+| `**bold**`     | **bold**        | 8                  |
+| `*italic*`     | *italic*        | 8                  |
+| `~~struck~~`   | ~~struck~~      | 10                 |
+| `` `code` ``   | `code`          | 6                  |
 
-### Bảng rộng
+### A wide table
 
-Bảng nhiều cột được bọc trong một vùng cuộn ngang, nên trang không bị kéo giãn trên điện thoại. Vùng cuộn nhận tiêu điểm, nên người dùng bàn phím cũng cuộn được bằng phím mũi tên.
+A table with many columns sits in a horizontally scrolling region, so it never stretches the page on a phone. The region takes focus, so keyboard users can scroll it with the arrow keys.
 
-| Định dạng | Phần mở rộng | Theme xử lý | `srcset` WebP | `width` và `height` | Ảnh động | Nền trong suốt | Hợp với |
-| :-------- | :----------- | :---------- | :-----------: | :-----------------: | :------: | :------------: | :------ |
-| JPEG      | `.jpg`, `.jpeg` | Đổi cỡ      | Có            | Có                  | Không    | Không          | Ảnh chụp, ảnh nhiều chi tiết |
-| PNG       | `.png`       | Đổi cỡ      | Có            | Có                  | Không    | Có             | Ảnh chụp màn hình, hình vẽ phẳng |
-| WebP      | `.webp`      | Đổi cỡ      | Có            | Có                  | Có thể   | Có             | Hầu hết mọi thứ trên web hiện nay |
-| SVG       | `.svg`       | Giữ nguyên  | Không         | Không               | Có thể   | Có             | Biểu tượng, sơ đồ, logo |
-| GIF       | `.gif`       | Giữ nguyên  | Không         | Không               | Có       | Có             | Hoạt hình ngắn, vài màu |
+| Format | Extension | Theme handling | WebP `srcset` | `width` and `height` | Animation | Transparency | Good for |
+| :----- | :-------- | :------------- | :-----------: | :------------------: | :-------: | :----------: | :------- |
+| JPEG   | `.jpg`, `.jpeg` | Resized   | Yes           | Yes                  | No        | No           | Photos and detailed pictures |
+| PNG    | `.png`    | Resized        | Yes           | Yes                  | No        | Yes          | Screenshots and flat artwork |
+| WebP   | `.webp`   | Resized        | Yes           | Yes                  | Possible  | Yes          | Most things on today's web |
+| SVG    | `.svg`    | Served as is   | No            | No                   | Possible  | Yes          | Icons, diagrams, logos |
+| GIF    | `.gif`    | Served as is   | No            | No                   | Yes       | Yes          | Short loops with few colours |
 
-#### Khi nào nên dùng bảng
+#### When to reach for a table
 
-Bảng hợp với dữ liệu so sánh theo hàng và cột. Với một chuỗi bước làm lần lượt, danh sách có thứ tự dễ đọc hơn trên màn hình hẹp.
+Tables suit data you compare across rows and columns. For steps done one after another, an ordered list reads better on a narrow screen.
 
-## Trích dẫn
+## Quotes
 
-Một blockquote thường, không có kiểu hộp:
+A plain blockquote, no alert styling:
 
-> Đi một ngày đàng, học một sàng khôn.
+> A day's travel brings a basketful of wisdom.
 >
-> — Tục ngữ Việt Nam
+> — Vietnamese proverb
 
-## Hộp thông báo
+## Alerts
 
-Năm kiểu hộp thông báo của GitHub đều có mặt. Tiêu đề mặc định được dịch theo ngôn ngữ của trang.
+All five GitHub alert types are here. Their default titles follow the page language.
 
 > [!NOTE]
-> Thông tin phụ mà người đọc nên biết, kể cả khi chỉ đọc lướt.
+> Background a reader should know, even when skimming.
 
 > [!TIP]
-> Chạy `hugo server --navigateToChanged` để trình duyệt tự nhảy tới trang vừa sửa.
+> Run `hugo server --navigateToChanged` and the browser jumps to the page you just edited.
 
 > [!IMPORTANT]
-> Bản dịch nằm cạnh bản gốc trong cùng bundle, với tên tệp `index.en.md`.
+> A translation lives next to the original in the same bundle, named `index.en.md`.
 
 > [!WARNING]
-> Hugo không gộp `markup` từ theme, nên hãy chép khối cấu hình bắt buộc vào `hugo.yaml` của site.
+> Hugo does not merge `markup` from a theme, so copy the required config block into your site's `hugo.yaml`.
 
 > [!CAUTION]
-> `draft: true` giấu bài khỏi bản build, nhưng tệp vẫn nằm trong kho mã. Kho công khai thì ai cũng đọc được.
+> `draft: true` keeps a post out of the build, but the file is still in your repository. If the repository is public, anyone can read it.
 
-Ngay sau `[!TIP]` có thể viết một tiêu đề riêng thay cho tên mặc định:
+Right after `[!TIP]` you can write your own title in place of the default one:
 
-> [!TIP] Viết ngắn thôi
-> Hộp thông báo hiệu quả nhất khi chỉ có một hai câu. Dài hơn thế, có lẽ nó nên là một mục riêng.
+> [!TIP] Keep it short
+> An alert works best with a sentence or two. Any longer and it probably wants a section of its own.
 
-## Chú thích cuối trang
+## Footnotes
 
-Hugo dùng Goldmark để chuyển Markdown thành HTML[^goldmark]. Chú thích có thể đặt tên bằng chữ thay cho số[^ten-goi], và phần nội dung luôn dồn xuống cuối bài, kèm mũi tên quay lại chỗ đang đọc.
+Hugo turns Markdown into HTML with Goldmark[^goldmark]. A footnote can have a name instead of a number[^named], and its text always gathers at the end of the post, with an arrow back to where you were reading.
 
-[^goldmark]: Goldmark là bộ phân tích Markdown viết bằng Go, tuân theo đặc tả CommonMark.
-[^ten-goi]: Tên chỉ dùng trong mã nguồn; trên trang, chú thích vẫn được đánh số theo thứ tự xuất hiện.
+[^goldmark]: Goldmark is a Markdown parser written in Go that follows the CommonMark spec.
+[^named]: The name only exists in the source; on the page, footnotes are still numbered in the order they appear.
 
-## Nội dung thu gọn
+## Collapsible content
 
-Site bật `markup.goldmark.renderer.unsafe`, nên HTML viết tay đi thẳng ra trang. Thẻ `<details>` tạo một khối đóng mở mà không cần JavaScript:
+The site turns on `markup.goldmark.renderer.unsafe`, so hand-written HTML goes straight to the page. A `<details>` tag makes a block that opens and closes without any JavaScript:
 
 <details>
-<summary>Vì sao mỗi bài có hai tệp?</summary>
+<summary>Why does every post have two files?</summary>
 
-Mỗi bài là một bundle. `index.md` là bản tiếng Việt, ngôn ngữ mặc định của site; `index.en.md` là bản tiếng Anh. Hugo tự ghép hai tệp thành một cặp bản dịch, và nút chọn ngôn ngữ dẫn thẳng sang bài tương ứng.
+Each post is a bundle. `index.md` is the Vietnamese version, the site's default language; `index.en.md` is the English one. Hugo pairs the two files as translations, and the language picker jumps straight to the matching post.
 
 </details>
 
-Hugo cũng có shortcode `details` làm cùng việc này; xem [bài về shortcode](/post/2026/08/20/shortcodes/index.md).
+Hugo also has a `details` shortcode that does the same job; see [the shortcode post](/post/2026/08/20/shortcodes/index.md).
 
 ---
 
-Đường kẻ ngang phía trên là ba dấu `---` đứng riêng giữa hai dòng trống. Bài được sửa sau ngày đăng, nên dưới tiêu đề có thêm ngày cập nhật.
+The rule above is three dashes, `---`, on a line of their own between blank lines. This post was edited after it went out, so an updated date shows under the title.

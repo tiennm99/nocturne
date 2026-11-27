@@ -1,4 +1,4 @@
 ---
-title: "Ghi chú"
-description: "Những ghi chép ngắn ngoài chuyện code: đọc sách, nhìn lại, quan sát."
+title: "Notes"
+description: "Short pieces away from code: reading, looking back, paying attention."
 ---

@@ -1,4 +1,4 @@
 ---
 title: nocturne
-description: "Trang demo của nocturne, theme Hugo cho blog và portfolio cá nhân: ưu tiên tiếng Việt, nền tối, không bước build."
+description: "The demo site for nocturne, a Hugo theme for a blog and personal portfolio: Vietnamese first, dark by default, no build step."
 ---

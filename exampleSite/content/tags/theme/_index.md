@@ -1,4 +1,4 @@
 ---
 title: "theme"
-description: "Thiết kế và tự viết một theme Hugo."
+description: "Designing and writing a Hugo theme."
 ---

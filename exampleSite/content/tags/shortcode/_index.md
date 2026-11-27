@@ -1,4 +1,4 @@
 ---
 title: "shortcode"
-description: "Các shortcode có sẵn của Hugo và cách dùng chúng trong bài."
+description: "Hugo's built-in shortcodes and how to use them in a post."
 ---

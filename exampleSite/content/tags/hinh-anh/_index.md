@@ -1,4 +1,4 @@
 ---
-title: "Hình ảnh"
-description: "Ảnh, chú thích ảnh và cách theme xử lý từng định dạng."
+title: "Images"
+description: "Images, captions and how the theme handles each format."
 ---

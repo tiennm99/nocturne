@@ -1,34 +1,34 @@
 ---
-title: "Lập kế hoạch đầu năm"
+title: "Planning the new year"
 date: 2026-01-10T08:00:00+07:00
 draft: false
 tags: ["ke-hoach", "theme", "hugo"]
 categories: ["nhat-ky-hugo"]
-description: "Mở đầu năm bằng một kế hoạch nhỏ: ba mục tiêu cho sáu tháng, trong đó có một theme Hugo tự viết."
+description: "Starting the year with a small plan: three goals for six months, one of them a Hugo theme of my own."
 ---
 
-Đầu năm tôi thường viết ra ba việc muốn xong trong sáu tháng đầu. Không nhiều hơn, vì danh sách dài thì chẳng bao giờ hết. Năm nay một trong ba việc đó là theme Hugo đã nhắc đến trong [ghi chú hồi tháng Tám](/post/2025/08/15/ghi-chu-hugo/index.md): `nocturne`.
+At the start of each year I write down three things I want done by the end of June. Never more, because a long list never gets finished. This year one of the three is the Hugo theme I mentioned in [my notes from August](/post/2025/08/15/ghi-chu-hugo/index.md): `nocturne`.
 
-## Vì sao tự viết
+## Why write my own
 
-Theme đang dùng vẫn tốt, nhưng nặng. Nó có slider, có hiệu ứng, có cả một thư mục JavaScript mà tôi chưa từng mở. Tự viết là cách duy nhất để biết chắc mỗi dòng có mặt vì lý do gì.
+The theme I use works, but it is heavy. It has a slider, animations, and a whole folder of JavaScript I have never opened. Writing my own is the only way to know why each line is there.
 
-## Mục tiêu
+## Goals
 
-1. Không bước build cho CSS hay JS: chỉ Hugo và những ES module mà trình duyệt hiểu sẵn.
-2. Tiếng Việt trước. Ngôn ngữ khác là phần thưởng, không phải điều kiện.
-3. Trang chủ là portfolio; bài viết là phần còn lại.
+1. No build step for CSS or JS: just Hugo and the ES modules browsers already understand.
+2. Vietnamese first. Other languages are a bonus, not a requirement.
+3. The home page is a portfolio; the posts are everything else.
 
-## Cách đo {#cach-do}
+## How I'll know
 
-Mục tiêu không đo được thì chỉ là mong ước. Nên mỗi mục có một phép thử đơn giản:
+A goal you cannot check is only a wish, so each one gets a simple test:
 
-- [x] Site chạy được với `hugo server`, không cần `npm install`.
-- [ ] Bài viết dài vẫn dễ đọc trên điện thoại, cả khi tắt JavaScript.
-- [ ] Viết một bài bằng tiếng Việt và một bản tiếng Anh, chuyển qua lại không lạc trang.
+- [x] The site runs with `hugo server` and no `npm install`.
+- [ ] A long post reads comfortably on a phone, even with JavaScript off.
+- [ ] One post in Vietnamese plus an English version, and switching between them never loses your place.
 
-## Không làm
+## Not doing
 
-Danh sách này quan trọng ngang danh sách trên: không bình luận tự host, không thư viện icon, không framework CSS. Cần gì thì viết đúng phần đó.
+This list matters as much as the one above: no self-hosted comments, no icon library, no CSS framework. When something is needed, write exactly that part.
 
-Hẹn bài sau, khi theme đã có hình dạng.
+More once the theme has taken shape.

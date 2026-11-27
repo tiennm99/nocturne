@@ -1,4 +1,4 @@
 ---
 title: "markdown"
-description: "Viết bằng Markdown và cách theme hiển thị nó."
+description: "Writing in Markdown and how the theme renders it."
 ---

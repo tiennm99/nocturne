@@ -1,4 +1,4 @@
 ---
 title: "hugo"
-description: "Bài viết về Hugo, trình tạo trang tĩnh viết bằng Go."
+description: "Posts about Hugo, the static site generator written in Go."
 ---
