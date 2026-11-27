@@ -4,5 +4,5 @@
   else the language code with "_" in place of "-".
 */ -}}
 {{- $map := dict "vi" "vi_VN" "en" "en_US" "ja" "ja_JP" "zh" "zh_CN" "ko" "ko_KR" "fr" "fr_FR" "de" "de_DE" -}}
-{{- $locale := .Params.og.locale | default (index $map .Language.Name) | default (partial "compat/lang-code.html" .Language | replace "-" "_") -}}
+{{- $locale := .Params.og.locale | default (index $map .Language.Name) | default (replace (partial "compat/lang-code.html" .Language) "-" "_") -}}
 {{- return $locale -}}
