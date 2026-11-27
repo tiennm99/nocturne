@@ -23,7 +23,7 @@ nocturne has no tagged releases; sites import `main` as a Hugo Module. Version e
 
 ### Fixed
 
-- A language outside the built-in `og:locale` map, with no `params.og.locale`, now gets its language code with `_` for `-` (`pt_BR`).
+- A language outside the built-in `og:locale` map, with no `params.og.locale`, now gets its language code as `language_REGION`, so `pt-br` and `pt-BR` both give `pt_BR`.
 - Feeds printed `Mon, 01 Jan 0001` as `pubDate` and `lastBuildDate` for undated pages (no `date` and no `lastmod`); those dates are now left out.
 
 ## 2026-11-27 — English is the default language

@@ -1,8 +1,12 @@
 {{- /*
   Takes a Site (one language) and returns its OpenGraph locale: the
   language's `params.og.locale`, else a mapped region form for common codes,
-  else the language code with "_" in place of "-".
+  else the language code as language_REGION (`pt-br` gives `pt_BR`); a code
+  without a two-letter region (`zh-Hans`) only gets "_" in place of "-".
 */ -}}
 {{- $map := dict "vi" "vi_VN" "en" "en_US" "ja" "ja_JP" "zh" "zh_CN" "ko" "ko_KR" "fr" "fr_FR" "de" "de_DE" -}}
-{{- $locale := .Params.og.locale | default (index $map .Language.Name) | default (replace (partial "compat/lang-code.html" .Language) "-" "_") -}}
+{{- $code := replace (partial "compat/lang-code.html" .Language) "-" "_" -}}
+{{- $parts := split $code "_" -}}
+{{- if and (eq (len $parts) 2) (eq (len (index $parts 1)) 2) }}{{ $code = printf "%s_%s" (lower (index $parts 0)) (upper (index $parts 1)) }}{{ end -}}
+{{- $locale := .Params.og.locale | default (index $map .Language.Name) | default $code -}}
 {{- return $locale -}}
