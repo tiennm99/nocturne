@@ -2,6 +2,12 @@
 
 nocturne has no tagged releases; sites import `main` as a Hugo Module. Version entries below record the earlier standalone releases, when the theme was named tsuki; later changes are grouped under dated headings. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-11-27 — SEO and i18n fixes
+
+### Changed
+
+- hreflang `x-default` points at the page's own version in the default content language, not at the site home; a page with no such translation gets none.
+
 ## 2026-11-27 — English is the default language
 
 ### Changed

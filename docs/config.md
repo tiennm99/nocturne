@@ -203,7 +203,7 @@ A single-language site needs only `languageCode` and `defaultContentLanguage` fr
 
 - renders a language dropdown in the header that lists only the languages the current page exists in, so an untranslated post shows just its own language;
 - remembers the reader's pick in `localStorage` (`lang`) and, on later visits, opens the page's translation in that language when one exists;
-- emits `<link rel="alternate" hreflang>` for every translation plus `x-default` pointing at the site home. Paginated pages after the first emit no alternates and never redirect, since the other language's page N may not exist.
+- emits `<link rel="alternate" hreflang>` for every translation plus `x-default` pointing at the page's own version in `defaultContentLanguage` (none when the page has no such translation). Paginated pages after the first emit no alternates and never redirect, since the other language's page N may not exist.
 
 A post's translation is a sibling file in its bundle, such as `index.vi.md` next to `index.md`; it is served under `/<lang>/`. A file with no language suffix belongs to `defaultContentLanguage`, which is served at the site root. Each extra language also needs its own `_index.<lang>.md` for the home, `archives` and `search` sections, so its header menu and search page exist.
 
