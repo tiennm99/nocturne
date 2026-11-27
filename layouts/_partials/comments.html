@@ -1,7 +1,7 @@
 {{- if partial "comments-enabled.html" . -}}
 {{- $g := site.Params.comments.giscus -}}
 <section class="comments" aria-labelledby="comments-heading">
-  <h2 id="comments-heading" class="comments-heading">{{ i18n "comments" | default "Bình luận" }}</h2>
+  <h2 id="comments-heading" class="comments-heading">{{ i18n "comments" | default "Comments" }}</h2>
   <div class="giscus" data-giscus></div>
   <script src="https://giscus.app/client.js"
     data-repo="{{ $g.repo }}"
@@ -14,7 +14,7 @@
     data-emit-metadata="0"
     data-input-position="{{ $g.inputPosition | default "bottom" }}"
     data-theme="{{ $g.theme | default "dark" }}"
-    data-lang="{{ $g.lang | default "vi" }}"
+    data-lang="{{ $g.lang | default "en" }}"
     data-loading="lazy"
     crossorigin="anonymous"
     async></script>

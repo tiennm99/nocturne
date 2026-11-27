@@ -7,10 +7,10 @@
 </header>
 
 {{- $terms := slice }}
-{{- with site.Taxonomies.categories }}{{ $terms = $terms | append (dict "id" "archiveCategories" "label" "Chuyên mục" "list" .ByCount) }}{{ end }}
-{{- with site.Taxonomies.tags }}{{ $terms = $terms | append (dict "id" "archiveTags" "label" "Thẻ" "list" (first 10 .ByCount)) }}{{ end }}
+{{- with site.Taxonomies.categories }}{{ $terms = $terms | append (dict "id" "archiveCategories" "label" "Categories" "list" .ByCount) }}{{ end }}
+{{- with site.Taxonomies.tags }}{{ $terms = $terms | append (dict "id" "archiveTags" "label" "Popular tags" "list" (first 10 .ByCount)) }}{{ end }}
 {{- with $terms }}
-<nav class="archive-terms" aria-label="{{ i18n "archiveTerms" | default "Chuyên mục và thẻ" }}">
+<nav class="archive-terms" aria-label="{{ i18n "archiveTerms" | default "Categories and tags" }}">
   {{- range . }}
   <section class="archive-terms-group">
     <h2 class="archive-terms-heading">{{ i18n .id | default .label }}</h2>
@@ -29,7 +29,7 @@
   {{- range $posts.GroupByDate "2006" }}
     {{ partial "archive-group.html" . }}
   {{- else }}
-  <p class="archive-empty">{{ i18n "archiveEmpty" | default "Chưa có bài viết." }}</p>
+  <p class="archive-empty">{{ i18n "archiveEmpty" | default "No posts yet." }}</p>
   {{- end }}
 </div>
 {{ end }}

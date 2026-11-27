@@ -6,11 +6,11 @@
     {{- /* Number is the month as an integer; Name is its English name (Go's Format is not localized) for en.yml. */}}
     {{- $num := int .Key }}
     {{- $name := (index .Pages 0).Date.Format "January" }}
-    <h3 class="archive-month-heading">{{ i18n "month" (dict "Number" $num "Name" $name) | default (printf "Tháng %d" $num) }}</h3>
+    <h3 class="archive-month-heading">{{ i18n "month" (dict "Number" $num "Name" $name) | default $name }}</h3>
     <ul class="archive-post-list">
       {{- range .Pages }}
       <li class="archive-post-item">
-        <time datetime="{{ .Date.Format "2006-01-02" }}" class="archive-post-date">{{ .Date.Format (i18n "archiveDateFormat" | default "02/01") }}</time>
+        <time datetime="{{ .Date.Format "2006-01-02" }}" class="archive-post-date">{{ .Date.Format (i18n "archiveDateFormat" | default "Jan 2") }}</time>
         <a class="archive-post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
       </li>
       {{- end }}

@@ -11,7 +11,7 @@
   {{- end }}
 </head>
 <body class="{{ block "body_class" . }}{{ end }}">
-  <a class="skip-link" href="#main">{{ i18n "skipToContent" | default "Đến nội dung chính" }}</a>
+  <a class="skip-link" href="#main">{{ i18n "skipToContent" | default "Skip to content" }}</a>
   {{ partial "header.html" . }}
   <main id="main">
     {{ block "main" . }}{{ end }}

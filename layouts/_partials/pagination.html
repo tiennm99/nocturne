@@ -12,9 +12,9 @@
 {{- $hi := add $cur $win -}}
 <nav class="pagination" aria-label="{{ i18n "pagination" | default "Pagination" }}">
   {{- if $p.HasPrev }}
-  <a class="pagination-prev" rel="prev" href="{{ $p.Prev.URL }}">‹ {{ i18n "prev" | default "Trước" }}</a>
+  <a class="pagination-prev" rel="prev" href="{{ $p.Prev.URL }}">‹ {{ i18n "prev" | default "Previous" }}</a>
   {{- else }}
-  <span class="pagination-prev disabled" aria-disabled="true">‹ {{ i18n "prev" | default "Trước" }}</span>
+  <span class="pagination-prev disabled" aria-disabled="true">‹ {{ i18n "prev" | default "Previous" }}</span>
   {{- end }}
 
   <ol class="pagination-pages">
@@ -39,9 +39,9 @@
   </ol>
 
   {{- if $p.HasNext }}
-  <a class="pagination-next" rel="next" href="{{ $p.Next.URL }}">{{ i18n "next" | default "Tiếp" }} ›</a>
+  <a class="pagination-next" rel="next" href="{{ $p.Next.URL }}">{{ i18n "next" | default "Next" }} ›</a>
   {{- else }}
-  <span class="pagination-next disabled" aria-disabled="true">{{ i18n "next" | default "Tiếp" }} ›</span>
+  <span class="pagination-next disabled" aria-disabled="true">{{ i18n "next" | default "Next" }} ›</span>
   {{- end }}
 </nav>
 {{- end -}}

@@ -3,7 +3,7 @@
   not widen the page. The wrapper is focusable so keyboard users can scroll it.
   Code-block line-number tables come from Chroma, not this hook.
 */ -}}
-<div class="table-wrap" role="region" tabindex="0" aria-label="{{ i18n "table" | default "Bảng" }}">
+<div class="table-wrap" role="region" tabindex="0" aria-label="{{ i18n "table" | default "Table" }}">
 <table
   {{- range $k, $v := .Attributes }}
     {{- if $v }}{{ printf " %s=%q" $k $v | safeHTMLAttr }}{{ end }}
