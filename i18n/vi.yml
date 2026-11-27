@@ -162,3 +162,30 @@
 
 - id: alertCaution
   translation: "Thận trọng"
+
+# Feed channel title and description. .Title is the section or term title, .Site the site title.
+- id: feedTitle
+  translation: "{{ .Title }} trên {{ .Site }}"
+
+- id: feedDescription
+  translation: "Nội dung mới nhất trên {{ .Site }}"
+
+- id: feedSectionDescription
+  translation: "Nội dung mới nhất trong {{ .Title }} trên {{ .Site }}"
+
+# Featured project links (home page and llms.txt).
+- id: projectRepo
+  translation: "mã nguồn"
+
+- id: projectDemo
+  translation: "bản demo"
+
+# llms.txt headings and footer. .Theme is a Markdown link to the theme.
+- id: about
+  translation: "Giới thiệu"
+
+- id: projects
+  translation: "Dự án"
+
+- id: llmsGenerator
+  translation: "Tạo bởi {{ .Theme }}, theme Hugo cho blog và portfolio."

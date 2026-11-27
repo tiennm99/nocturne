@@ -8,6 +8,8 @@ nocturne has no tagged releases; sites import `main` as a Hugo Module. Version e
 
 - hreflang `x-default` points at the page's own version in the default content language, not at the site home; a page with no such translation gets none.
 - Template fallbacks for missing translation keys are English (they were Vietnamese), and Giscus `lang` defaults to `en`, as `docs/config.md` documents. Sites whose language has an `i18n` table see no change.
+- Feed channel titles and descriptions, the featured-project repo and demo link labels, and the `llms.txt` headings and footer come from new `i18n` keys (`feedTitle`, `feedDescription`, `feedSectionDescription`, `projectRepo`, `projectDemo`, `about`, `projects`, `llmsGenerator`), so a non-English language no longer gets English text there.
+- The `llms.txt` tagline is the home page's `description`, falling back to `params.description`, so each language can have its own.
 
 ## 2026-11-27 — English is the default language
 

@@ -31,9 +31,12 @@
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ if eq .Title site.Title }}{{ site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ site.Title }}{{ end }}</title>
+    {{- /* The home feed, or a page titled like the site, names only the site. */}}
+    {{- $own := and .Title (ne .Title site.Title) }}
+    {{- $args := dict "Title" .Title "Site" site.Title }}
+    <title>{{ if $own }}{{ i18n "feedTitle" $args | default (printf "%s on %s" .Title site.Title) }}{{ else }}{{ site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Recent content {{ if ne .Title site.Title }}{{ with .Title }}in {{ . }} {{ end }}{{ end }}on {{ site.Title }}</description>
+    <description>{{ if $own }}{{ i18n "feedSectionDescription" $args | default (printf "Recent content in %s on %s" .Title site.Title) }}{{ else }}{{ i18n "feedDescription" $args | default (printf "Recent content on %s" site.Title) }}{{ end }}</description>
     <generator>Hugo</generator>
     <language>{{ partial "compat/lang-code.html" site.Language }}</language>
     {{- with $authorEmail }}

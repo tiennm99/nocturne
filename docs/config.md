@@ -212,7 +212,7 @@ The theme bundles `i18n/vi.yml` and `i18n/en.yml`. To change a string, or to add
 ## Outputs
 
 - **RSS** — `rss.xml` is Hugo's feed plus `params.rssFullContent`. Feed-only render hooks (`_markup/*.rss.xml`) make image and link URLs absolute, drop the heading `#` anchors and the table wrapper. Pages advertise a feed only when they have posts, so `archives/` and `search/` link none; give their `_index.md` `outputs: [html]` so Hugo does not write an empty `index.xml` either.
-- **llms.txt** — the theme defines the `llmtxt` output format (`layouts/home.llmtxt.txt`): site title, description, profile, recent posts and projects. Hugo never merges `outputs` from a theme, so list `llmtxt` in the site's `outputs.home`, as in the required block.
+- **llms.txt** — the theme defines the `llmtxt` output format (`layouts/home.llmtxt.txt`): site title, description (the home page's `description`, else `params.description`), profile, recent posts and projects, with headings from the `i18n` files. Hugo never merges `outputs` from a theme, so list `llmtxt` in the site's `outputs.home`, as in the required block.
 - **robots.txt** — `layouts/robots.txt` allows everything and points at the sitemap. Hugo renders it only when the site sets `enableRobotsTXT: true`.
 - **Search** — `/search/?q=<term>` (or `?keyword=<term>`) pre-fills the Pagefind search.
 

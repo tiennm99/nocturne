@@ -67,8 +67,8 @@ Field reference (per project):
 | title   | string   | yes      | card heading                                     |
 | tagline | string   | no       | one-line description under title                 |
 | image   | string   | no       | site-relative; rendered 16:9 with `object-fit: cover` |
-| repo    | URL      | no       | "repo →" link if present                         |
-| demo    | URL      | no       | "demo →" link if present                         |
+| repo    | URL      | no       | "repo →" link if present (label: i18n `projectRepo`) |
+| demo    | URL      | no       | "demo →" link if present (label: i18n `projectDemo`) |
 | tags    | string[] | no       | small chips below tagline                        |
 
 The grid uses `auto-fit, minmax(16rem, 1fr)`; cards reflow on narrow viewports automatically.
